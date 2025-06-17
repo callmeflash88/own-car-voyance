@@ -1,10 +1,10 @@
 "use client";
-import { useAppDispatch, useAppSelector } from "@/shared/lib/hooks";
+import { useAppDispatch } from "@/shared/lib/hooks";
 import { Input } from "@/shared/ui";
 import { setYearFrom, setYearTo } from "../model/slice";
 
 export const FilterYear = () => {
-  const { yearFrom, yearTo } = useAppSelector((state) => state.filterYear);
+  // const { yearFrom, yearTo } = useAppSelector((state) => state.filterYear);
   const dispatch = useAppDispatch();
 
   return (

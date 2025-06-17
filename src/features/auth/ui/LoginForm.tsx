@@ -59,7 +59,7 @@ export const LoginForm = ({ onSwitch }: LoginFormProps) => {
         </form>
         <div className="mt-6 text-center">
           <p className="text-sm text-muted-foreground">
-            Don't have an account?{" "}
+            Don&apos;t have an account?{" "}
             <button
               onClick={onSwitch}
               type="button"

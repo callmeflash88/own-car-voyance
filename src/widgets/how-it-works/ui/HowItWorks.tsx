@@ -66,8 +66,8 @@ export const HowItWorks = () => {
               Buy or Sell With Confidence
             </p>
             <p className="font-inter font-normal text-[16px] leading-[27px] tracking-normal align-middle">
-              Whether you're buying or listing a<br /> car, our tools help you
-              stay safe
+              Whether you&apos;re buying or listing a<br /> car, our tools help
+              you stay safe
               <br /> and informed.
             </p>
           </div>

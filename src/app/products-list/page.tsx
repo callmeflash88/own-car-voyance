@@ -1,5 +1,3 @@
-import { VehicleCard } from "@/entities/vehicle/ui/VehicleCard";
-import { getFeaturedVehicles } from "@/widgets/featured-vehicles/model/getFeaturedVehicles";
 import { Filters } from "@/widgets/filters/ui/filters";
 import { ProductsList } from "@/widgets/products-list/ui/products-list";
 

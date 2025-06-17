@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Footer, Header } from "@/shared/ui";
-// import { Provider } from "react-redux";
-import { store } from "@/shared/store/store";
 import { ReduxProvider } from "@/shared/lib/redux-provider";
 import WaitlistPage from "./waitlist/page";
 import { Toaster } from "react-hot-toast";
@@ -18,10 +16,10 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter", // если хочешь использовать как CSS-переменную
-});
+// const inter = Inter({
+//   subsets: ["latin"],
+//   variable: "--font-inter",
+// });
 
 export const metadata: Metadata = {
   title: "Create Next App",

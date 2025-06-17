@@ -1,5 +1,3 @@
-import { Vehicle } from "@/entities/vehicle/model/types";
-
 import { getFeaturedVehicles } from "../model/getFeaturedVehicles";
 import { ArrowRight } from "lucide-react";
 import { VehicleCard } from "@/entities/vehicle/ui/VehicleCard";

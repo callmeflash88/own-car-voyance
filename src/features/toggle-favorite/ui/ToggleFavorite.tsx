@@ -3,7 +3,7 @@ import { Heart } from "lucide-react";
 import { useState } from "react";
 
 export const ToggleFavorite = ({
-  vehicleId,
+  // vehicleId,
   isFavorite,
 }: {
   vehicleId: string;

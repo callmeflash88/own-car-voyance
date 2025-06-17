@@ -1,5 +1,4 @@
 import { Vehicle } from "@/entities/vehicle/model/types";
-import card1 from "../../../../public/assets/images/car1.png";
 
 // Mock или real fetch
 export async function getFeaturedVehicles(): Promise<Vehicle[]> {

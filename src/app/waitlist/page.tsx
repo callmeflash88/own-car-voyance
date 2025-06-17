@@ -18,8 +18,6 @@ export default function WaitlistPage() {
       return;
     }
 
-    const toastId = NotificationService.loading("Submitting...");
-
     try {
       const res = await fetch(
         "https://script.google.com/macros/s/AKfycbyw9-YNzVY4ubsB-GBXKMIjLM_Eng7uW15XBZ5LDB-eC4a29FuZ5PhHEWHmutSS87aA4A/exec",
@@ -41,7 +39,8 @@ export default function WaitlistPage() {
       } else {
         NotificationService.error("Something went wrong. Please try again.");
       }
-    } catch (err) {
+    } catch (error) {
+      console.log(error);
       NotificationService.dismiss();
       NotificationService.error("Network error. Please try again later.");
     }
