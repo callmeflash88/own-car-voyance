@@ -1,7 +1,7 @@
 import Image from "next/image";
-import logo from "../../../../public/assets/logo.svg";
+import logo from "../../../public/assets/logo.svg";
 import { Heart, Plus, User } from "lucide-react";
-import { Button } from "../Button/Button";
+import { Button } from "./Button";
 
 export const Header = () => {
   return (

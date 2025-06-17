@@ -1,6 +1,6 @@
 // src/widgets/home-filter-tab/ui/FilterTab.tsx
 
-import { Button } from "@/shared/ui/Button/Button";
+import { Button } from "@/shared/ui";
 
 type FilterTabProps = {
   tab: "shop" | "sell";

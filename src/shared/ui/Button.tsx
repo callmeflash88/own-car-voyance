@@ -54,7 +54,7 @@ export const Button = ({
       ) : (
         <>
           {iconLeft && <span>{iconLeft}</span>}
-          <span>{children}</span>
+          <span className="whitespace-nowrap">{children}</span>
           {iconRight && <span>{iconRight}</span>}
         </>
       )}

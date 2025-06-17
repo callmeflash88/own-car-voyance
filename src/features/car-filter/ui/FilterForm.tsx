@@ -3,10 +3,11 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/shared/ui/Button/Button";
+
 import { Input } from "@/shared/ui/Input";
-import { Select } from "@/shared/ui/Select/Select";
+
 import { FilterTab } from "@/features/car-filter/ui/FilterTab";
+import { Button, Select } from "@/shared/ui";
 
 export const FilterForm = () => {
   const [tab, setTab] = useState<"shop" | "sell">("shop");

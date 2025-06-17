@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/shared/ui/Header/Header";
+import { Footer, Header } from "@/shared/ui";
+// import { Provider } from "react-redux";
+import { store } from "@/shared/store/store";
+import { ReduxProvider } from "@/shared/lib/redux-provider";
+import WaitlistPage from "./waitlist/page";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -11,6 +16,11 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter", // если хочешь использовать как CSS-переменную
 });
 
 export const metadata: Metadata = {
@@ -23,13 +33,24 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const showWaitlist = process.env.SHOW_WAITLIST === "true";
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Header />
-        {children}
+        {showWaitlist ? (
+          <WaitlistPage />
+        ) : (
+          <>
+            <ReduxProvider>
+              <Header />
+              {children}
+              <Footer />
+            </ReduxProvider>
+          </>
+        )}
+        <Toaster position="top-right" />
       </body>
     </html>
   );
