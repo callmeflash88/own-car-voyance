@@ -7,6 +7,7 @@ import waitListMobile from "../../../public/assets/images/waitListMobile.svg";
 import { Facebook, Linkedin, Twitter } from "lucide-react";
 import { Button, Input } from "@/shared/ui";
 import { useState } from "react";
+import { NotificationService } from "@/shared/lib/NotificationService";
 
 function isValidEmail(email: string): boolean {
   if (!email || email.length > 254) return false;
@@ -30,21 +31,16 @@ function isValidEmail(email: string): boolean {
 
 export default function WaitlistPage() {
   const [email, setEmail] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [success, setSuccess] = useState<string | null>(null);
 
   const handleSubmit = async () => {
     const trimmed = email.trim();
     if (!isValidEmail(trimmed)) {
-      setError("Please enter a valid email.");
+      NotificationService.error("Please enter a valid email address.");
       return;
     }
 
-    setError(null);
-    setIsLoading(true);
-
     try {
+      NotificationService.loading("Отправка…");
       const res = await fetch(
         "https://script.google.com/macros/s/AKfycbyw9-YNzVY4ubsB-GBXKMIjLM_Eng7uW15XBZ5LDB-eC4a29FuZ5PhHEWHmutSS87aA4A/exec",
         {
@@ -57,18 +53,18 @@ export default function WaitlistPage() {
       );
 
       const text = await res.text();
-      setIsLoading(false);
+      NotificationService.dismiss();
 
       if (text === "Success") {
-        setSuccess("Вы успешно подписались на ожидание! 🎉");
+        NotificationService.success("Вы успешно подписались на ожидание! 🎉");
         setEmail("");
       } else {
-        setError("Что-то пошло не так. Попробуйте ещё раз.");
+        NotificationService.error("Что-то пошло не так. Попробуйте ещё раз.");
       }
     } catch (error) {
       console.error(error);
-      setIsLoading(false);
-      setError("Ошибка сети. Повторите попытку позже.");
+      NotificationService.dismiss();
+      NotificationService.error("Ошибка сети. Повторите попытку позже.");
     }
   };
 
@@ -117,34 +113,22 @@ export default function WaitlistPage() {
           </p>
 
           <div className="flex flex-col lg:flex-row justify-start mt-7 gap-2">
-            <div className="flex flex-col w-full lg:w-[400px]">
-              <Input
-                type="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="!w-[80vw] h-[5vh] lg:!w-[400px]"
-                autoComplete="email"
-                inputMode="email"
-                disabled={isLoading}
-              />
-              {error && (
-                <p className="text-red-500 text-sm mt-1 text-left">{error}</p>
-              )}
-              {success && (
-                <p className="text-green-500 text-sm mt-1 text-left">
-                  {success}
-                </p>
-              )}
-            </div>
+            <Input
+              type="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="!w-[80vw] h-[5vh] lg:!w-[400px]"
+              autoComplete="email"
+              inputMode="email"
+            />
             <Button
               variant="primary"
               size="md"
               className="px-10 w-full py-5 lg:w-[200px]"
               onClick={handleSubmit}
-              disabled={isLoading}
             >
-              {isLoading ? "Отправка…" : "Notify Me"}
+              Notify Me
             </Button>
           </div>
         </div>
