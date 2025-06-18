@@ -1,16 +1,17 @@
+import { Input } from "@/shared/ui";
 import { Filters } from "@/widgets/filters/ui/filters";
 import { ProductsList } from "@/widgets/products-list/ui/products-list";
+import { TopBar } from "@/widgets/top-bar/ui";
 
 export default function ProductsListPage() {
   return (
-    <div className="flex px-[120px] pt-16 gap-4">
-      <div className="min-w-[300px]">
+    <div className="max-w-[100vw] overflow-auto flex flex-row px-4 lg:px-[120px] pt-10 gap-10">
+      <div className="block w-[300px] shrink-0">
         <Filters />
       </div>
-      <div>
-        <div className="flex-1 ">
-          <ProductsList />
-        </div>
+      <div className="">
+        <TopBar />
+        <ProductsList />
       </div>
     </div>
   );

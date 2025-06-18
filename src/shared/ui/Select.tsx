@@ -15,6 +15,7 @@ interface SelectProps {
   placeholder?: string;
   disabled?: boolean;
   className?: string;
+  isBordered?: boolean;
 }
 
 export const Select: FC<SelectProps> = ({
@@ -25,6 +26,7 @@ export const Select: FC<SelectProps> = ({
   placeholder = "Select...",
   disabled = false,
   className = "",
+  isBordered = true,
 }) => {
   return (
     <div className={`relative w-full text-black ${className}`}>
@@ -33,10 +35,9 @@ export const Select: FC<SelectProps> = ({
       )}
       <select
         className={cn(
-          "w-full appearance-none px-3 py-2 border rounded-md focus:outline-none focus:ring-2",
-          disabled
-            ? "bg-gray-100 cursor-not-allowed"
-            : "focus:ring-blue-500 border-gray-300",
+          "w-full appearance-none px-3 py-2 rounded-md focus:outline-none focus:ring-2",
+          isBordered && "border border-gray-300", // Apply border only if isBordered is true
+          disabled ? "bg-gray-100 cursor-not-allowed" : "focus:ring-blue-500",
           "pr-10"
         )}
         value={value}
