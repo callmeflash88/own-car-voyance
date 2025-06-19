@@ -25,7 +25,7 @@ export default function WaitlistPage() {
           alt="logo"
           className="max-w-none !w-[400px] lg:w-[100px]"
         />
-        <div className="hidden gap-4 md:flex">
+        <div className="hidden gap-4 lg:flex">
           <div className="p-2 rounded-full bg-white">
             <Facebook fill="black" size={16} />
           </div>
@@ -101,7 +101,20 @@ export default function WaitlistPage() {
           © 2025 CarVoyance.{" "}
           <span className="hidden lg:inline">All Rights Reserved.</span>
         </p>
-        <p className="font-inter text-sm text-center">Privacy Policy</p>
+        <div className="flex flex-col justify-center items-center gap-2">
+          <p className="font-inter text-sm text-center">Privacy Policy</p>
+          <div className="flex gap-4 lg:hidden">
+            <div className="p-2 rounded-full bg-white">
+              <Facebook fill="black" size={16} />
+            </div>
+            <div className="p-2 rounded-full bg-white">
+              <Linkedin fill="black" size={16} />
+            </div>
+            <div className="p-2 rounded-full bg-white">
+              <Twitter fill="black" size={16} />
+            </div>
+          </div>
+        </div>
       </footer>
     </div>
   );

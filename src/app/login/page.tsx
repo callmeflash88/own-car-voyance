@@ -8,6 +8,8 @@ import authBg from "../../../public/assets/backgrounds/authBg.jpg";
 import logo from "../../../public/assets/whiteLogo.svg";
 import car from "../../../public/assets/images/audi.png";
 import Image from "next/image";
+import { RegisterForm } from "@/features/auth/ui/RegisterForm";
+import { Checkbox } from "@radix-ui/react-checkbox";
 
 export default function LoginPage() {
   const [isLogin, setIsLogin] = useState(true);
@@ -17,7 +19,8 @@ export default function LoginPage() {
   return (
     <div className="flex min-w-[100vw] min-h-[100vh] p-0 m-0">
       <div className="flex-1 w-full  flex items-center justify-center">
-        <LoginForm onSwitch={() => setIsLogin(false)} />
+        {/* <LoginForm onSwitch={() => setIsLogin(false)} /> */}
+        <RegisterForm onSwitch={() => setIsLogin(true)} />
       </div>
 
       <div

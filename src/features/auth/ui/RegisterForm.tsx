@@ -1,106 +1,65 @@
 import { Car, Eye } from "lucide-react";
+import { FormProvider } from "react-hook-form";
+import {
+  REGISTER_FORM_FIELDS,
+  useRegisterForm,
+} from "../model/useRegisterForm";
+import { RenderFormFields } from "@/shared/ui/RenderFormFiled";
+import { Checkbox } from "@/shared/ui/checkbox";
+import { Button } from "@/shared/ui";
+import { AuthGoogleButton } from "@/features/auth-google-button/ui";
 
 type RegisterFormProps = {
   onSwitch: () => void;
 };
 
 export const RegisterForm = ({ onSwitch }: RegisterFormProps) => {
+  const { form, register, isLoading, error } = useRegisterForm();
+
+  const handleSubmit = async (data: any) => {
+    const fullData = {
+      ...data,
+      role: 1,
+    };
+    await register(fullData);
+    form.reset();
+  };
   return (
-    <div className="container max-w-md">
-      <div className="bg-white rounded-lg shadow-sm border border-[#e5e7eb] p-8">
-        <div className="text-center mb-6">
-          <div className="inline-flex items-center justify-center mb-4">
-            <div className="bg-[#0c336a] rounded-md p-2">
-              <Car size={32} color="#fff" />
-            </div>
+    <div className="flex flex-col justify-center">
+      <h1 className="font-inter font-semibold text-[40px] leading-[54px] tracking-normal">
+        Sign Up
+      </h1>
+      <p className="mt-2 font-inter font-normal text-base leading-tight tracking-normal text-[#2B2B2B80]">
+        Join us and start exploring smarter car deals
+      </p>
+      <FormProvider {...form}>
+        <form onSubmit={form.handleSubmit(handleSubmit)} className="mt-10">
+          <div className="flex flex-col gap-2">
+            <RenderFormFields fields={REGISTER_FORM_FIELDS} />
           </div>
-          <h1 className="text-2xl font-bold mb-1">Create Your Account</h1>
-          <p className="text-muted-foreground text-[#65758b]">
-            Join CarVoyance to buy or sell vehicles
-          </p>
-        </div>
-        <form className="space-y-4">
-          <div>
-            <div className="space-y-2">
-              <label className="block text-sm font-medium text-foreground">
-                Full Name
-              </label>
-              <input
-                type="text"
-                placeholder="Enter your full name"
-                className="flex h-10 rounded-md border border-[#e5e7eb] bg-[#f9fafb] px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 w-full"
-              />
-            </div>
+          <div className="flex items-center gap-2 mt-5">
+            <Checkbox />
+            <span className="font-inter font-normal text-sm leading-tight tracking-normal">
+              I agree to the Terms & Conditions
+            </span>
           </div>
-          <div>
-            <div className="space-y-2">
-              <label className="block text-sm font-medium text-foreground">
-                Email
-              </label>
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex h-10 rounded-md border border-[#e5e7eb] bg-[#f9fafb] px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 w-full"
-              />
-            </div>
-          </div>
-          <div>
-            <div className="relative">
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-foreground">
-                  Password
-                </label>
-                <input
-                  type="password"
-                  placeholder="Enter your email"
-                  className="flex h-10 rounded-md border border-[#e5e7eb] bg-[#f9fafb] px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 w-full"
-                />
-              </div>
-              <button
-                type="button"
-                className="absolute right-3 top-[38px] transform"
-                aria-label="Show password"
-              >
-                <Eye size={20} />
-              </button>
-            </div>
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-foreground mb-2">
-              I want to:
-            </label>
-            <div className="grid grid-cols-2 gap-4">
-              <button
-                type="button"
-                className="py-2 px-4 rounded-md border border-primary bg-primary/5 text-primary transition-colors"
-              >
-                Buy Vehicles
-              </button>
-              <button
-                type="button"
-                className="py-2 px-4 rounded-md border border-border text-muted-foreground transition-colors"
-              >
-                Sell Vehicles
-              </button>
-            </div>
-          </div>
-          <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none bg-[#0c336a] text-white hover:bg-primary-light h-10 px-4 py-2 w-full">
-            <span>Create account</span>
-          </button>
-        </form>
-        <div className="mt-6 text-center">
-          <p className="text-sm text-muted-foreground">
+
+          <Button
+            variant="primary"
+            type="submit"
+            isLoading={isLoading}
+            size="lg"
+            className="w-full mt-10"
+          >
+            <span>Sign In</span>
+          </Button>
+          <AuthGoogleButton />
+          <p className="font-inter font-normal text-sm leading-relaxed tracking-normal text-center mt-5">
             Already have an account?{" "}
-            <button
-              onClick={onSwitch}
-              type="button"
-              className="text-primary font-medium hover:underline"
-            >
-              Sign in
-            </button>
+            <span className="text-[#4E17E5] font-[400]">Sign in</span>
           </p>
-        </div>
-      </div>
+        </form>
+      </FormProvider>
     </div>
   );
 };

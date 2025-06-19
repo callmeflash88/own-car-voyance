@@ -64,5 +64,10 @@ export const useRegisterForm = () => {
     },
   });
 
-  const onSubmit = form.handleSubmit(async (data) => {});
+  return {
+    form,
+    register,
+    isLoading,
+    error,
+  };
 };
