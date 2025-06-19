@@ -8,65 +8,10 @@ import { Facebook, Linkedin, Twitter } from "lucide-react";
 import { Button, Input } from "@/shared/ui";
 import { useState } from "react";
 import { NotificationService } from "@/shared/lib/NotificationService";
-
-function isValidEmail(email: string): boolean {
-  if (!email || email.length > 254) return false;
-
-  const regex = new RegExp(
-    "^(?![\\.])(?!.*\\.\\.)" +
-      "([A-Za-z0-9!#$%&'*+/=?^_`{|}~-]{1,64}" +
-      "(?:\\.[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+)*)" +
-      "@" +
-      "([A-Za-z0-9]" +
-      "(?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?" +
-      "(?:\\.[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?)+)$"
-  );
-
-  const match = regex.exec(email);
-  if (!match) return false;
-
-  const local = match[1];
-  return local.length <= 64;
-}
+import { useWaitlist } from "./lib/useWaitList";
 
 export default function WaitlistPage() {
-  const [email, setEmail] = useState("");
-
-  const handleSubmit = async () => {
-    const trimmed = email.trim();
-    if (!isValidEmail(trimmed)) {
-      NotificationService.error("Please enter a valid email address.");
-      return;
-    }
-
-    try {
-      NotificationService.loading("Отправка…");
-      const res = await fetch(
-        "https://script.google.com/macros/s/AKfycbyw9-YNzVY4ubsB-GBXKMIjLM_Eng7uW15XBZ5LDB-eC4a29FuZ5PhHEWHmutSS87aA4A/exec",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          body: new URLSearchParams({ email: trimmed }),
-        }
-      );
-
-      const text = await res.text();
-      NotificationService.dismiss();
-
-      if (text === "Success") {
-        NotificationService.success("Вы успешно подписались на ожидание! 🎉");
-        setEmail("");
-      } else {
-        NotificationService.error("Что-то пошло не так. Попробуйте ещё раз.");
-      }
-    } catch (error) {
-      console.error(error);
-      NotificationService.dismiss();
-      NotificationService.error("Ошибка сети. Повторите попытку позже.");
-    }
-  };
+  const { email, setEmail, handleSubmit } = useWaitlist();
 
   return (
     <div className="relative overflow-hidden">
