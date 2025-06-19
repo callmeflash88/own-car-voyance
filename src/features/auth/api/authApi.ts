@@ -1,36 +1,43 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { axiosBaseQuery } from "@/shared/lib/axiosBaseQuery";
+import { createApi } from "@reduxjs/toolkit/query/react";
+
+interface ILoginPayload {
+  email: string;
+  password: string;
+}
+
+interface IAuthTokens {
+  access_token: string;
+  refresh_token: string;
+}
+
+interface IRegisterPayload {
+  full_name: string;
+  email: string;
+  password: string;
+  confirm_password: string;
+  role: string;
+}
 
 export const authApi = createApi({
   reducerPath: "authApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "/api",
-    credentials: "include", // если нужен cookie
-  }),
+  baseQuery: axiosBaseQuery(),
   endpoints: (builder) => ({
-    login: builder.mutation<
-      { token: string; user: any },
-      { email: string; password: string }
-    >({
+    login: builder.mutation<IAuthTokens, ILoginPayload>({
       query: (credentials) => ({
-        url: "/login",
+        url: "auth/login",
         method: "POST",
         body: credentials,
       }),
     }),
-    register: builder.mutation<
-      { token: string; user: any },
-      { email: string; password: string }
-    >({
+    register: builder.mutation<IAuthTokens, IRegisterPayload>({
       query: (data) => ({
-        url: "/register",
+        url: "auth/register",
         method: "POST",
         body: data,
       }),
     }),
-    getMe: builder.query<any, void>({
-      query: () => "/me",
-    }),
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation, useGetMeQuery } = authApi;
+export const { useLoginMutation, useRegisterMutation } = authApi;

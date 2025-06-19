@@ -1,4 +1,3 @@
-import { Input } from "@/shared/ui";
 import { Filters } from "@/widgets/filters/ui/filters";
 import { ProductsList } from "@/widgets/products-list/ui/products-list";
 import { TopBar } from "@/widgets/top-bar/ui";

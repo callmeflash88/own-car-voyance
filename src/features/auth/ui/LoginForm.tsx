@@ -1,83 +1,68 @@
+// src/features/auth/ui/LoginForm.tsx
+"use client";
+import { Button, Input } from "@/shared/ui";
 import { Car, Eye } from "lucide-react";
+import { useState } from "react";
+import { LOGIN_FORM_FIELDS, useLoginForm } from "../model/useLoginForm";
+import { FormProvider } from "react-hook-form";
+import { RenderFormFields } from "@/shared/ui/RenderFormFiled";
+import { Checkbox } from "@/shared/ui/checkbox";
+import { AuthGoogleButton } from "@/features/auth-google-button/ui";
 
 type LoginFormProps = {
   onSwitch: () => void;
 };
 
 export const LoginForm = ({ onSwitch }: LoginFormProps) => {
+  const [showPassword, setShowPassword] = useState(false);
+  const { form, onSubmit, isLoading, error } = useLoginForm();
+
+  const handleSubmit = async (data: any) => {
+    await onSubmit(data);
+    form.reset();
+  };
+
   return (
-    <div className="container max-w-md">
-      <div className="bg-white rounded-lg shadow-sm border border-[#e5e7eb] p-8">
-        <div className="text-center mb-6">
-          <div className="inline-flex items-center justify-center mb-4">
-            <div className="bg-[#0c336a] rounded-md p-2">
-              <Car size={32} color="#fff" />
-            </div>
+    <div className="flex flex-col justify-center">
+      <h1 className="font-inter font-semibold text-[40px] leading-[54px] tracking-normal">
+        Sign In
+      </h1>
+      <p className="mt-2 font-inter font-normal text-base leading-tight tracking-normal text-[#2B2B2B80]">
+        Please enter your details to access your account
+      </p>
+      <FormProvider {...form}>
+        <form onSubmit={form.handleSubmit(handleSubmit)} className="mt-10">
+          <div className="flex flex-col gap-2">
+            <RenderFormFields fields={LOGIN_FORM_FIELDS} />
           </div>
-          <h1 className="text-2xl font-bold mb-1">Welcome Back</h1>
-          <p className="text-muted-foreground text-[#65758b]">
-            Sign in to your CarVoyance account
-          </p>
-        </div>
-        <form className="space-y-4">
-          <div>
-            <div className="space-y-2">
-              <label className="block text-sm font-medium text-foreground">
-                Email
-              </label>
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex h-10 rounded-md border border-[#e5e7eb] bg-[#f9fafb] px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 w-full"
-              />
+          <div className="flex justify-between mt-5">
+            <div className="flex items-center gap-2">
+              <Checkbox />
+              <span className="font-inter font-normal text-sm leading-tight tracking-normal">
+                Remember me
+              </span>
             </div>
+            <p className="font-inter font-medium text-sm leading-tight tracking-normal text-[#4E17E5]">
+              Forgot Password?
+            </p>
           </div>
-          <div>
-            <div className="relative">
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-foreground">
-                  Password
-                </label>
-                <input
-                  type="password"
-                  placeholder="Enter your email"
-                  className="flex h-10 rounded-md border border-[#e5e7eb] bg-[#f9fafb] px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 w-full"
-                />
-              </div>
-              <button
-                type="button"
-                className="absolute right-3 top-[38px] transform"
-                aria-label="Show password"
-              >
-                <Eye size={20} />
-              </button>
-            </div>
-          </div>
-          <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none bg-[#0c336a] text-white hover:bg-primary-light h-10 px-4 py-2 w-full">
-            <span>Sign In</span>
-          </button>
-        </form>
-        <div className="mt-6 text-center">
-          <p className="text-sm text-muted-foreground">
-            Don&apos;t have an account?{" "}
-            <button
-              onClick={onSwitch}
-              type="button"
-              className="text-primary font-medium hover:underline"
-            >
-              Sign up
-            </button>
-          </p>
-        </div>
-        <div className="mt-4 text-center">
-          <a
-            className="text-sm text-[#0c336a] hover:underline"
-            href="/forgot-password"
+
+          <Button
+            variant="primary"
+            type="submit"
+            isLoading={isLoading}
+            size="lg"
+            className="w-full mt-10"
           >
-            Forgot your password?
-          </a>
-        </div>
-      </div>
+            <span>Sign In</span>
+          </Button>
+          <AuthGoogleButton />
+          <p className="font-inter font-normal text-sm leading-relaxed tracking-normal text-center mt-5">
+            Don’t have an account?{" "}
+            <span className="text-[#4E17E5] font-[400]">Sign up</span>
+          </p>
+        </form>
+      </FormProvider>
     </div>
   );
 };

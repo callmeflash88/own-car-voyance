@@ -6,8 +6,7 @@ import waitListImage from "../../../public/assets/images/waitList3.svg";
 import waitListMobile from "../../../public/assets/images/waitListMobile.svg";
 import { Facebook, Linkedin, Twitter } from "lucide-react";
 import { Button, Input } from "@/shared/ui";
-import { useState } from "react";
-import { NotificationService } from "@/shared/lib/NotificationService";
+
 import { useWaitlist } from "./lib/useWaitList";
 
 export default function WaitlistPage() {

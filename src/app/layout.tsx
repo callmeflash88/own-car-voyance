@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Footer, Header } from "@/shared/ui";
+
 import { ReduxProvider } from "@/shared/lib/redux-provider";
 import WaitlistPage from "./waitlist/page";
 import { Toaster } from "react-hot-toast";
+import { AppLayout } from "./AppLayout";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,9 +43,7 @@ export default function RootLayout({
         ) : (
           <>
             <ReduxProvider>
-              <Header />
-              {children}
-              <Footer />
+              <AppLayout>{children}</AppLayout>
             </ReduxProvider>
           </>
         )}
