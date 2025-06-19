@@ -10,7 +10,7 @@ const TEXT_INPUT_CLASSNAME = " py-2 ";
 export const REGISTER_FORM_FIELDS = [
   {
     name: "full_name",
-    label: "Email",
+    label: "Full Name",
     placeholder: "",
     component: Input,
     labelClassName: LABEL_CLASSNAME,

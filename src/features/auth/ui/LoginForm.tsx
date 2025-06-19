@@ -59,7 +59,9 @@ export const LoginForm = ({ onSwitch }: LoginFormProps) => {
           <AuthGoogleButton />
           <p className="font-inter font-normal text-sm leading-relaxed tracking-normal text-center mt-5">
             Don’t have an account?{" "}
-            <span className="text-[#4E17E5] font-[400]">Sign up</span>
+            <span className="text-[#4E17E5] font-[400]" onClick={onSwitch}>
+              Sign up
+            </span>
           </p>
         </form>
       </FormProvider>

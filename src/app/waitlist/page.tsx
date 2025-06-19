@@ -47,9 +47,10 @@ export default function WaitlistPage() {
           <h4 className="font-inter font-semibold text-2xl uppercase text-[#4E17E5]">
             Coming soon
           </h4>
-          <h1 className="font-inter font-semibold text-[36px] lg:text-5xl mt-3 text-center lg:text-left">
+          <h1 className="font-inter font-semibold text-[36px] lg:text-5xl mt-3 text-center lg:text-left leading-normal lg:leading-[64px]">
             Be the first to know
-            <br /> when CarVoyance is ready!
+            <br /> when CarVoyance
+            <br /> is ready!
           </h1>
           <p className="mt-3 font-inter text-base text-center lg:text-left text-[#2B2B2B]">
             Sign up to join our waitlist and get{" "}
