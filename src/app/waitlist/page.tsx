@@ -98,12 +98,20 @@ export default function WaitlistPage() {
       </div>
 
       <footer className="relative z-10 px-4 lg:px-[160px] h-[88px] flex items-center justify-between">
-        <p className="font-inter text-sm text-center">
-          © 2025 CarVoyance.{" "}
-          <span className="hidden lg:inline">All Rights Reserved.</span>
-        </p>
+        <div className="flex flex-col justify-center items-start gap-2">
+          <p className="font-inter text-sm text-center block ">
+            Privacy Policy
+          </p>
+          <p className="font-inter text-sm text-center">
+            © 2025 CarVoyance{" "}
+            <span className="hidden lg:inline">. All Rights Reserved.</span>
+          </p>
+        </div>
+
         <div className="flex flex-col justify-center items-center gap-2">
-          <p className="font-inter text-sm text-center">Privacy Policy</p>
+          <p className="font-inter text-sm text-center hidden lg:block">
+            Privacy Policy
+          </p>
           <div className="flex gap-4 lg:hidden">
             <div className="p-2 rounded-full bg-white">
               <Facebook fill="black" size={16} />
