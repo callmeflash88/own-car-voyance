@@ -12,17 +12,24 @@ describe("isValidEmail", () => {
     expect(isValidEmail("user@com")).toBe(false);
     expect(isValidEmail("user@site..com")).toBe(false);
     expect(isValidEmail("user.@domain.com")).toBe(false);
+    expect(isValidEmail("user..name@example.com")).toBe(false);
+  });
+
+  it("returns false for non-ASCII domain", () => {
+    expect(isValidEmail("testemail30072001@аамсв.ком")).toBe(false);
+    expect(isValidEmail("пользователь@домен.рф")).toBe(false);
   });
 
   it("returns true for valid email formats", () => {
     expect(isValidEmail("test@example.com")).toBe(true);
     expect(isValidEmail("user.name+tag+sorting@example.com")).toBe(true);
     expect(isValidEmail("user_name@example.co.uk")).toBe(true);
+    expect(isValidEmail("customer/department=shipping@example.com")).toBe(true);
   });
 
   it("returns false for long emails (>254)", () => {
     const local = "a".repeat(64);
-    const domain = "b".repeat(189) + ".com"; // total = 64 + 189 + 4 = 257
+    const domain = "b".repeat(189) + ".com"; // 64 + 189 + 4 = 257
     expect(isValidEmail(`${local}@${domain}`)).toBe(false);
   });
 
