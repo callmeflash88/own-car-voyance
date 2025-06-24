@@ -8,14 +8,16 @@ import { FormProvider } from "react-hook-form";
 import { RenderFormFields } from "@/shared/ui/RenderFormFiled";
 import { Checkbox } from "@/shared/ui/checkbox";
 import { AuthGoogleButton } from "@/features/auth-google-button/ui";
+import { useAuthFlow } from "../model/AuthFlowContext";
 
 type LoginFormProps = {
-  onSwitch: () => void;
+  onSwitch?: () => void;
 };
 
 export const LoginForm = ({ onSwitch }: LoginFormProps) => {
   const [showPassword, setShowPassword] = useState(false);
   const { form, onSubmit, isLoading, error } = useLoginForm();
+  const { setStep } = useAuthFlow();
 
   const handleSubmit = async (data: any) => {
     await onSubmit(data);
@@ -42,7 +44,10 @@ export const LoginForm = ({ onSwitch }: LoginFormProps) => {
                 Remember me
               </span>
             </div>
-            <p className="font-inter font-medium text-sm leading-tight tracking-normal text-[#4E17E5]">
+            <p
+              className="font-inter font-medium text-sm leading-tight tracking-normal text-[#4E17E5]"
+              onClick={() => setStep("forgot")}
+            >
               Forgot Password?
             </p>
           </div>
@@ -59,7 +64,10 @@ export const LoginForm = ({ onSwitch }: LoginFormProps) => {
           <AuthGoogleButton />
           <p className="font-inter font-normal text-sm leading-relaxed tracking-normal text-center mt-5">
             Don’t have an account?{" "}
-            <span className="text-[#4E17E5] font-[400]" onClick={onSwitch}>
+            <span
+              className="text-[#4E17E5] font-[400]"
+              onClick={() => setStep("register")}
+            >
               Sign up
             </span>
           </p>

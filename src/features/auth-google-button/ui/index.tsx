@@ -1,5 +1,6 @@
 import { Button } from "@/shared/ui";
 import googleIcon from "../../../../public/assets/icons/google.svg";
+import Image from "next/image";
 
 export const AuthGoogleButton = () => {
   return (
@@ -10,7 +11,7 @@ export const AuthGoogleButton = () => {
         type="button"
         // isDisabled={isLoginLoading || isRegisterLoading}
       >
-        <img src={googleIcon} alt="Google" />
+        <Image src={googleIcon} alt="Google" />
         <span>
           {/* {isRegistration ? "Sign up with Google" : "Sign in with Google"} */}
         </span>

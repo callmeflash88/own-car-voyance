@@ -8,13 +8,15 @@ import { RenderFormFields } from "@/shared/ui/RenderFormFiled";
 import { Checkbox } from "@/shared/ui/checkbox";
 import { Button } from "@/shared/ui";
 import { AuthGoogleButton } from "@/features/auth-google-button/ui";
+import { useAuthFlow } from "../model/AuthFlowContext";
 
 type RegisterFormProps = {
-  onSwitch: () => void;
+  onSwitch?: () => void;
 };
 
 export const RegisterForm = ({ onSwitch }: RegisterFormProps) => {
   const { form, register, isLoading, error } = useRegisterForm();
+  const { setStep } = useAuthFlow();
 
   const handleSubmit = async (data: any) => {
     const fullData = {
@@ -51,12 +53,15 @@ export const RegisterForm = ({ onSwitch }: RegisterFormProps) => {
             size="lg"
             className="w-full mt-10"
           >
-            <span>Sign In</span>
+            <span>Sign Up</span>
           </Button>
           <AuthGoogleButton />
           <p className="font-inter font-normal text-sm leading-relaxed tracking-normal text-center mt-5">
             Already have an account?{" "}
-            <span className="text-[#4E17E5] font-[400]" onClick={onSwitch}>
+            <span
+              className="text-[#4E17E5] font-[400]"
+              onClick={() => setStep("login")}
+            >
               Sign in
             </span>
           </p>

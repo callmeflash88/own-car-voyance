@@ -19,6 +19,21 @@ interface IRegisterPayload {
   role: string;
 }
 
+interface ICheckOtpPayload {
+  email: string;
+  otp: string;
+}
+
+export interface ICreateNewPasswordPayload {
+  email: string;
+  password: string;
+  confirm_password: string;
+}
+
+interface IForgotPassword {
+  email: string;
+}
+
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: axiosBaseQuery(),
@@ -37,7 +52,34 @@ export const authApi = createApi({
         body: data,
       }),
     }),
+    forgotPassword: builder.mutation<any, IForgotPassword>({
+      query: (data) => ({
+        url: "auth/recoveryPassword",
+        method: "POST",
+        body: data,
+      }),
+    }),
+    checkOtp: builder.mutation<any, ICheckOtpPayload>({
+      query: (data) => ({
+        url: "auth/checkOtp",
+        method: "POST",
+        body: data,
+      }),
+    }),
+    createNewPassword: builder.mutation<any, ICreateNewPasswordPayload>({
+      query: (data) => ({
+        url: "auth/recoveryPasswordChangePassword",
+        method: "POST",
+        body: data,
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation } = authApi;
+export const {
+  useLoginMutation,
+  useRegisterMutation,
+  useForgotPasswordMutation,
+  useCheckOtpMutation,
+  useCreateNewPasswordMutation,
+} = authApi;
