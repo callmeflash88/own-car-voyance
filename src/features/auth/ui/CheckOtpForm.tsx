@@ -4,11 +4,10 @@ import { Button } from "@/shared/ui";
 import { OtpInputs } from "./OtpInputs";
 import { useCheckOtp } from "../model/useCheckOtp";
 import { ArrowLeft } from "lucide-react";
-import { useAuthFlow } from "../model/AuthFlowContext";
 
 export const CheckOtpForm = () => {
   const {
-    inputs,
+    inputsRef,
     email,
     setEmail,
     handleChange,
@@ -19,9 +18,10 @@ export const CheckOtpForm = () => {
 
   return (
     <div className="flex flex-col justify-center space-y-2">
-      <p className="font-inter font-normal text-base leading-none tracking-normal flex gap-2 items-center">
+      <p className="font-inter font-normal text-base leading-none tracking-normal flex gap-2 items-center cursor-pointer">
         <ArrowLeft size={14} /> Back
       </p>
+
       <h1 className="font-inter font-semibold text-[40px] leading-[54px] tracking-normal">
         Reset Password
       </h1>
@@ -36,7 +36,7 @@ export const CheckOtpForm = () => {
       </p>
 
       <OtpInputs
-        inputs={inputs}
+        inputsRef={inputsRef}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
       />

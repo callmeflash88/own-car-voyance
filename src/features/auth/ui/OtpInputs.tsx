@@ -1,18 +1,22 @@
 import React from "react";
 
-interface Props {
-  inputs: React.RefObject<HTMLInputElement | null>[]; // ← исправлено здесь
+interface OtpInputsProps {
+  inputsRef: React.RefObject<(HTMLInputElement | null)[]>;
   onChange: (index: number, e: React.ChangeEvent<HTMLInputElement>) => void;
   onKeyDown: (index: number, e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
-export const OtpInputs = ({ inputs, onChange, onKeyDown }: Props) => {
+export const OtpInputs = ({
+  inputsRef,
+  onChange,
+  onKeyDown,
+}: OtpInputsProps) => {
   return (
     <div className="flex gap-2">
-      {inputs.map((ref, index) => (
+      {inputsRef.current.map((ref, index) => (
         <input
           key={index}
-          ref={ref}
+          // ref={ref}
           type="text"
           inputMode="numeric"
           maxLength={1}
