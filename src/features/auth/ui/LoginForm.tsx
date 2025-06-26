@@ -15,7 +15,6 @@ type LoginFormProps = {
 };
 
 export const LoginForm = ({ onSwitch }: LoginFormProps) => {
-  const [showPassword, setShowPassword] = useState(false);
   const { form, onSubmit, isLoading, error } = useLoginForm();
   const { setStep } = useAuthFlow();
 

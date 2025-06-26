@@ -17,10 +17,6 @@ import { AuthFlowProvider } from "@/features/auth/model/AuthFlowContext";
 import { AuthUI } from "@/features/auth/ui/AuthUI";
 
 export default function LoginPage() {
-  const [isLogin, setIsLogin] = useState(true);
-
-  console.log("isLogin", isLogin);
-
   return (
     <AuthFlowProvider>
       <div className="flex min-w-[100vw] min-h-[100vh] p-0 m-0">
