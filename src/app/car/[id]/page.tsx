@@ -25,7 +25,7 @@ const carsImages = [
 
 const tabs = ["Description", "Seller Information"];
 
-export const CarDescription = () => (
+const CarDescription = () => (
   <div className="text-sm text-gray-700 space-y-4">
     <p className="font-inter font-normal text-base leading-relaxed tracking-normal align-middle mt-14">
       This 2007 Mercedes-Benz S-Class combines timeless design with executive
@@ -89,7 +89,7 @@ export const CarDescription = () => (
   </div>
 );
 
-export const CarSellerInfo = () => (
+const CarSellerInfo = () => (
   <div className="text-sm text-gray-700 space-y-3">
     <div>
       <strong>Seller:</strong> John Doe
