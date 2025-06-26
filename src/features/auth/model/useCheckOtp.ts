@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useRef } from "react";
 import { useCheckOtpMutation } from "../api/authApi";
 import { useAuthFlow } from "./AuthFlowContext";
@@ -8,9 +10,8 @@ export const useCheckOtp = () => {
   const [checkOtp, { isLoading, error }] = useCheckOtpMutation();
   const { setStep } = useAuthFlow();
 
-  const inputs = Array.from({ length: 6 }, () =>
-    useRef<HTMLInputElement>(null)
-  );
+  // Используем один useRef с массивом внутри
+  const inputsRef = useRef<(HTMLInputElement | null)[]>([]);
 
   const handleChange = (
     index: number,
@@ -21,8 +22,8 @@ export const useCheckOtp = () => {
     e.target.value = value;
     updateOtp();
 
-    if (value && index < inputs.length - 1) {
-      inputs[index + 1].current?.focus();
+    if (value && index < inputsRef.current.length - 1) {
+      inputsRef.current[index + 1]?.focus();
     }
   };
 
@@ -31,12 +32,12 @@ export const useCheckOtp = () => {
     e: React.KeyboardEvent<HTMLInputElement>
   ) => {
     if (e.key === "Backspace" && !e.currentTarget.value && index > 0) {
-      inputs[index - 1].current?.focus();
+      inputsRef.current[index - 1]?.focus();
     }
   };
 
   const updateOtp = () => {
-    const newOtp = inputs.map((ref) => ref.current?.value || "").join("");
+    const newOtp = inputsRef.current.map((ref) => ref?.value || "").join("");
     setOtp(newOtp);
   };
 
@@ -46,7 +47,6 @@ export const useCheckOtp = () => {
   };
 
   return {
-    inputs,
     email,
     setEmail,
     otp,
@@ -55,5 +55,6 @@ export const useCheckOtp = () => {
     handleSubmit,
     isLoading,
     error,
+    inputsRef,
   };
 };
