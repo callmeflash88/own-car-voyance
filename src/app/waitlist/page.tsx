@@ -4,8 +4,10 @@ import bgWaitlist from "../../../public/assets/backgrounds/bgWaitlistHeader.jpg"
 import waitListLogo from "../../../public/assets/icons/waitlistLogo.svg";
 import waitListImage from "../../../public/assets/images/waitList3.svg";
 import waitListMobile from "../../../public/assets/images/waitListMobile.svg";
-import { Facebook, Linkedin, Twitter } from "lucide-react";
+import { Instagram } from "lucide-react";
 import { Button, Input } from "@/shared/ui";
+import { FaTiktok } from "react-icons/fa";
+import { FaThreads } from "react-icons/fa6";
 
 import { useWaitlist } from "./lib/useWaitList";
 
@@ -26,15 +28,30 @@ export default function WaitlistPage() {
           className="max-w-none !w-[400px] lg:w-[100px]"
         />
         <div className="hidden gap-4 lg:flex">
-          <div className="p-2 rounded-full bg-white">
-            <Facebook fill="black" size={16} />
-          </div>
-          <div className="p-2 rounded-full bg-white">
-            <Linkedin fill="black" size={16} />
-          </div>
-          <div className="p-2 rounded-full bg-white">
-            <Twitter fill="black" size={16} />
-          </div>
+          <a
+            href="https://www.instagram.com/carvoyance"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-2 rounded-full bg-white inline-flex items-center justify-center"
+          >
+            <Instagram size={16} />
+          </a>
+          <a
+            href="https://www.tiktok.com/@carvoyance"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-2 rounded-full bg-white inline-flex items-center justify-center"
+          >
+            <FaTiktok />
+          </a>
+          <a
+            href="https://www.threads.com/@carvoyance"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-2 rounded-full bg-white inline-flex items-center justify-center"
+          >
+            <FaThreads />
+          </a>
         </div>
       </header>
 
@@ -113,15 +130,30 @@ export default function WaitlistPage() {
             Privacy Policy
           </p>
           <div className="flex gap-4 lg:hidden">
-            <div className="p-2 rounded-full bg-white">
-              <Facebook fill="black" size={16} />
-            </div>
-            <div className="p-2 rounded-full bg-white">
-              <Linkedin fill="black" size={16} />
-            </div>
-            <div className="p-2 rounded-full bg-white">
-              <Twitter fill="black" size={16} />
-            </div>
+            <a
+              href="https://www.instagram.com/carvoyance"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-full bg-white inline-flex items-center justify-center"
+            >
+              <Instagram size={16} />
+            </a>
+            <a
+              href="https://www.tiktok.com/@carvoyance"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-full bg-white inline-flex items-center justify-center"
+            >
+              <FaTiktok />
+            </a>
+            <a
+              href="https://www.threads.com/@carvoyance"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-full bg-white inline-flex items-center justify-center"
+            >
+              <FaThreads />
+            </a>
           </div>
         </div>
       </footer>
