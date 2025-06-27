@@ -12,9 +12,9 @@ module "fe" {
 
 module "acm-cert-cf" {
   source = "./modules/cert/"
-  providers = {
-    aws = aws.us-east-2
-  }
+  # providers = {
+  #   aws = aws.us-east-2
+  # }
   domain = local.domain
   tags   = local.tags
 }
