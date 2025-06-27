@@ -22,7 +22,7 @@ module "acm-cert-cf" {
 module "cloudfront" {
   depends_on = [ module.fe ]
   source        = "./modules/cloudfront/"
-  cert_arn      = module.acm-cert-cf.cert_id
+  cert_arn      = "" # module.acm-cert-cf.cert_id
   s3_bucket_url = module.fe.bucket_endpoint
   aliases       = ["app-api.${local.domain}", "${local.domain}"]
   tags          = local.tags
