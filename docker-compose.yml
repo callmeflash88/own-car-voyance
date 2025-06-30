@@ -1,0 +1,9 @@
+services:
+  app:
+    # env_file:
+    #   - .env
+    build:
+      context: .
+    container_name: carvoyage-frontend
+    ports:
+      - 3000:3000
