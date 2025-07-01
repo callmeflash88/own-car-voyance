@@ -2,7 +2,9 @@ services:
   app:
     # env_file:
     #   - .env
-    image: carvoyance-frontend
+    # image: carvoyance-frontend
+    build:
+      context: .
     container_name: carvoyance-frontend
     ports:
       - 3000:3000
