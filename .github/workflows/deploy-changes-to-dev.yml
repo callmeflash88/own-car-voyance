@@ -50,7 +50,7 @@ jobs:
         # git reset --hard origin/main
         git checkout dev
         git pull
-        docker compose up -d --build
+        docker compose up -d
         EOF
         
 
