@@ -25,13 +25,13 @@ jobs:
 
     - name: Get repo name
       run: |
-        # echo "REPO_NAME=${GITHUB_REPOSITORY#$GITHUB_REPOSITORY_OWNER/}" >> $GITHUB_ENV
-        echo "REPO_NAME=carvoyance" >> $GITHUB_ENV
+        echo "REPO_NAME=${GITHUB_REPOSITORY#$GITHUB_REPOSITORY_OWNER/}" >> $GITHUB_ENV
+        echo "BACKEND_REPO_NAME=carvoyance" >> $GITHUB_ENV
 
     - name: Get ec2 instance IP
       run: |
         PUBLIC_IP=$(aws ec2 describe-instances \
-          --filters "Name=tag:Name,Values=${{ env.REPO_NAME }}" "Name=instance-state-name,Values=running" \
+          --filters "Name=tag:Name,Values=${{ env.BACKEND_REPO_NAME }}" "Name=instance-state-name,Values=running" \
           --query "Reservations[0].Instances[0].PublicIpAddress" \
           --output text)
 
