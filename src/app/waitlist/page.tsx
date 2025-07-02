@@ -116,9 +116,14 @@ export default function WaitlistPage() {
 
       <footer className="relative z-10 px-4 lg:px-[160px] h-[88px] flex items-center justify-between">
         <div className="flex flex-col justify-center items-start gap-2">
-          <p className="font-inter text-sm text-center block lg:hidden">
+          <a
+            href="https://app.termly.io/policy-viewer/policy.html?policyUUID=69dca727-6b6b-487b-ab63-a498cf38780d"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-inter text-sm text-center block lg:hidden"
+          >
             Privacy Policy
-          </p>
+          </a>
           <p className="font-inter text-sm text-center">
             © 2025 CarVoyance{""}
             <span className="hidden lg:inline">. All Rights Reserved.</span>
@@ -126,9 +131,14 @@ export default function WaitlistPage() {
         </div>
 
         <div className="flex flex-col justify-center items-center gap-2">
-          <p className="font-inter text-sm text-center hidden lg:block">
+          <a
+            href="https://app.termly.io/policy-viewer/policy.html?policyUUID=69dca727-6b6b-487b-ab63-a498cf38780d"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-inter text-sm text-center hidden lg:block"
+          >
             Privacy Policy
-          </p>
+          </a>
           <div className="flex gap-4 lg:hidden">
             <a
               href="https://www.instagram.com/carvoyance"
