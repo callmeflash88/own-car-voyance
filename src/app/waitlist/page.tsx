@@ -87,7 +87,7 @@ export default function WaitlistPage() {
             <Button
               variant="primary"
               size="md"
-              className="px-10 w-full py-5 lg:w-[200px]"
+              className="px-10 w-full py-3 lg:w-[200px]"
               onClick={handleSubmit}
             >
               Notify Me
