@@ -4,7 +4,8 @@ import { addAccessToken, updateAccessToken } from "./interceptors";
 // import axiosRetry from "axios-retry";
 
 export const instance = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
+  // baseURL: process.env.REACT_APP_API_URL,
+  baseURL: "https://app-api.carvoyance.com/",
   // baseURL: "http://52.52.7.95/",
 });
 

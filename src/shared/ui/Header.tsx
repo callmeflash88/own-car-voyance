@@ -1,9 +1,23 @@
+"use client";
 import Image from "next/image";
 import logo from "../../../public/assets/logo.svg";
 import { Heart, Plus, User } from "lucide-react";
 import { Button } from "./Button";
+import { useAppSelector } from "../lib/hooks";
+import { useRouter } from "next/navigation";
 
 export const Header = () => {
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
+  const navigate = useRouter();
+
+  const handleUserClick = () => {
+    if (!isAuthenticated) {
+      navigate.push("/login");
+    } else {
+      navigate.push("/profile");
+    }
+  };
+
   return (
     <header className="bg-white px-[120px] h-[90px]">
       <div className="w-full h-full flex justify-between items-center">
@@ -29,7 +43,7 @@ export const Header = () => {
           <div className="w-[2px] h-12 bg-[#2B2B2B33]" />
           <div className="flex gap-3">
             <Heart />
-            <User />
+            <User onClick={handleUserClick} />
           </div>
         </div>
       </div>
