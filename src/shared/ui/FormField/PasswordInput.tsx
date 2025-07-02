@@ -33,19 +33,44 @@ export const PasswordInput: FC<IFormField> = ({
   const error = errors?.[name]?.message as string | undefined;
   const isShownError = !!error;
 
-  const combinedClassNames = cn(
-    "w-full outline-none",
-    TEXT_INPUT_STYLE_VARIANTS[variant],
-    className,
-    {
-      "!border-red-base": isShownError,
-      "opacity-50 cursor-not-allowed": disabled,
-    }
-  );
-
   const togglePasswordVisibility = () => {
     setShowPassword((prevState) => !prevState);
   };
+
+  const input = (
+    <div
+      className={cn(
+        "relative flex items-center rounded-md border px-3 py-2",
+        isShownError
+          ? "border-red-500 focus-within:ring-red-500"
+          : "border-gray-300 focus-within:ring-2 focus-within:ring-blue-500",
+        {
+          "opacity-50 cursor-not-allowed": disabled,
+        }
+      )}
+    >
+      <input
+        id={fieldId}
+        type={showPassword ? "text" : "password"}
+        className={cn(
+          "w-full bg-transparent outline-none placeholder-gray-400",
+          className
+        )}
+        placeholder={placeholder}
+        autoComplete={autoComplete}
+        disabled={disabled}
+        {...register(name, { required })}
+      />
+      <button
+        type="button"
+        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
+        onClick={togglePasswordVisibility}
+        aria-label="Toggle password visibility"
+      >
+        {showPassword ? <EyeOff /> : <Eye />}
+      </button>
+    </div>
+  );
 
   return (
     <FormField
@@ -57,25 +82,7 @@ export const PasswordInput: FC<IFormField> = ({
       isShownError={isShownError}
       error={error}
     >
-      <div className="relative">
-        <input
-          id={fieldId}
-          type={showPassword ? "text" : "password"}
-          className={combinedClassNames}
-          placeholder={placeholder}
-          autoComplete={autoComplete}
-          disabled={disabled}
-          {...register(name, { required })}
-        />
-        <button
-          type="button"
-          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
-          onClick={togglePasswordVisibility}
-          aria-label="Toggle password visibility"
-        >
-          {showPassword ? <EyeOff /> : <Eye />}
-        </button>
-      </div>
+      {input}
     </FormField>
   );
 };

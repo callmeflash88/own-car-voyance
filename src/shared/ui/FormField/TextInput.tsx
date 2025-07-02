@@ -17,7 +17,6 @@ export const TextInput: FC<IFormField> = ({
   variant = FormFieldVariants.PRIMARY,
   placeholder,
   isTextArea = false,
-
   mask,
   rows,
   maxLength,
@@ -36,35 +35,41 @@ export const TextInput: FC<IFormField> = ({
   const error = errors?.[name]?.message as string | undefined;
   const isShownError = !!error;
 
-  const combinedClassNames = cn(
-    "w-full outline-none ",
-    TEXT_INPUT_STYLE_VARIANTS[variant],
-    className,
-    {
-      "resize-y min-h-[120px]": isTextArea,
-      "!border-red-base": isShownError,
-      "opacity-50 cursor-not-allowed": disabled,
-    }
-  );
-
   const InputComponent = useMemo(() => {
     if (mask) return "input";
     if (isTextArea) return "textarea";
     return "input";
   }, [mask, isTextArea]);
 
-  const commonProps = {
-    id: fieldId,
-    className: combinedClassNames,
-    placeholder,
-    disabled,
-    autoComplete,
-    rows: isTextArea ? rows || 4 : undefined,
-    maxLength,
-    minLength,
-    required,
-    ...register(name),
-  };
+  const input = (
+    <div
+      className={cn(
+        "relative flex items-center rounded-md border px-3 py-2",
+        isShownError
+          ? "border-red-500 focus-within:ring-red-500"
+          : "border-gray-300 focus-within:ring-2 focus-within:ring-blue-500",
+        {
+          "opacity-50 cursor-not-allowed": disabled,
+        }
+      )}
+    >
+      <InputComponent
+        id={fieldId}
+        className={cn(
+          "w-full bg-transparent outline-none placeholder-gray-400",
+          className
+        )}
+        placeholder={placeholder}
+        autoComplete={autoComplete}
+        disabled={disabled}
+        rows={isTextArea ? rows || 4 : undefined}
+        maxLength={maxLength}
+        minLength={minLength}
+        required={required}
+        {...register(name)}
+      />
+    </div>
+  );
 
   return (
     <FormField
@@ -76,14 +81,7 @@ export const TextInput: FC<IFormField> = ({
       isShownError={isShownError}
       error={error}
     >
-      <>
-        <InputComponent {...commonProps} />
-        {isTextArea && maxLength && (
-          <div className="flex justify-end mt-1 text-xs text-gray-400">
-            {/* You'll need to manage char counter manually if needed */}
-          </div>
-        )}
-      </>
+      {input}
     </FormField>
   );
 };

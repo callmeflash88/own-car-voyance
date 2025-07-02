@@ -1,10 +1,10 @@
-import { Input } from "@/shared/ui";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useForgotPasswordMutation } from "../api/authApi";
+import { TextInput } from "@/shared/ui/FormField/TextInput";
 
-const LABEL_CLASSNAME = "font-bold text-gray-dark text-xl !mt-10";
+const LABEL_CLASSNAME = "font-bold text-gray-dark text-xl !mt-2";
 const TEXT_INPUT_CLASSNAME = " py-2 ";
 
 export const FORGOT_PASSWORD_FORM_FIELDS = [
@@ -12,7 +12,7 @@ export const FORGOT_PASSWORD_FORM_FIELDS = [
     name: "email",
     label: "Email",
     placeholder: "",
-    component: Input,
+    component: TextInput,
     labelClassName: LABEL_CLASSNAME,
     fieldClassName: TEXT_INPUT_CLASSNAME,
   },

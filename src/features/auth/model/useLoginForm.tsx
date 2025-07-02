@@ -3,8 +3,10 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useLoginMutation } from "../api/authApi";
+import { TextInput } from "@/shared/ui/FormField/TextInput";
+import { PasswordInput } from "@/shared/ui/FormField/PasswordInput";
 
-const LABEL_CLASSNAME = "font-bold text-gray-dark text-xl !mt-10";
+const LABEL_CLASSNAME = "font-bold text-gray-dark text-xl !mt-2";
 const TEXT_INPUT_CLASSNAME = " py-2 ";
 
 export const LOGIN_FORM_FIELDS = [
@@ -12,7 +14,7 @@ export const LOGIN_FORM_FIELDS = [
     name: "email",
     label: "Email",
     placeholder: "",
-    component: Input,
+    component: TextInput,
     labelClassName: LABEL_CLASSNAME,
     fieldClassName: TEXT_INPUT_CLASSNAME,
   },
@@ -20,7 +22,7 @@ export const LOGIN_FORM_FIELDS = [
     name: "password",
     label: "Password",
     placeholder: "",
-    component: Input,
+    component: PasswordInput,
     labelClassName: LABEL_CLASSNAME,
     fieldClassName: TEXT_INPUT_CLASSNAME,
   },

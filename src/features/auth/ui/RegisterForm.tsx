@@ -24,6 +24,7 @@ export const RegisterForm = ({ onSwitch }: RegisterFormProps) => {
       role: 1,
     };
     await register(fullData);
+    setStep("login");
     form.reset();
   };
   return (
@@ -36,7 +37,7 @@ export const RegisterForm = ({ onSwitch }: RegisterFormProps) => {
       </p>
       <FormProvider {...form}>
         <form onSubmit={form.handleSubmit(handleSubmit)} className="mt-10">
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col ">
             <RenderFormFields fields={REGISTER_FORM_FIELDS} />
           </div>
           <div className="flex items-center gap-2 mt-5">

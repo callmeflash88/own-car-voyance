@@ -4,8 +4,8 @@ import { addAccessToken, updateAccessToken } from "./interceptors";
 // import axiosRetry from "axios-retry";
 
 export const instance = axios.create({
-  // baseURL: process.env.REACT_APP_API_URL,
-  baseURL: "https://app-api.hillfluence.com/",
+  baseURL: process.env.REACT_APP_API_URL,
+  // baseURL: "http://52.52.7.95/",
 });
 
 // const RETRY_COUNT = 3;
