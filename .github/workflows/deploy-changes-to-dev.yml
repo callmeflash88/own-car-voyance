@@ -40,9 +40,9 @@ jobs:
 
     - name: Deploy to dev server
       run: |
-        docker build --platform linux/amd64 -f Dockerfile -t carvoyance-frontend .
-        ssh -o StrictHostKeyChecking=no -i ../id_ed25519 ubuntu@${{ env.PUBLIC_IP }} 'docker system prune -af && docker builder prune --all --force'
-        docker save carvoyance-frontend:latest  | ssh -o StrictHostKeyChecking=no -i ../id_ed25519 ubuntu@${{ env.PUBLIC_IP }} 'docker load'
+        # docker build --platform linux/amd64 -f Dockerfile -t carvoyance-frontend .
+        # ssh -o StrictHostKeyChecking=no -i ../id_ed25519 ubuntu@${{ env.PUBLIC_IP }} 'docker system prune -af && docker builder prune --all --force'
+        # docker save carvoyance-frontend:latest  | ssh -o StrictHostKeyChecking=no -i ../id_ed25519 ubuntu@${{ env.PUBLIC_IP }} 'docker load'
 
         ssh -o StrictHostKeyChecking=no -i ../id_ed25519 ubuntu@${{ env.PUBLIC_IP }} << 'EOF'
         cd ~/${{ env.REPO_NAME }}
@@ -51,7 +51,8 @@ jobs:
         # git checkout dev
         git pull
         docker compose down
-        docker compose up -d
+        docker system prune -af && docker builder prune --all --force
+        docker compose up -d --build
         EOF
         
 
