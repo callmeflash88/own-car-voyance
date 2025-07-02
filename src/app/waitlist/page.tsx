@@ -65,7 +65,7 @@ export default function WaitlistPage() {
             Coming soon
           </h4>
           <h1 className="font-inter font-semibold text-[36px] lg:text-5xl mt-3 text-center lg:text-left leading-normal lg:leading-[64px]">
-            Be the first to know 2222
+            Be the first to know
             <br /> when CarVoyance
             <br /> is ready!
           </h1>
