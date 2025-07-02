@@ -9,6 +9,7 @@ import { RenderFormFields } from "@/shared/ui/RenderFormFiled";
 import { Checkbox } from "@/shared/ui/checkbox";
 import { AuthGoogleButton } from "@/features/auth-google-button/ui";
 import { useAuthFlow } from "../model/AuthFlowContext";
+import { useRouter } from "next/navigation";
 
 type LoginFormProps = {
   onSwitch?: () => void;
@@ -17,10 +18,16 @@ type LoginFormProps = {
 export const LoginForm = ({ onSwitch }: LoginFormProps) => {
   const { form, onSubmit, isLoading, error } = useLoginForm();
   const { setStep } = useAuthFlow();
+  const router = useRouter();
 
   const handleSubmit = async (data: any) => {
-    await onSubmit(data);
-    form.reset();
+    try {
+      const result = await onSubmit(data); // або просто login, якщо без обгортки
+      form.reset();
+      router.push("/"); // редірект на головну
+    } catch (e) {
+      console.error("Login failed", e); // залиш для відлагодження
+    }
   };
 
   return (

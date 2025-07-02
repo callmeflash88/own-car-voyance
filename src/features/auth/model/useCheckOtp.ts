@@ -11,7 +11,7 @@ export const useCheckOtp = () => {
   const { setStep } = useAuthFlow();
 
   // Используем один useRef с массивом внутри
-  const inputsRef = useRef<(HTMLInputElement | null)[]>([]);
+  const inputsRef = useRef<(HTMLInputElement | null)[]>(Array(6).fill(null));
 
   const handleChange = (
     index: number,

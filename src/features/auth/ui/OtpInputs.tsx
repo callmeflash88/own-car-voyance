@@ -13,10 +13,12 @@ export const OtpInputs = ({
 }: OtpInputsProps) => {
   return (
     <div className="flex gap-2">
-      {inputsRef.current.map((ref, index) => (
+      {inputsRef.current?.map((_, index) => (
         <input
           key={index}
-          // ref={ref}
+          ref={(el) => {
+            inputsRef.current[index] = el;
+          }}
           type="text"
           inputMode="numeric"
           maxLength={1}

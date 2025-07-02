@@ -12,8 +12,9 @@ export const ForgotPasswordForm = () => {
   const { setStep, setEmail } = useAuthFlow();
 
   const handleSubmitRecoveryPassword = async (data: any) => {
+    console.log("data", data);
     await onSubmit(data);
-    form.reset();
+
     setEmail(data.email);
     setStep("otp");
   };

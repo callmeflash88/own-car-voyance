@@ -55,10 +55,10 @@ export default function WaitlistPage() {
         </div>
       </header>
 
-      <div className="absolute lg:hidden bottom-0 left-1/2 -translate-x-1/2 translate-y-1/3 w-[700px] h-[700px] bg-[#6F76F2] rounded-full opacity-20 blur-[100px] z-0 pointer-events-none" />
+      <div className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 w-[1200px] h-[800px] bg-[#6F76F2] rounded-full blur-[200px] opacity-20 z-0 pointer-events-none" />
 
       <div className="relative z-10 max-w-[100vw] overflow-hidden min-h-[80vh] mt-10 lg:mt-0 px-4 lg:px-[160px] flex flex-col xl:flex-row items-center justify-between">
-        <div className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 w-[1200px] h-[800px] bg-[#6F76F2] rounded-full blur-[100px] opacity-20 z-0 pointer-events-none" />
+        {/* <div className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 w-[1200px] h-[800px] bg-[#6F76F2] rounded-full blur-[200px] opacity-20 z-0 pointer-events-none" /> */}
 
         <div className="flex flex-col justify-center items-center lg:items-start lg:flex-1">
           <h4 className="font-inter font-semibold text-2xl uppercase text-[#4E17E5]">
@@ -116,11 +116,11 @@ export default function WaitlistPage() {
 
       <footer className="relative z-10 px-4 lg:px-[160px] h-[88px] flex items-center justify-between">
         <div className="flex flex-col justify-center items-start gap-2">
-          <p className="font-inter text-sm text-center block ">
+          <p className="font-inter text-sm text-center block lg:hidden">
             Privacy Policy
           </p>
           <p className="font-inter text-sm text-center">
-            © 2025 CarVoyance{" "}
+            © 2025 CarVoyance{""}
             <span className="hidden lg:inline">. All Rights Reserved.</span>
           </p>
         </div>
