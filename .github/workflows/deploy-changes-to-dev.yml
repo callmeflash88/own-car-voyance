@@ -48,8 +48,9 @@ jobs:
         cd ~/${{ env.REPO_NAME }}
         # git fetch origin
         # git reset --hard origin/main
-        git checkout dev
+        # git checkout dev
         git pull
+        docker compose down
         docker compose up -d
         EOF
         
