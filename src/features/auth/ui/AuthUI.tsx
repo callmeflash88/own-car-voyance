@@ -9,6 +9,7 @@ export const AuthUI = () => {
   const { step } = useAuthFlow();
 
   return (
+    // FOR TEST
     <div className="flex-1 w-full flex items-center justify-center !z-10">
       {step === "login" && <LoginForm />}
       {step === "register" && <RegisterForm />}
