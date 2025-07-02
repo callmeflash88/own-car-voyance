@@ -10,12 +10,11 @@ export const AuthUI = () => {
 
   return (
     <div className="flex-1 w-full flex items-center justify-center !z-10">
-      {/* {step === "login" && <LoginForm />} */}
-      {/* {step === "register" && <RegisterForm />} */}
-      {/* {step === "forgot" && <ForgotPasswordForm />} */}
-      {/* {step === "otp" && <CheckOtpForm />} */}
-      {/* {step === "create" && <CreatePasswordForm />} */}
-      <CheckOtpForm />
+      {step === "login" && <LoginForm />}
+      {step === "register" && <RegisterForm />}
+      {step === "forgot" && <ForgotPasswordForm />}
+      {step === "otp" && <CheckOtpForm />}
+      {step === "create" && <CreatePasswordForm />}
     </div>
   );
 };
