@@ -11,11 +11,7 @@ export const Header = () => {
   const navigate = useRouter();
 
   const handleUserClick = () => {
-    if (!isAuthenticated) {
-      navigate.push("/login");
-    } else {
-      navigate.push("/profile");
-    }
+    navigate.push("/profile-search");
   };
 
   return (

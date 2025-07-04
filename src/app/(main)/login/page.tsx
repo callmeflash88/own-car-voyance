@@ -4,9 +4,9 @@
 import { useState } from "react";
 import { LoginForm } from "@/features/auth/ui/LoginForm";
 // import { RegisterForm } from "@/features/auth/ui/RegisterForm";
-import authBg from "../../../public/assets/backgrounds/authBg.jpg";
-import logo from "../../../public/assets/whiteLogo.svg";
-import car from "../../../public/assets/images/audi.png";
+import authBg from "../../../../public/assets/backgrounds/authBg.jpg";
+import logo from "../../../../public/assets/whiteLogo.svg";
+import car from "../../../../public/assets/images/audi.png";
 import Image from "next/image";
 import { RegisterForm } from "@/features/auth/ui/RegisterForm";
 import { Checkbox } from "@radix-ui/react-checkbox";

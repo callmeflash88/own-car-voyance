@@ -46,10 +46,8 @@ const loginSchema = z.object({
 export type LoginSchema = z.infer<typeof loginSchema>;
 
 export const useLoginForm = () => {
-  const [login, { isLoading, error }] = useLoginMutation();
   const router = useRouter();
   const [serverError, setServerError] = useState<string | null>(null);
-  const dispatch = useAppDispatch();
 
   const form = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
@@ -59,26 +57,56 @@ export const useLoginForm = () => {
     },
   });
 
+  const [login, { isLoading, error }] = useLoginMutation();
+
   const handleSubmit = form.handleSubmit(async (data) => {
     try {
       const response = await login(data).unwrap();
-
-      Cookies.set(ACCESS_TOKEN, response.access_token);
-      Cookies.set(AUTH_REFRESH_TOKEN, response.refresh_token);
-
-      dispatch(setAuth({ token: response.access_token }));
-
-      router.push("/");
+      console.log("Login success:", response);
+      if (response.access_token && response.refresh_token) {
+        Cookies.set(ACCESS_TOKEN, response.access_token);
+        Cookies.set(AUTH_REFRESH_TOKEN, response.refresh_token);
+        router.push("/");
+      }
     } catch (err) {
-      setServerError("Login failed");
+      console.error("Login error:", err);
     }
   });
+
+  // const handleSubmit = form.handleSubmit(async (data) => {
+  //   try {
+  //     const res = await fetch("/api/login", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(data),
+  //     });
+
+  //     if (!res.ok) {
+  //       throw new Error("Login failed");
+  //     }
+
+  //     // Опціонально: можеш отримати success з відповіді, якщо треба
+  //     const result = await res.json();
+  //     if (result.success && result.access_token && result.refresh_token) {
+  //       Cookies.set(ACCESS_TOKEN, result.access_token);
+  //       Cookies.set(AUTH_REFRESH_TOKEN, result.refresh_token);
+
+  //       router.push("/");
+  //     } else {
+  //       throw new Error("Invalid response");
+  //     }
+  //   } catch (err) {
+  //     setServerError("Login failed");
+  //   }
+  // });
 
   return {
     form,
     handleSubmit,
-    isLoading,
-    error,
+    isLoading: false, // бо ми вже не використовуємо RTK
+    error: null,
     serverError,
   };
 };

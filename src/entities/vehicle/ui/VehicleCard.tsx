@@ -10,10 +10,10 @@ interface Props {
 
 export const VehicleCard = ({ vehicle }: Props) => {
   return (
-    <div className="bg-white w-[285px] rounded-xl shadow-sm border border-[#e5e7eb] ">
+    <div className="bg-white w-[100%] rounded-xl shadow-sm border border-[#e5e7eb] ">
       <div className="relative">
         {/* <Image src={vehicle.image} alt="car" /> */}
-        <Image src={card1} alt="car" />
+        <Image src={card1} alt="car" className="w-full" />
         <ToggleFavorite vehicleId="1" isFavorite={false} />
       </div>
       <div className="p-5 flex flex-col">

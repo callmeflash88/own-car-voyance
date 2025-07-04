@@ -23,7 +23,9 @@ export const addAccessToken = (config: InternalAxiosRequestConfig) => {
   const isRefreshTokenExpired = isTokenExpired(refresh);
 
   if (access && !isRefreshTokenExpired) {
-    config.headers.Authorization = access;
+    // config.headers.Authorization = access;
+    console.log("access", Cookies.get(ACCESS_TOKEN));
+    config.headers["Authorization"] = Cookies.get(ACCESS_TOKEN) || "";
   }
 
   return config;

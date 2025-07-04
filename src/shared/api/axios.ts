@@ -9,7 +9,7 @@ export const api = axios.create({
 api.interceptors.request.use((config) => {
   const token = Cookies.get("token");
   if (token) {
-    config.headers.Authorization = `Bearer ${token}`; // Обычно так делают
+    config.headers.Authorization = `${token}`; // Обычно так делают
   }
   return config;
 });

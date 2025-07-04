@@ -1,3 +1,3 @@
-export const ACCESS_TOKEN = "ACCES_TOKEN_205MEDICAL";
-export const AUTH_REFRESH_TOKEN = "AUTH_REFRESH_TOKEN_205MEDICAL";
+export const ACCESS_TOKEN = "access_token_carvoyance";
+export const AUTH_REFRESH_TOKEN = "refresh_token_carvoyance";
 export const EMAIL = "EMAIL";

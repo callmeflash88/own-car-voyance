@@ -6,6 +6,8 @@ import filterBodyReducer from "@/features/filter-body/model/slice";
 import filterYearReducer from "@/features/filter-year/model/slice";
 import searchSliceReducer from "@/features/search/model/searchSlice";
 import sortViewSliceReducer from "@/features/sort-view-toggle/model/slice";
+import userSliceReducer from "@/entities/user/model/userSlice";
+import { userApi } from "@/entities/user/api/userApi";
 
 export const rootReducer = combineReducers({
   auth: authReducer,
@@ -14,5 +16,7 @@ export const rootReducer = combineReducers({
   filterYear: filterYearReducer,
   search: searchSliceReducer,
   sort: sortViewSliceReducer,
+  user: userSliceReducer,
   [authApi.reducerPath]: authApi.reducer,
+  [userApi.reducerPath]: userApi.reducer,
 });
