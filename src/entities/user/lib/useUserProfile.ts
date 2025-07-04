@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setUser } from "../model/userSlice";
 import { useGetUserQuery } from "../api/userApi";
+import { calculateProfileCompletion } from "@/shared/lib/calculateProfileCompletion";
 
 export const useUserProfile = () => {
   const dispatch = useDispatch();
@@ -23,6 +24,6 @@ export const useUserProfile = () => {
     isLoading,
     isError,
     refetch,
-    profileCompletion: user?.profileCompletion ?? 0,
+    profileCompletion: calculateProfileCompletion(user),
   };
 };
