@@ -3,6 +3,7 @@ import { rootReducer } from "./rootReducer";
 import { authApi } from "@/features/auth/api/authApi";
 import { userApi } from "@/entities/user/api/userApi";
 import { uploadApi } from "../api/uploadApi";
+import { userVehiclesApi } from "@/features/user-vehicles/api/userVehiclesApi";
 
 export const store = configureStore({
   reducer: rootReducer,
@@ -11,7 +12,8 @@ export const store = configureStore({
     getDefaultMiddleware().concat(
       authApi.middleware,
       userApi.middleware,
-      uploadApi.middleware // 👈 додай це
+      uploadApi.middleware,
+      userVehiclesApi.middleware
     ),
 });
 

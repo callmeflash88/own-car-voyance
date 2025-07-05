@@ -9,6 +9,7 @@ import sortViewSliceReducer from "@/features/sort-view-toggle/model/slice";
 import userSliceReducer from "@/entities/user/model/userSlice";
 import { userApi } from "@/entities/user/api/userApi";
 import { uploadApi } from "../api/uploadApi";
+import { userVehiclesApi } from "@/features/user-vehicles/api/userVehiclesApi";
 
 export const rootReducer = combineReducers({
   auth: authReducer,
@@ -21,4 +22,5 @@ export const rootReducer = combineReducers({
   [authApi.reducerPath]: authApi.reducer,
   [userApi.reducerPath]: userApi.reducer,
   [uploadApi.reducerPath]: uploadApi.reducer,
+  [userVehiclesApi.reducerPath]: userVehiclesApi.reducer,
 });

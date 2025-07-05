@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { Pencil, User } from "lucide-react";
 import { useUserProfile } from "@/entities/user/lib/useUserProfile";
-import { UserProfileEditForm } from "./UserProfileEditForm";
-import { UserProfileAvatar } from "./UserProfileAvatarSection";
-import { UserProfileVerification } from "./UserProfileVerification";
+import { UserProfileEditForm } from "../../../features/user-profile-info/ui/UserProfileEditForm";
+import { UserProfileAvatar } from "../../../features/user-profile-info/ui/UserProfileAvatarSection";
+import { UserProfileVerification } from "../../../features/user-profile-info/ui/UserProfileVerification";
 
 export const UserProfileCard = () => {
   const { user } = useUserProfile();
