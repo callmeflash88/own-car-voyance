@@ -14,14 +14,14 @@ export const UserProfileCard = () => {
   if (!user) return null;
 
   return (
-    <div className="bg-white  rounded-2xl shadow w-full p-4 ">
+    <div className="bg-white  rounded-2xl shadow w-full p-5">
       <div className="flex justify-between items-center border-b border-gray-200 pb-5">
         <h2 className="text-lg font-semibold">Personal Profile</h2>
         <button onClick={() => setEditMode((prev) => !prev)}>
           <Pencil size={16} />
         </button>
       </div>
-      <UserProfileAvatar user={user} />
+      {!editMode && <UserProfileAvatar user={user} />}
 
       {editMode ? (
         <UserProfileEditForm user={user} onCancel={() => setEditMode(false)} />
@@ -48,7 +48,7 @@ export const UserProfileCard = () => {
         </div>
       )}
 
-      <UserProfileVerification />
+      {!editMode && <UserProfileVerification />}
     </div>
   );
 };

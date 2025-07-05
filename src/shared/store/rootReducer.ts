@@ -8,6 +8,7 @@ import searchSliceReducer from "@/features/search/model/searchSlice";
 import sortViewSliceReducer from "@/features/sort-view-toggle/model/slice";
 import userSliceReducer from "@/entities/user/model/userSlice";
 import { userApi } from "@/entities/user/api/userApi";
+import { uploadApi } from "../api/uploadApi";
 
 export const rootReducer = combineReducers({
   auth: authReducer,
@@ -19,4 +20,5 @@ export const rootReducer = combineReducers({
   user: userSliceReducer,
   [authApi.reducerPath]: authApi.reducer,
   [userApi.reducerPath]: userApi.reducer,
+  [uploadApi.reducerPath]: uploadApi.reducer,
 });
