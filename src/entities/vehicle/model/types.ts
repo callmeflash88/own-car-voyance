@@ -13,6 +13,11 @@ export interface Vehicle {
   date: string;
 }
 
+export enum CarStatus {
+  DRAFT = 1,
+  ACTIVE = 2,
+}
+
 export interface CarImage {
   id: number;
   url: string;

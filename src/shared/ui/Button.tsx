@@ -1,9 +1,8 @@
-// shared/ui/Button/Button.tsx
 import { cn } from "@/shared/lib/utils";
 import { ButtonHTMLAttributes, ReactNode } from "react";
 
 type ButtonSize = "sm" | "md" | "lg";
-type ButtonVariant = "primary" | "secondary" | "outline";
+type ButtonVariant = "primary" | "secondary" | "outline" | "danger" | "success";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
@@ -25,6 +24,8 @@ const variantClasses: Record<ButtonVariant, string> = {
   primary: "bg-[#4E17E5] text-white hover:bg-[#3d13b6]",
   secondary: "bg-[#2B2B2B] text-white",
   outline: "border border-gray-400 text-black hover:bg-gray-100",
+  danger: "bg-red-500 text-white hover:bg-red-600",
+  success: "bg-green-500 text-white hover:bg-green-600",
 };
 
 export const Button = ({
