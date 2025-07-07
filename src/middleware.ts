@@ -16,7 +16,13 @@ export function middleware(request: NextRequest) {
   const isExpired = isTokenExpired(accessToken);
 
   const { pathname } = request.nextUrl;
-  const protectedRoutes = ["/profile", "/dashboard", "/orders"];
+  const protectedRoutes = [
+    "/profile-search",
+    "/profile",
+    "/settings",
+    "/dashboard",
+    "/orders",
+  ];
   const isProtected = protectedRoutes.some((route) =>
     pathname.startsWith(route)
   );

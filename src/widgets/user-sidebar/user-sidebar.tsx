@@ -32,7 +32,7 @@ export const Sidebar = () => {
       </Link>
 
       <nav className="flex flex-col gap-4 text-gray-700 text-sm font-medium">
-        <Link href="/search" className={linkClass("/profile-search")}>
+        <Link href="/profile-search" className={linkClass("/profile-search")}>
           <Search size={18} /> Search Auto
         </Link>
         <Link href="/vehicles" className={linkClass("/profile-vehciles")}>
@@ -51,7 +51,7 @@ export const Sidebar = () => {
         <Link href="/profile" className={linkClass("/profile")}>
           <UserCircle2 size={18} /> User Profile
         </Link>
-        <Link href="/settings" className={linkClass("/search")}>
+        <Link href="/settings" className={linkClass("/settings")}>
           <Settings size={18} /> Settings
         </Link>
       </nav>

@@ -1,12 +1,12 @@
 "use client";
 import { CarGallery } from "@/entities/vehicle/ui/CarGallery";
-import image from "../../../../public/assets/images/car1.png";
-import image1 from "../../../../public/assets/images/car2.png";
+import image from "../../../../../public/assets/images/car1.png";
+import image1 from "../../../../../public/assets/images/car2.png";
 import { Fuel, Gauge, Heart, MapPin, Palette, Settings } from "lucide-react";
 import { MdOutlineAirlineSeatReclineNormal } from "react-icons/md";
 import { useState } from "react";
 import { Button } from "@/shared/ui";
-import transmissionIcon from "../../../../public/assets/icons/transmissinIcon.svg";
+import transmissionIcon from "../../../../../public/assets/icons/transmissinIcon.svg";
 import Image from "next/image";
 import { ToggleFavorite } from "@/features/toggle-favorite/ui/ToggleFavorite";
 
