@@ -46,10 +46,13 @@ export async function POST(req: NextRequest) {
     if (email) formData.append("email", email);
     if (phone) formData.append("phone", phone);
 
-    await fetch("https://script.google.com/macros/s/ТВОЙ_ID_СКРИПТА/exec", {
-      method: "POST",
-      body: formData,
-    });
+    await fetch(
+      "https://script.google.com/macros/s/AKfycbwURIqwaLDommxq6BEKxlyPB6m92aEMPp4I60t5M8sGe7iuYR39RShsgaAGXrkaay2iHw/exec",
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
 
     return NextResponse.json({ message: "Success" }, { status: 200 });
   } catch (err) {
