@@ -4,31 +4,28 @@ import { isValidEmail } from "./isValidMail";
 
 export const useWaitlist = () => {
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
 
-  const handleSubmit = async () => {
-    const trimmed = email.trim();
+  const handleSubmit = async (
+    isEmailForm: boolean,
+    isPhoneConsentChecked?: boolean
+  ) => {
+    const trimmed = isEmailForm ? email.trim() : phone.trim();
 
-    if (!isValidEmail(trimmed)) {
+    if (isEmailForm && !isValidEmail(trimmed)) {
       NotificationService.error("Please enter a valid email address.");
       return;
     }
 
-    try {
-      // NotificationService.loading("Sending...");
-
-      const formData = new FormData();
-      formData.append("email", trimmed);
-
-      const res = await fetch(
-        "https://script.google.com/macros/s/AKfycbxkQby8o3xiobpz4gK6q8wC0KXnX7nWTzuQun8o_Bdan7ZrSQ_ulo0_L2rsFGYU5ZZAqg/exec",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-    } catch (error) {
-      console.error(error);
-      NotificationService.dismiss();
+    if (!isEmailForm) {
+      if (trimmed.length < 8) {
+        NotificationService.error("Please enter a valid phone number.");
+        return;
+      }
+      if (!isPhoneConsentChecked) {
+        NotificationService.error("You must agree to receive SMS updates.");
+        return;
+      }
     }
 
     try {
@@ -39,7 +36,9 @@ export const useWaitlist = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email: trimmed }),
+        body: JSON.stringify(
+          isEmailForm ? { email: trimmed } : { phone: trimmed }
+        ),
       });
 
       const data = await res.json();
@@ -47,7 +46,8 @@ export const useWaitlist = () => {
 
       if (res.ok) {
         NotificationService.success("You’ve successfully subscribed! 🎉");
-        setEmail("");
+        if (isEmailForm) setEmail("");
+        else setPhone("");
       } else {
         NotificationService.error(data.message || "Something went wrong.");
       }
@@ -58,7 +58,7 @@ export const useWaitlist = () => {
     }
   };
 
-  return { email, setEmail, handleSubmit };
+  return { email, setEmail, phone, setPhone, handleSubmit };
 };
 
 // import { useState } from "react";

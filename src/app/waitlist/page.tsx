@@ -4,15 +4,23 @@ import bgWaitlist from "../../../public/assets/backgrounds/bgWaitlistHeader.jpg"
 import waitListLogo from "../../../public/assets/icons/waitlistLogo.svg";
 import waitListImage from "../../../public/assets/images/waitList3.svg";
 import waitListMobile from "../../../public/assets/images/waitListMobile.svg";
-import { Instagram } from "lucide-react";
+import { Instagram, Phone } from "lucide-react";
 import { Button, Input } from "@/shared/ui";
 import { FaTiktok } from "react-icons/fa";
 import { FaThreads } from "react-icons/fa6";
 
 import { useWaitlist } from "./lib/useWaitList";
+import { useState } from "react";
+import { cn } from "@/shared/lib/utils";
+import ContactSwitcher from "./ContactSwitcher";
+import { PhoneInput } from "./PhoneInput";
 
 export default function WaitlistPage() {
-  const { email, setEmail, handleSubmit } = useWaitlist();
+  const { email, setEmail, phone, setPhone, handleSubmit } = useWaitlist();
+  const [method, setMethod] = useState<"phone" | "email">("phone");
+  const [isPhoneConsentChecked, setIsPhoneConsentChecked] = useState(false);
+
+  const [isMailForm, setIsMailForm] = useState(false);
 
   return (
     <div className="relative overflow-hidden">
@@ -69,28 +77,80 @@ export default function WaitlistPage() {
             <br /> when CarVoyance
             <br /> is ready!
           </h1>
+
           <p className="mt-3 font-inter text-base text-center lg:text-left text-[#2B2B2B]">
             Sign up to join our waitlist and get{" "}
             <br className="block lg:hidden" /> notified as soon as we go live!
           </p>
 
-          <div className="flex flex-col lg:flex-row justify-start mt-7 gap-2">
-            <Input
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="!w-[80vw] h-[5vh] lg:!w-[400px]"
-              autoComplete="email"
-              inputMode="email"
-            />
+          {/*  */}
+          <div className="flex justify-between w-full lg:w-[65%] border-2 border-[#292929] rounded-full  mt-4 transition-all">
+            <button
+              onClick={() => setIsMailForm(false)}
+              className={`w-full px-4 py-2 rounded-full text-sm font-medium font-inter transition-all duration-200 ${
+                !isMailForm
+                  ? "bg-[#292929] text-white"
+                  : "bg-transparent text-[#292929]"
+              }`}
+            >
+              Phone
+            </button>
+            <button
+              onClick={() => setIsMailForm(true)}
+              className={`w-full px-4 py-1 rounded-full text-sm font-medium font-inter transition-all duration-200 ${
+                isMailForm
+                  ? "bg-[#292929] text-white"
+                  : "bg-transparent text-[#292929]"
+              }`}
+            >
+              Email
+            </button>
+          </div>
+
+          <div className="flex flex-col justify-start mt-7 gap-2">
+            {isMailForm ? (
+              <Input
+                label="Email"
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="!w-[80vw] h-[5vh] lg:!w-[400px]"
+                autoComplete="email"
+                inputMode="email"
+              />
+            ) : (
+              <>
+                <PhoneInput
+                  label="Phone"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  className="!w-[80vw] h-[5vh] lg:!w-[400px]"
+                  icon={<Phone size={16} />}
+                  iconPosition="left"
+                />
+                <label className="text-sm flex items-start gap-2 mt-2 max-w-[400px]">
+                  <input
+                    type="checkbox"
+                    checked={isPhoneConsentChecked}
+                    onChange={(e) => setIsPhoneConsentChecked(e.target.checked)}
+                    className="mt-1"
+                  />
+                  <span>
+                    By submitting your phone number, you agree to receive SMS
+                    updates from CarVoyance. Message & data rates may apply.
+                  </span>
+                </label>
+              </>
+            )}
+
             <Button
               variant="primary"
               size="md"
-              className="px-10 w-full py-3 lg:w-[200px]"
-              onClick={handleSubmit}
+              className="px-10 w-full py-3 "
+              onClick={() => handleSubmit(isMailForm, isPhoneConsentChecked)}
             >
-              Notify Me
+              Submit
             </Button>
           </div>
         </div>
