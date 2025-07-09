@@ -2,46 +2,100 @@ import { useState } from "react";
 import { NotificationService } from "@/shared/lib/NotificationService";
 import { isValidEmail } from "./isValidMail";
 
+const normalizePhone = (phone: string, withPlus: boolean = true) => {
+  const digits = phone.replace(/\D/g, "");
+  return withPlus ? `+${digits}` : digits;
+};
+
 export const useWaitlist = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [code, setCode] = useState("");
+  const [isCodeSent, setIsCodeSent] = useState(false);
+  const [isVerified, setIsVerified] = useState(false);
 
   const handleSubmit = async (
     isEmailForm: boolean,
     isPhoneConsentChecked?: boolean
   ) => {
-    let trimmed = isEmailForm ? email.trim() : phone.trim();
-    if (!isEmailForm && trimmed.startsWith("+")) {
-      trimmed = trimmed.slice(1);
+    const trimmed = isEmailForm ? email.trim() : phone.trim();
+
+    if (isEmailForm) {
+      if (!isValidEmail(trimmed)) {
+        NotificationService.error("Please enter a valid email address.");
+        return;
+      }
+      return await submitToBackend({ email: trimmed });
     }
 
-    if (isEmailForm && !isValidEmail(trimmed)) {
-      NotificationService.error("Please enter a valid email address.");
+    const plainPhone = normalizePhone(trimmed, false);
+    const plusPhone = normalizePhone(trimmed, true);
+
+    if (plainPhone.length < 10) {
+      NotificationService.error("Please enter a valid phone number.");
       return;
     }
 
-    if (!isEmailForm) {
-      if (trimmed.length < 8) {
-        NotificationService.error("Please enter a valid phone number.");
-        return;
-      }
-      if (!isPhoneConsentChecked) {
-        NotificationService.error("You must agree to receive SMS updates.");
-        return;
-      }
+    if (!isPhoneConsentChecked) {
+      NotificationService.error("You must agree to receive SMS updates.");
+      return;
     }
 
+    NotificationService.loading("Sending code...");
+    const res = await fetch("/api/verify", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ phone: plusPhone }),
+    });
+
+    NotificationService.dismiss();
+
+    if (res.ok) {
+      setIsCodeSent(true);
+      NotificationService.success("Code sent! Check your SMS.");
+    } else {
+      NotificationService.error("Failed to send verification code.");
+    }
+  };
+
+  const verifyCode = async () => {
+    const trimmed = phone.trim();
+    const plusPhone = normalizePhone(trimmed, true);
+    const plainPhone = normalizePhone(trimmed, false);
+
+    NotificationService.loading("Verifying code...");
+
+    const res = await fetch("/api/check", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ phone: plusPhone, code }),
+    });
+
+    NotificationService.dismiss();
+
+    if (res.ok) {
+      await submitToBackend({ phone: plainPhone });
+      setIsVerified(true);
+      setPhone("");
+      setCode("");
+      setIsCodeSent(false);
+      NotificationService.success("Phone number verified! 🎉");
+    } else {
+      NotificationService.error("Invalid code. Please try again.");
+    }
+  };
+
+  const submitToBackend = async (payload: {
+    phone?: string;
+    email?: string;
+  }) => {
     try {
-      NotificationService.loading("Sending...");
+      NotificationService.loading("Subscribing...");
 
       const res = await fetch("/api/subscribe", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(
-          isEmailForm ? { email: trimmed } : { phone: trimmed }
-        ),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
       });
 
       const data = await res.json();
@@ -49,17 +103,29 @@ export const useWaitlist = () => {
 
       if (res.ok) {
         NotificationService.success("You’ve successfully subscribed! 🎉");
-        if (isEmailForm) setEmail("");
-        else setPhone("");
+        setEmail("");
+        return true;
       } else {
         NotificationService.error(data.message || "Something went wrong.");
+        return false;
       }
     } catch (error) {
-      console.error(error);
       NotificationService.dismiss();
       NotificationService.error("Network error. Please try again later.");
+      return false;
     }
   };
 
-  return { email, setEmail, phone, setPhone, handleSubmit };
+  return {
+    email,
+    setEmail,
+    phone,
+    setPhone,
+    code,
+    setCode,
+    isCodeSent,
+    isVerified,
+    handleSubmit,
+    verifyCode,
+  };
 };

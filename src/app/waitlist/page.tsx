@@ -16,7 +16,18 @@ import ContactSwitcher from "./ContactSwitcher";
 import { PhoneInput } from "./PhoneInput";
 
 export default function WaitlistPage() {
-  const { email, setEmail, phone, setPhone, handleSubmit } = useWaitlist();
+  const {
+    email,
+    setEmail,
+    phone,
+    setPhone,
+    handleSubmit,
+    code,
+    setCode,
+    isCodeSent,
+    isVerified,
+    verifyCode,
+  } = useWaitlist();
   const [method, setMethod] = useState<"phone" | "email">("phone");
   const [isPhoneConsentChecked, setIsPhoneConsentChecked] = useState(false);
 
@@ -144,6 +155,77 @@ export default function WaitlistPage() {
               </>
             )}
 
+            {isCodeSent && !isVerified && (
+              <>
+                <Input
+                  label="Enter verification code"
+                  type="text"
+                  placeholder="123456"
+                  value={code}
+                  onChange={(e) => setCode(e.target.value)}
+                  className="!w-[80vw] h-[5vh] lg:!w-[400px]"
+                  inputMode="numeric"
+                />
+                <Button
+                  variant="secondary"
+                  size="md"
+                  className="px-10 w-full py-3"
+                  onClick={verifyCode}
+                >
+                  Verify Code
+                </Button>
+              </>
+            )}
+
+            {!isCodeSent && (
+              <Button
+                variant="primary"
+                size="md"
+                className="px-10 w-full py-3"
+                onClick={() => handleSubmit(isMailForm, isPhoneConsentChecked)}
+              >
+                Submit
+              </Button>
+            )}
+          </div>
+
+          {/* <div className="flex flex-col justify-start mt-7 gap-2">
+            {isMailForm ? (
+              <Input
+                label="Email"
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="!w-[80vw] h-[5vh] lg:!w-[400px]"
+                autoComplete="email"
+                inputMode="email"
+              />
+            ) : (
+              <>
+                <PhoneInput
+                  label="Phone"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  className="!w-[80vw] h-[5vh] lg:!w-[400px]"
+                  icon={<Phone size={16} />}
+                  iconPosition="left"
+                />
+                <label className="text-sm flex items-start gap-2 mt-2 max-w-[400px]">
+                  <input
+                    type="checkbox"
+                    checked={isPhoneConsentChecked}
+                    onChange={(e) => setIsPhoneConsentChecked(e.target.checked)}
+                    className="mt-1"
+                  />
+                  <span>
+                    By submitting your phone number, you agree to receive SMS
+                    updates from CarVoyance. Message & data rates may apply.
+                  </span>
+                </label>
+              </>
+            )}
+
             <Button
               variant="primary"
               size="md"
@@ -152,7 +234,7 @@ export default function WaitlistPage() {
             >
               Submit
             </Button>
-          </div>
+          </div> */}
         </div>
         <div className="relative flex justify-end items-center lg:flex-1">
           <Image
