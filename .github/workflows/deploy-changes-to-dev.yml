@@ -46,6 +46,7 @@ jobs:
 
         ssh -o StrictHostKeyChecking=no -i ../id_ed25519 ubuntu@${{ env.PUBLIC_IP }} << 'EOF'
         cd ~/${{ env.REPO_NAME }}
+        echo "${{ env.ENV }}" > .env
         # git fetch origin
         # git reset --hard origin/main
         # git checkout dev
