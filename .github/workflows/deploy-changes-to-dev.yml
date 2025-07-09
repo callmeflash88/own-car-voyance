@@ -46,11 +46,11 @@ jobs:
 
         ssh -o StrictHostKeyChecking=no -i ../id_ed25519 ubuntu@${{ env.PUBLIC_IP }} << 'EOF'
         cd ~/${{ env.REPO_NAME }}
-        echo "${{ env.ENV }}" > .env
         # git fetch origin
         # git reset --hard origin/main
         # git checkout dev
         git pull
+        echo "${{ env.ENV }}" > .env
         docker compose down
         docker system prune -af && docker builder prune --all --force
         docker compose up -d --build
