@@ -54,9 +54,9 @@ export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
               : "border-gray-300 focus-within:ring-2 focus-within:ring-blue-500"
           )}
         >
-          {icon && iconPosition === "left" && (
+          {/* {icon && iconPosition === "left" && (
             <div className="mr-2 text-gray-500">{icon}</div>
-          )}
+          )} */}
 
           <input
             ref={(el) => {
