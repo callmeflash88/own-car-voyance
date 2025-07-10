@@ -90,7 +90,7 @@ export const Footer = () => {
   return (
     <footer className="w-full mt-20 mb-10">
       <div className="px-40 flex flex-col gap-10">
-        <div className="w-full flex justify-between items-start border-b-[1px] border-[#555454] pb-20">
+        <div className="w-full flex justify-between items-start border-b-[1px]  pb-20">
           <div className="flex flex-col">
             <h4 className="font-inter font-bold text-[15px] leading-none tracking-[0px] uppercase">
               For Buyers
@@ -154,14 +154,14 @@ export const Footer = () => {
             <p>© 2025 CarVoyance. All Rights Reserved. </p>
           </div>
           <div className="flex gap-5">
-            <div className="p-2 rounded-full border-[1px] border-[#2B2B2B]">
-              <Facebook fill="#2B2B2B" />
+            <div className="p-3 rounded-full border-[1px] border-[#2B2B2B]">
+              <Facebook fill="#2B2B2B" size={15} />
             </div>
-            <div className="p-2 rounded-full border-[1px] border-[#2B2B2B]">
-              <Linkedin fill="#2B2B2B" />
+            <div className="p-3 rounded-full border-[1px] border-[#2B2B2B]">
+              <Linkedin fill="#2B2B2B" size={15} />
             </div>
-            <div className="p-2 rounded-full border-[1px] border-[#2B2B2B]">
-              <Twitter fill="#2B2B2B" />
+            <div className="p-3 rounded-full border-[1px] border-[#2B2B2B]">
+              <Twitter fill="#2B2B2B" size={15} />
             </div>
           </div>
         </div>

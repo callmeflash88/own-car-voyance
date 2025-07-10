@@ -65,7 +65,7 @@ export const FilterForm = () => {
             onChange={handleChange("distance")}
           />
           <Input
-            placeholder="Location"
+            placeholder="Zip"
             value={formState.location}
             onChange={(e) => handleChange("location")(e.target.value)}
           />

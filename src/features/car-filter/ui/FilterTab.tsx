@@ -9,7 +9,7 @@ type FilterTabProps = {
 
 const TABS = [
   { value: "shop", label: "Shop cars" },
-  { value: "sell", label: "Sell your car" },
+  // { value: "sell", label: "Sell your car" },
 ] as const;
 
 export const FilterTab = ({ tab, onSwitch }: FilterTabProps) => {

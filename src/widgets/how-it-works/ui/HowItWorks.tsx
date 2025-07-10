@@ -28,7 +28,7 @@ export const HowItWorks = () => {
         <div className="flex flex-wrap w-1/2">
           <div className="w-1/2 flex flex-col gap-3 items-start">
             <Image src={firstCard} alt="how it works" />
-            <p className="font-inter font-medium text-[20px] leading-[26px] tracking-normal align-middle capitalize">
+            <p className="font-inter font-semibold text-[20px] leading-[26px] tracking-normal align-middle capitalize">
               Enter VIN or Browse Cars
             </p>
             <p className="font-inter font-normal text-[16px] leading-[27px] tracking-normal align-middle">
@@ -40,7 +40,7 @@ export const HowItWorks = () => {
           </div>
           <div className="w-1/2 flex flex-col gap-3 items-start">
             <Image src={secondCard} alt="how it works" />
-            <p className="font-inter font-medium text-[20px] leading-[26px] tracking-normal align-middle capitalize">
+            <p className="font-inter font-semibold text-[20px] leading-[26px] tracking-normal align-middle capitalize">
               Review Car Details
             </p>
             <p className="font-inter font-normal text-[16px] leading-[27px] tracking-normal align-middle">
@@ -51,7 +51,7 @@ export const HowItWorks = () => {
           </div>
           <div className="w-1/2 flex flex-col gap-3 items-start">
             <Image src={thirdCard} alt="how it works" />
-            <p className="font-inter font-medium text-[20px] leading-[26px] tracking-normal align-middle capitalize">
+            <p className="font-inter font-semibold text-[20px] leading-[26px] tracking-normal align-middle capitalize">
               Contact the Seller
             </p>
             <p className="font-inter font-normal text-[16px] leading-[27px] tracking-normal align-middle">
@@ -62,7 +62,7 @@ export const HowItWorks = () => {
           </div>
           <div className="w-1/2 flex flex-col gap-3 items-start">
             <Image src={fourhCard} alt="how it works" />
-            <p className="font-inter font-medium text-[20px] leading-[26px] tracking-normal align-middle capitalize">
+            <p className="font-inter font-semibold text-[20px] leading-[26px] tracking-normal align-middle capitalize">
               Buy or Sell With Confidence
             </p>
             <p className="font-inter font-normal text-[16px] leading-[27px] tracking-normal align-middle">

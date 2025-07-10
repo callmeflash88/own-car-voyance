@@ -17,7 +17,8 @@ export const HeroSection = () => {
         </h1>
         <p className="text-lg">
           CarVoyance unifies the fragmented car buying experience into a single
-          ecosystem, making it simpler, safer, and more transparent.
+          ecosystem,
+          <br /> making it simpler, safer, and more transparent.
         </p>
       </div>
       <div className="w-full flex justify-center mt-7">

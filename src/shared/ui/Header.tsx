@@ -24,8 +24,8 @@ export const Header = () => {
           <ul className="flex gap-8 justify-center items-center">
             <li className="cursor-pointer">Buy</li>
             <li className="cursor-pointer">Sell</li>
-            <li className="cursor-pointer">Insurance</li>
-            <li className="cursor-pointer">Vin Vault</li>
+            {/* <li className="cursor-pointer">Insurance</li>
+            <li className="cursor-pointer">Vin Vault</li> */}
           </ul>
         </nav>
         <div className="flex items-center justify-center gap-5">
