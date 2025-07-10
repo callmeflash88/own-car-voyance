@@ -6,7 +6,7 @@ import { addAccessToken, updateAccessToken } from "./interceptors";
 export const instance = axios.create({
   // baseURL: process.env.REACT_APP_API_URL,
   // baseURL: "https://app-api.carvoyance.com/",
-  baseURL: "http://app-api.carvoyance.com/",
+  baseURL: "https://app-api.carvoyance.com/",
 });
 
 // const RETRY_COUNT = 3;
