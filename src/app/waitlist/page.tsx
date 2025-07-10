@@ -44,7 +44,7 @@ export default function WaitlistPage() {
         <Image
           src={waitListLogo}
           alt="logo"
-          className="max-w-none !w-[400px] lg:w-[100px]"
+          className="max-w-none !w-[240px] lg:w-[100px]"
         />
         <div className="hidden gap-4 lg:flex">
           <a
@@ -95,7 +95,7 @@ export default function WaitlistPage() {
           </p>
 
           {/*  */}
-          <div className="flex justify-between w-full lg:w-[65%] border-2 border-[#292929] rounded-full  mt-4 transition-all">
+          <div className="w-full max-w-[500px] border-2 border-[#292929] rounded-full mt-4 flex justify-between transition-all">
             <button
               onClick={() => setIsMailForm(false)}
               className={`w-full px-4 py-2 rounded-full text-sm font-medium font-inter transition-all duration-200 ${
@@ -121,33 +121,33 @@ export default function WaitlistPage() {
           <div className="flex flex-col justify-start mt-7 gap-2">
             {isMailForm ? (
               <Input
-                label="Email"
+                label="Stay Updated Via mail"
                 type="email"
                 placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="!w-[80vw] h-[5vh] lg:!w-[400px]"
+                className="!w-[80vw]  lg:!w-[470px]"
                 autoComplete="email"
                 inputMode="email"
               />
             ) : (
               <>
                 <PhoneInput
-                  label="Phone"
+                  label="Stay Updated Via Phone"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="!w-[80vw] h-[5vh] lg:!w-[400px]"
+                  className=""
                   icon={<Phone size={16} />}
                   iconPosition="left"
                 />
-                <label className="text-sm flex items-start gap-2 mt-2 max-w-[400px]">
+                <label className="text-sm flex items-start gap-2 mt-2 w-[500px]">
                   <input
                     type="checkbox"
                     checked={isPhoneConsentChecked}
                     onChange={(e) => setIsPhoneConsentChecked(e.target.checked)}
                     className="mt-1"
                   />
-                  <span>
+                  <span className="text-[#2B2B2B80]">
                     By submitting your phone number, you agree to receive SMS
                     updates from CarVoyance. Message & data rates may apply.
                   </span>
@@ -188,53 +188,6 @@ export default function WaitlistPage() {
               </Button>
             )}
           </div>
-
-          {/* <div className="flex flex-col justify-start mt-7 gap-2">
-            {isMailForm ? (
-              <Input
-                label="Email"
-                type="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="!w-[80vw] h-[5vh] lg:!w-[400px]"
-                autoComplete="email"
-                inputMode="email"
-              />
-            ) : (
-              <>
-                <PhoneInput
-                  label="Phone"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  className="!w-[80vw] h-[5vh] lg:!w-[400px]"
-                  icon={<Phone size={16} />}
-                  iconPosition="left"
-                />
-                <label className="text-sm flex items-start gap-2 mt-2 max-w-[400px]">
-                  <input
-                    type="checkbox"
-                    checked={isPhoneConsentChecked}
-                    onChange={(e) => setIsPhoneConsentChecked(e.target.checked)}
-                    className="mt-1"
-                  />
-                  <span>
-                    By submitting your phone number, you agree to receive SMS
-                    updates from CarVoyance. Message & data rates may apply.
-                  </span>
-                </label>
-              </>
-            )}
-
-            <Button
-              variant="primary"
-              size="md"
-              className="px-10 w-full py-3 "
-              onClick={() => handleSubmit(isMailForm, isPhoneConsentChecked)}
-            >
-              Submit
-            </Button>
-          </div> */}
         </div>
         <div className="relative flex justify-end items-center lg:flex-1">
           <Image

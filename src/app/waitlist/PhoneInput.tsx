@@ -31,10 +31,9 @@ export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
 
     useEffect(() => {
       if (inputRef.current) {
-        const maskOptions = {
+        const mask = IMask(inputRef.current, {
           mask: "+1 (000) 000-0000",
-        };
-        const mask = IMask(inputRef.current, maskOptions);
+        });
 
         return () => mask.destroy();
       }
@@ -70,7 +69,7 @@ export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
             }}
             type="tel"
             placeholder={placeholder}
-            defaultValue={value as string}
+            value={value}
             onChange={onChange}
             className={clsx(
               "w-full bg-transparent outline-none placeholder-gray-400",
