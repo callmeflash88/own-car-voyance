@@ -42,12 +42,29 @@ export const REGISTER_FORM_FIELDS = [
   },
 ];
 
-const registerSchema = z.object({
-  full_name: z.string(),
-  email: z.string().email(),
-  password: z.string(),
-  confirm_password: z.string(),
-});
+const registerSchema = z
+  .object({
+    full_name: z.string().min(2, "Full name must be at least 2 characters"),
+    email: z.string().email("Please enter a valid email address"),
+    password: z
+      .string()
+      .min(8, "Password must be at least 8 characters long")
+      .regex(/[A-Z]/, "Password must include at least one uppercase letter")
+      .regex(/[a-z]/, "Password must include at least one lowercase letter")
+      .regex(/[0-9]/, "Password must include at least one number")
+      .regex(
+        /[^a-zA-Z0-9]/,
+        "Password must include at least one special character"
+      ),
+    confirm_password: z.string(),
+    terms: z.literal(true, {
+      errorMap: () => ({ message: "You must agree to the Terms & Conditions" }),
+    }),
+  })
+  .refine((data) => data.password === data.confirm_password, {
+    message: "Passwords do not match",
+    path: ["confirm_password"],
+  });
 
 export type RegisterSchema = z.infer<typeof registerSchema>;
 
@@ -62,6 +79,7 @@ export const useRegisterForm = () => {
       password: "",
       confirm_password: "",
     },
+    mode: "onSubmit",
   });
 
   return {

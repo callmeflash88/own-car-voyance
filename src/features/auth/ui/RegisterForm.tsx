@@ -1,4 +1,5 @@
-import { Car, Eye } from "lucide-react";
+"use client";
+
 import { FormProvider } from "react-hook-form";
 import {
   REGISTER_FORM_FIELDS,
@@ -10,44 +11,81 @@ import { Button } from "@/shared/ui";
 import { AuthGoogleButton } from "@/features/auth-google-button/ui";
 import { useAuthFlow } from "../model/AuthFlowContext";
 import { NotificationService } from "@/shared/lib/NotificationService";
+import { CircleAlert } from "lucide-react";
 
 type RegisterFormProps = {
   onSwitch?: () => void;
 };
 
 export const RegisterForm = ({ onSwitch }: RegisterFormProps) => {
-  const { form, register, isLoading, error } = useRegisterForm();
+  const { form, register, isLoading } = useRegisterForm();
   const { setStep } = useAuthFlow();
+  const { errors } = form.formState;
 
   const handleSubmit = async (data: any) => {
     const fullData = {
       ...data,
       role: 1,
     };
-    await register(fullData);
-    NotificationService.success("Registration successful!");
-    setStep("login");
-    form.reset();
+
+    try {
+      await register(fullData).unwrap();
+      NotificationService.success("Registration successful!");
+      setStep("login");
+      form.reset();
+    } catch (err: any) {
+      const message =
+        err?.data?.message ||
+        err?.error ||
+        "Registration failed. Please try again.";
+
+      NotificationService.error(message);
+    }
   };
+
   return (
     <div className="flex flex-col justify-center">
       <h1 className="font-inter font-semibold text-[40px] leading-[54px] tracking-normal">
         Sign Up
       </h1>
-      <p className="mt-2 font-inter font-normal text-base leading-tight tracking-normal text-[#2B2B2B80]">
+      <p className="mt-2 font-inter text-base text-[#2B2B2B80]">
         Join us and start exploring smarter car deals
       </p>
+
       <FormProvider {...form}>
         <form onSubmit={form.handleSubmit(handleSubmit)} className="mt-10">
-          <div className="flex flex-col ">
+          {Object.keys(errors).length > 0 && (
+            <div className=" text-red-600 p-3 rounded mb-4 text-sm space-y-1">
+              {Object.values(errors).map((error, index) => (
+                <div key={index} className="flex items-center gap-2">
+                  <CircleAlert size={16} />
+                  {error?.message?.toString()}
+                </div>
+              ))}
+            </div>
+          )}
+
+          <div className="flex flex-col">
             <RenderFormFields fields={REGISTER_FORM_FIELDS} />
           </div>
+
           <div className="flex items-center gap-2 mt-5">
-            <Checkbox />
-            <span className="font-inter font-normal text-sm leading-tight tracking-normal">
+            <input
+              type="checkbox"
+              id="terms"
+              {...form.register("terms")}
+              className="w-4 h-4"
+            />
+            <label htmlFor="terms" className="text-sm">
               I agree to the Terms & Conditions
-            </span>
+            </label>
           </div>
+          {errors.terms && (
+            <p className="text-sm text-red-600 mt-1 flex items-center gap-1">
+              <CircleAlert size={16} />
+              {errors.terms.message?.toString()}
+            </p>
+          )}
 
           <Button
             variant="primary"
@@ -58,11 +96,13 @@ export const RegisterForm = ({ onSwitch }: RegisterFormProps) => {
           >
             <span>Sign Up</span>
           </Button>
+
           <AuthGoogleButton />
-          <p className="font-inter font-normal text-sm leading-relaxed tracking-normal text-center mt-5">
+
+          <p className="text-sm text-center mt-5">
             Already have an account?{" "}
             <span
-              className="text-[#4E17E5] font-[400]"
+              className="text-[#4E17E5] cursor-pointer"
               onClick={() => setStep("login")}
             >
               Sign in
