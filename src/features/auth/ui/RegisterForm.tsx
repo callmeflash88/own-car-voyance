@@ -9,6 +9,7 @@ import { Checkbox } from "@/shared/ui/checkbox";
 import { Button } from "@/shared/ui";
 import { AuthGoogleButton } from "@/features/auth-google-button/ui";
 import { useAuthFlow } from "../model/AuthFlowContext";
+import { NotificationService } from "@/shared/lib/NotificationService";
 
 type RegisterFormProps = {
   onSwitch?: () => void;
@@ -24,6 +25,7 @@ export const RegisterForm = ({ onSwitch }: RegisterFormProps) => {
       role: 1,
     };
     await register(fullData);
+    NotificationService.success("Registration successful!");
     setStep("login");
     form.reset();
   };
