@@ -89,8 +89,38 @@ const talkToUs = [
 export const Footer = () => {
   return (
     <footer className="w-full mt-20 mb-10">
-      <div className="px-40 flex flex-col gap-10">
-        <div className="w-full flex justify-between items-start border-b-[1px]  pb-20">
+      <div className="px-2 lg:px-40 flex flex-col gap-10">
+        <div className="w-full flex justify-center items-center  lg:hidden">
+          <Image src={logo} alt="logo" width={250} />
+        </div>
+
+        <div className="w-full lg:hidden flex justify-center border-b-[1px] pb-20">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-10">
+            {[
+              { title: "For Buyers", links: forBuyersLinks },
+              { title: "For Seller", links: fontSellerLinks },
+              { title: "Company", links: companyLinks },
+              { title: "Talk to Us", links: talkToUs },
+            ].map(({ title, links }) => (
+              <div key={title} className="flex flex-col items-start">
+                <h4 className="font-inter font-bold text-[15px] leading-none tracking-[0px] uppercase">
+                  {title}
+                </h4>
+                <ul className="flex flex-col gap-2 mt-8">
+                  {links.map((link) => (
+                    <li key={link.name}>
+                      <a href={link.href} className="text-[#2B2B2B]">
+                        {link.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="lg:flex w-full hidden justify-between items-start border-b-[1px]  pb-20">
           <div className="flex flex-col">
             <h4 className="font-inter font-bold text-[15px] leading-none tracking-[0px] uppercase">
               For Buyers
@@ -148,8 +178,13 @@ export const Footer = () => {
             </ul>
           </div>
         </div>
-        <div className="w-full flex items-center justify-between">
-          <Image src={logo} alt="logo" width={200} />
+        <div className="w-full flex lg:flex-row flex-col-reverse gap-5 items-center justify-between">
+          <Image
+            src={logo}
+            alt="logo"
+            width={200}
+            className="hidden lg:block"
+          />
           <div>
             <p>© 2025 CarVoyance. All Rights Reserved. </p>
           </div>

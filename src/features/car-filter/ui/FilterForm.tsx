@@ -39,7 +39,7 @@ export const FilterForm = () => {
     <div className="w-[1200px] bg-white rounded-3xl flex flex-col py-6 px-8 shadow-md">
       <FilterTab tab={tab} onSwitch={setTab} />
       <form className="flex flex-col" onSubmit={handleSubmit}>
-        <div className="grid grid-cols-3 gap-5 mt-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mt-6">
           <Select
             placeholder="New/Used"
             options={options}
@@ -77,7 +77,12 @@ export const FilterForm = () => {
           />
         </div>
         <div className="mt-6">
-          <Button type="submit" variant="primary" size="md">
+          <Button
+            type="submit"
+            variant="primary"
+            size="md"
+            className="w-full lg:w-auto"
+          >
             Browse Cars
           </Button>
         </div>
