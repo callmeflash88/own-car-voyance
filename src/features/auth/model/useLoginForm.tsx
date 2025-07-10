@@ -39,8 +39,17 @@ export const LOGIN_FORM_FIELDS = [
 ];
 
 const loginSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(8),
+  email: z.string().email("Please enter a valid email address"),
+  password: z
+    .string()
+    .min(8, "Password must be at least 8 characters long")
+    .regex(/[A-Z]/, "Password must include at least one uppercase letter")
+    .regex(/[a-z]/, "Password must include at least one lowercase letter")
+    .regex(/[0-9]/, "Password must include at least one digit")
+    .regex(
+      /[^a-zA-Z0-9]/,
+      "Password must include at least one special character"
+    ),
 });
 
 export type LoginSchema = z.infer<typeof loginSchema>;
@@ -55,57 +64,28 @@ export const useLoginForm = () => {
       email: "",
       password: "",
     },
+    mode: "onSubmit",
   });
 
-  const [login, { isLoading, error }] = useLoginMutation();
+  const [login] = useLoginMutation();
 
   const handleSubmit = form.handleSubmit(async (data) => {
     try {
       const response = await login(data).unwrap();
-      console.log("Login success:", response);
       if (response.access_token && response.refresh_token) {
         Cookies.set(ACCESS_TOKEN, response.access_token);
         Cookies.set(AUTH_REFRESH_TOKEN, response.refresh_token);
         router.push("/");
       }
-    } catch (err) {
-      console.error("Login error:", err);
+    } catch (err: any) {
+      setServerError("Login failed: invalid email or password");
     }
   });
-
-  // const handleSubmit = form.handleSubmit(async (data) => {
-  //   try {
-  //     const res = await fetch("/api/login", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(data),
-  //     });
-
-  //     if (!res.ok) {
-  //       throw new Error("Login failed");
-  //     }
-
-  //     // Опціонально: можеш отримати success з відповіді, якщо треба
-  //     const result = await res.json();
-  //     if (result.success && result.access_token && result.refresh_token) {
-  //       Cookies.set(ACCESS_TOKEN, result.access_token);
-  //       Cookies.set(AUTH_REFRESH_TOKEN, result.refresh_token);
-
-  //       router.push("/");
-  //     } else {
-  //       throw new Error("Invalid response");
-  //     }
-  //   } catch (err) {
-  //     setServerError("Login failed");
-  //   }
-  // });
 
   return {
     form,
     handleSubmit,
-    isLoading: false, // бо ми вже не використовуємо RTK
+    isLoading: false,
     error: null,
     serverError,
   };

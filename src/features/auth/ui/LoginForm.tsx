@@ -1,7 +1,7 @@
 // src/features/auth/ui/LoginForm.tsx
 "use client";
 
-import { Button, Input } from "@/shared/ui";
+import { Button } from "@/shared/ui";
 import { FormProvider } from "react-hook-form";
 import { RenderFormFields } from "@/shared/ui/RenderFormFiled";
 import { Checkbox } from "@/shared/ui/checkbox";
@@ -10,13 +10,11 @@ import { useAuthFlow } from "../model/AuthFlowContext";
 import { useLoginForm, LOGIN_FORM_FIELDS } from "../model/useLoginForm";
 import { CircleAlert } from "lucide-react";
 
-type LoginFormProps = {
-  onSwitch?: () => void;
-};
-
-export const LoginForm = ({ onSwitch }: LoginFormProps) => {
+export const LoginForm = ({ onSwitch }: { onSwitch?: () => void }) => {
   const { form, handleSubmit, isLoading, serverError } = useLoginForm();
   const { setStep } = useAuthFlow();
+
+  const { errors } = form.formState;
 
   return (
     <div className="flex flex-col justify-center">
@@ -29,12 +27,23 @@ export const LoginForm = ({ onSwitch }: LoginFormProps) => {
 
       <FormProvider {...form}>
         <form onSubmit={handleSubmit} className="mt-10">
-          {serverError && (
-            <div className="text-red-600 text-sm mb-4 font-medium flex items-center gap-2">
-              <CircleAlert />
-              {serverError}
+          {(Object.keys(errors).length > 0 || serverError) && (
+            <div className=" text-red-600 p-3 rounded mb-4 text-sm space-y-1">
+              {serverError && (
+                <div className="flex items-center gap-2">
+                  <CircleAlert size={16} />
+                  {serverError}
+                </div>
+              )}
+              {Object.values(errors).map((error, index) => (
+                <div key={index} className="flex items-center gap-2">
+                  <CircleAlert size={16} />
+                  {error?.message?.toString()}
+                </div>
+              ))}
             </div>
           )}
+
           <div className="flex flex-col gap-2">
             <RenderFormFields fields={LOGIN_FORM_FIELDS} />
           </div>
@@ -42,12 +51,10 @@ export const LoginForm = ({ onSwitch }: LoginFormProps) => {
           <div className="flex justify-between mt-5">
             <div className="flex items-center gap-2">
               <Checkbox />
-              <span className="font-inter font-normal text-sm leading-tight tracking-normal">
-                Remember me
-              </span>
+              <span className="text-sm">Remember me</span>
             </div>
             <p
-              className="font-inter font-medium text-sm leading-tight tracking-normal text-[#4E17E5] cursor-pointer"
+              className="text-sm text-[#4E17E5] cursor-pointer"
               onClick={() => setStep("forgot")}
             >
               Forgot Password?
@@ -61,15 +68,15 @@ export const LoginForm = ({ onSwitch }: LoginFormProps) => {
             size="lg"
             className="w-full mt-10"
           >
-            <span>Sign In</span>
+            Sign In
           </Button>
 
           <AuthGoogleButton />
 
-          <p className="font-inter font-normal text-sm leading-relaxed tracking-normal text-center mt-5">
+          <p className="text-sm text-center mt-5">
             Don’t have an account?{" "}
             <span
-              className="text-[#4E17E5] font-[400] cursor-pointer"
+              className="text-[#4E17E5] cursor-pointer"
               onClick={() => setStep("register")}
             >
               Sign up
