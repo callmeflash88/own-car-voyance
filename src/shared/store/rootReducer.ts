@@ -10,6 +10,8 @@ import userSliceReducer from "@/entities/user/model/userSlice";
 import { userApi } from "@/entities/user/api/userApi";
 import { uploadApi } from "../api/uploadApi";
 import { userVehiclesApi } from "@/features/user-vehicles/api/userVehiclesApi";
+import { changePasswordApi } from "@/features/change-password/api/changePasswordApi";
+import { verifyEmailApi } from "@/features/email-verification/api/verifyEmailApi";
 
 export const rootReducer = combineReducers({
   auth: authReducer,
@@ -20,6 +22,8 @@ export const rootReducer = combineReducers({
   sort: sortViewSliceReducer,
   user: userSliceReducer,
   [authApi.reducerPath]: authApi.reducer,
+  [verifyEmailApi.reducerPath]: verifyEmailApi.reducer,
+  [changePasswordApi.reducerPath]: changePasswordApi.reducer,
   [userApi.reducerPath]: userApi.reducer,
   [uploadApi.reducerPath]: uploadApi.reducer,
   [userVehiclesApi.reducerPath]: userVehiclesApi.reducer,

@@ -47,8 +47,13 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
+    "/profile",
     "/profile/:path*",
+    "/profile-search",
+    // "/settings",
+    "/dashboard",
     "/dashboard/:path*",
+    "/orders",
     "/orders/:path*",
     "/login",
     "/sign-up",

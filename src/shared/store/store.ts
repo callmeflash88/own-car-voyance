@@ -4,6 +4,8 @@ import { authApi } from "@/features/auth/api/authApi";
 import { userApi } from "@/entities/user/api/userApi";
 import { uploadApi } from "../api/uploadApi";
 import { userVehiclesApi } from "@/features/user-vehicles/api/userVehiclesApi";
+import { changePasswordApi } from "@/features/change-password/api/changePasswordApi";
+import { verifyEmailApi } from "@/features/email-verification/api/verifyEmailApi";
 
 export const store = configureStore({
   reducer: rootReducer,
@@ -12,8 +14,10 @@ export const store = configureStore({
     getDefaultMiddleware().concat(
       authApi.middleware,
       userApi.middleware,
+      changePasswordApi.middleware,
       uploadApi.middleware,
-      userVehiclesApi.middleware
+      userVehiclesApi.middleware,
+      verifyEmailApi.middleware
     ),
 });
 
