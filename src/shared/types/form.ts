@@ -31,5 +31,5 @@ export interface IFormField {
 }
 
 export interface IRenderFormField extends IFormField {
-  component: FC<IFormField>;
+  component: FC<any>;
 }
