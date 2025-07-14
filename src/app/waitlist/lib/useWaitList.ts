@@ -7,6 +7,8 @@ const normalizePhone = (phone: string, withPlus: boolean = true) => {
   return withPlus ? `+${digits}` : digits;
 };
 
+const REGEX_PHONE = /^\+[1-9]\d{9,14}$/;
+
 export const useWaitlist = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -28,10 +30,9 @@ export const useWaitlist = () => {
       return await submitToBackend({ email: trimmed });
     }
 
-    const plainPhone = normalizePhone(trimmed, false);
     const plusPhone = normalizePhone(trimmed, true);
 
-    if (plainPhone.length < 10) {
+    if (!REGEX_PHONE.test(plusPhone)) {
       NotificationService.error("Please enter a valid phone number.");
       return;
     }
