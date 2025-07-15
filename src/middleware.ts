@@ -14,8 +14,12 @@ const isTokenExpired = (token?: string): boolean => {
 export function middleware(request: NextRequest) {
   const accessToken = request.cookies.get("access_token_carvoyance")?.value;
   const isExpired = isTokenExpired(accessToken);
+  const needsVerification =
+    request.cookies.get("register_verification")?.value === "false";
 
-  const { pathname } = request.nextUrl;
+  const { pathname, searchParams } = request.nextUrl;
+
+  // Защищённые страницы
   const protectedRoutes = [
     "/profile-search",
     "/profile",
@@ -27,19 +31,35 @@ export function middleware(request: NextRequest) {
     pathname.startsWith(route)
   );
 
-  // 🔴 Если роут защищенный и токена нет или он протух — редирект на /login
+  // ⛔️ Пользователь неавторизован — на login
   if (isProtected && (!accessToken || isExpired)) {
-    const loginUrl = new URL("/login", request.url);
-    return NextResponse.redirect(loginUrl);
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  const authPages = ["/login", "/sign-up"];
-  const isAuthPage = authPages.some((route) => pathname.startsWith(route));
+  // 🔁 Нужна верификация — направляем на login?step=verification-phone
+  if (isProtected && accessToken && !isExpired && needsVerification === true) {
+    const verifyUrl = new URL("/login", request.url);
+    verifyUrl.searchParams.set("step", "verification-phone");
+    return NextResponse.redirect(verifyUrl);
+  }
 
-  // 🔴 Если пытаемся попасть на /login или /sign-up с валидным токеном — редирект на /profile
-  if (isAuthPage && accessToken && !isExpired) {
-    const profileUrl = new URL("/profile", request.url);
-    return NextResponse.redirect(profileUrl);
+  // ✅ Уже на verification step — проверим, имеет ли право
+  if (
+    pathname === "/login" &&
+    searchParams.get("step") === "verification-phone"
+  ) {
+    if (!accessToken || isExpired || !needsVerification) {
+      return NextResponse.redirect(new URL("/login", request.url));
+    }
+    return NextResponse.next();
+  }
+
+  // 🔒 Авторизован, но на login или sign-up — редиректим на profile
+  const isAuthPage = ["/login", "/sign-up"].some((route) =>
+    pathname.startsWith(route)
+  );
+  if (isAuthPage && accessToken && !isExpired && !needsVerification) {
+    return NextResponse.redirect(new URL("/profile", request.url));
   }
 
   return NextResponse.next();
@@ -50,12 +70,13 @@ export const config = {
     "/profile",
     "/profile/:path*",
     "/profile-search",
-    // "/settings",
+    "/settings",
     "/dashboard",
     "/dashboard/:path*",
     "/orders",
     "/orders/:path*",
     "/login",
     "/sign-up",
+    "/verification",
   ],
 };

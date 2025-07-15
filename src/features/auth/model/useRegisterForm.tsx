@@ -3,6 +3,7 @@ import { useRegisterMutation } from "../api/authApi";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TextInput } from "@/shared/ui/FormField/TextInput";
+import { PhoneInputRH } from "@/shared/ui/PhoneInputRH";
 
 const LABEL_CLASSNAME = "font-bold text-gray-dark text-xl mt-2";
 const TEXT_INPUT_CLASSNAME = " py-0 ";
@@ -25,6 +26,16 @@ export const REGISTER_FORM_FIELDS = [
     fieldClassName: TEXT_INPUT_CLASSNAME,
   },
   {
+    name: "phone",
+    label: "Phone number",
+    placeholder: "+38 (___) ___-__-__",
+    required: true,
+    component: PhoneInputRH,
+    className: "w-full",
+    fieldClassName: "mt-1",
+    labelClassName: "text-sm font-medium text-gray-700",
+  },
+  {
     name: "password",
     label: "Password",
     placeholder: "",
@@ -41,11 +52,23 @@ export const REGISTER_FORM_FIELDS = [
     fieldClassName: TEXT_INPUT_CLASSNAME,
   },
 ];
+const REGEX_PHONE = /^\+[1-9]\d{9,14}$/;
+
+const normalizePhone = (phone: string): string => {
+  const digits = phone.replace(/\D/g, "");
+  return "+" + digits;
+};
 
 const registerSchema = z
   .object({
     full_name: z.string().min(2, "Full name must be at least 2 characters"),
     email: z.string().email("Please enter a valid email address"),
+    phone: z
+      .string()
+      .transform(normalizePhone) // 👈 очищает до проверки
+      .refine((val) => REGEX_PHONE.test(val), {
+        message: "Invalid phone number format",
+      }),
     password: z
       .string()
       .min(8, "Password must be at least 8 characters long")
@@ -76,6 +99,7 @@ export const useRegisterForm = () => {
     defaultValues: {
       full_name: "",
       email: "",
+      phone: "",
       password: "",
       confirm_password: "",
     },

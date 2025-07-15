@@ -22,9 +22,15 @@ export const RegisterForm = ({ onSwitch }: RegisterFormProps) => {
   const { setStep } = useAuthFlow();
   const { errors } = form.formState;
 
+  const normalizePhone = (phone: string): string =>
+    "+" + phone.replace(/\D/g, "");
+
   const handleSubmit = async (data: any) => {
+    const normalizedPhone = normalizePhone(data.phone);
+
     const fullData = {
       ...data,
+      phone: normalizedPhone,
       role: 1,
     };
 

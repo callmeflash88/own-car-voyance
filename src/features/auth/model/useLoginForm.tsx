@@ -15,6 +15,8 @@ import {
 } from "@/shared/constants/cookiesKeys";
 import { useAppDispatch } from "@/shared/lib/hooks";
 import { setAuth } from "./slice";
+import { useLazyGetUserQuery } from "@/entities/user/api/userApi";
+import { useAuthFlow } from "./AuthFlowContext";
 
 const LABEL_CLASSNAME = "font-bold text-gray-dark text-xl !mt-2";
 const TEXT_INPUT_CLASSNAME = " py-2 ";
@@ -57,6 +59,8 @@ export type LoginSchema = z.infer<typeof loginSchema>;
 export const useLoginForm = () => {
   const router = useRouter();
   const [serverError, setServerError] = useState<string | null>(null);
+  const [getProfile] = useLazyGetUserQuery();
+  const { setStep } = useAuthFlow();
 
   const form = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
@@ -72,10 +76,23 @@ export const useLoginForm = () => {
   const handleSubmit = form.handleSubmit(async (data) => {
     try {
       const response = await login(data).unwrap();
+
       if (response.access_token && response.refresh_token) {
         Cookies.set(ACCESS_TOKEN, response.access_token);
         Cookies.set(AUTH_REFRESH_TOKEN, response.refresh_token);
-        router.push("/");
+
+        const profile = await getProfile().unwrap();
+
+        Cookies.set(
+          "register_verification",
+          profile.register_verification.toString()
+        );
+
+        if (profile.register_verification === false) {
+          router.push("/login?step=verification-phone");
+        } else {
+          router.push("/");
+        }
       }
     } catch (err: any) {
       setServerError("Login failed: invalid email or password");

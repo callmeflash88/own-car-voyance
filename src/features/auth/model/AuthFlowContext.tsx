@@ -2,7 +2,13 @@
 
 import { createContext, useContext, useState } from "react";
 
-type AuthStep = "login" | "register" | "forgot" | "otp" | "create";
+type AuthStep =
+  | "login"
+  | "register"
+  | "forgot"
+  | "otp"
+  | "create"
+  | "verification-phone";
 
 interface AuthFlowContextType {
   step: AuthStep;

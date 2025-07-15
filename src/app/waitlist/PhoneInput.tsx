@@ -12,6 +12,8 @@ interface PhoneInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   iconPosition?: "left" | "right";
 }
 
+const MASK_TEMPLATE = "+38 (000) 000-00-00"; // 💡 Замените маску здесь при необходимости
+
 export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
   (
     {
@@ -22,7 +24,7 @@ export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
       className,
       value,
       onChange,
-      placeholder = "+1 (___) ___-____",
+      placeholder = MASK_TEMPLATE,
       ...props
     },
     ref
@@ -31,11 +33,7 @@ export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
 
     useEffect(() => {
       if (inputRef.current) {
-        const maskOptions = {
-          mask: "+1 (000) 000-0000",
-        };
-        const mask = IMask(inputRef.current, maskOptions);
-
+        const mask = IMask(inputRef.current, { mask: MASK_TEMPLATE });
         return () => mask.destroy();
       }
     }, []);

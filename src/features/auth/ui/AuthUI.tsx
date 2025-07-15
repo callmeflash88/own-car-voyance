@@ -4,9 +4,20 @@ import { RegisterForm } from "./RegisterForm";
 import { ForgotPasswordForm } from "./ForgotPasswordForm";
 import { CheckOtpForm } from "./CheckOtpForm";
 import { CreatePasswordForm } from "./CreatePasswordForm";
+import { VaerificatePhone } from "./VaerificatePhone";
+import { useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 
 export const AuthUI = () => {
-  const { step } = useAuthFlow();
+  const { step, setStep } = useAuthFlow();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const queryStep = searchParams.get("step");
+    if (queryStep) {
+      setStep(queryStep as any);
+    }
+  }, [searchParams]);
 
   return (
     // FOR TEST
@@ -16,6 +27,7 @@ export const AuthUI = () => {
       {step === "forgot" && <ForgotPasswordForm />}
       {step === "otp" && <CheckOtpForm />}
       {step === "create" && <CreatePasswordForm />}
+      {step === "verification-phone" && <VaerificatePhone />}
     </div>
   );
 };
