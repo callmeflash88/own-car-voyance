@@ -7,6 +7,7 @@ export enum CarStatus {
 }
 
 export interface VehicleAd {
+  id?: number;
   make: string;
   model: string;
   year: number;
@@ -28,6 +29,11 @@ export interface VehicleAd {
   status: CarStatus;
 }
 
+interface GetMyCarResponse {
+  data: VehicleAd[];
+  pagination: any;
+}
+
 export const carApi = createApi({
   reducerPath: "carApi",
   baseQuery: axiosBaseQuery(),
@@ -39,7 +45,32 @@ export const carApi = createApi({
         body: data,
       }),
     }),
+    getMyCars: builder.query<GetMyCarResponse, void>({
+      query: () => ({
+        url: "user/car/getMyCars",
+        method: "GET",
+      }),
+    }),
+    changeCarStatus: builder.mutation<any, { id: string; status: CarStatus }>({
+      query: (data) => ({
+        url: "user/car/changeMyCarStatus",
+        method: "POST",
+        body: data,
+      }),
+    }),
+    deleteMyCar: builder.mutation<any, string>({
+      query: (id) => ({
+        url: "user/car/deleteMyCar",
+        method: "POST",
+        body: { id },
+      }),
+    }),
   }),
 });
 
-export const { useCreateCarMutation } = carApi;
+export const {
+  useCreateCarMutation,
+  useGetMyCarsQuery,
+  useChangeCarStatusMutation,
+  useDeleteMyCarMutation,
+} = carApi;

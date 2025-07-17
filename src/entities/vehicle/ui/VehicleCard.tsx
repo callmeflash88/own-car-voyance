@@ -3,22 +3,33 @@ import card1 from "../../../../public/assets/images/car1.png";
 import Image from "next/image";
 import { ToggleFavorite } from "@/features/toggle-favorite/ui/ToggleFavorite";
 import { Vehicle } from "../model/types";
+import { VehicleAd } from "@/shared/api/carApi";
 
 interface Props {
-  vehicle: Vehicle;
+  vehicle: VehicleAd;
+  variant?: "default" | "owner";
+  actions?: React.ReactNode;
 }
 
-export const VehicleCard = ({ vehicle }: Props) => {
+export const VehicleCard = ({
+  vehicle,
+  variant = "default",
+  actions,
+}: Props) => {
   return (
     <div className="bg-white w-[100%] rounded-xl shadow-sm border border-[#e5e7eb] ">
       <div className="relative">
-        {/* <Image src={vehicle.image} alt="car" /> */}
         <Image src={card1} alt="car" className="w-full" />
-        <ToggleFavorite vehicleId="1" isFavorite={false} />
+        {/* {variant !== "owner" && (
+          <ToggleFavorite
+            vehicleId={vehicle.id}
+            isFavorite={vehicle.isFavorite}
+          />
+        )} LATER */}
       </div>
       <div className="p-5 flex flex-col">
         <h4 className="font-inter font-semibold text-[16px] leading-none tracking-normal">
-          {vehicle.title}
+          {vehicle.model}
         </h4>
         <span className="font-inter font-semibold text-[24px] leading-none tracking-normal mt-2">
           ${vehicle.price}
@@ -34,14 +45,19 @@ export const VehicleCard = ({ vehicle }: Props) => {
           </div>
           <div>
             <Fuel />
-            <span>{vehicle.fuel}</span>
+            <span>{vehicle.fuel_type}</span>
           </div>
           <div>
             <MapPin />
             <span>{vehicle.location}</span>
           </div>
         </div>
-        <p className="text-[#2B2B2B80] mt-5">{vehicle.date}</p>
+        {variant === "owner" && (
+          <div className="flex justify-between items-center mt-4 gap-2">
+            {actions}
+          </div>
+        )}
+        {/* <p className="text-[#2B2B2B80] mt-5">{vehicle.d}</p> LATER */}
       </div>
     </div>
   );

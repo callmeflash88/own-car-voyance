@@ -35,7 +35,7 @@ export const Sidebar = () => {
         <Link href="/profile-search" className={linkClass("/profile-search")}>
           <Search size={18} /> Search Auto
         </Link>
-        <Link href="/vehicles" className={linkClass("/profile-vehciles")}>
+        <Link href="/my-vehicles" className={linkClass("/my-vehicles")}>
           <Car size={18} /> My Vehicles
         </Link>
         <Link href="/messages" className={linkClass("/profile-messages")}>

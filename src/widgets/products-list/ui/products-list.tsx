@@ -11,9 +11,9 @@ export const ProductsList = async () => {
     //   ))}
     // </div>
     <div className="grid grid-cols-1  lg:grid-cols-3 gap-4">
-      {vehicles.map((vehicle) => (
+      {/* {vehicles.map((vehicle) => (
         <VehicleCard key={vehicle.id} vehicle={vehicle} />
-      ))}
+      ))} */}
     </div>
   );
 };

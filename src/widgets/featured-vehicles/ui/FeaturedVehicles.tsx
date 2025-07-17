@@ -22,9 +22,9 @@ export const FeaturedVehicles = async () => {
 
       {/* Список карточек */}
       <div className="w-full mt-10 flex flex-col lg:flex-row justify-between gap-4">
-        {vehicles.slice(0, 4).map((vehicle) => (
+        {/* {vehicles.slice(0, 4).map((vehicle) => (
           <VehicleCard key={vehicle.id} vehicle={vehicle} />
-        ))}
+        ))} LATER*/}
       </div>
 
       {/* View All button внизу */}
