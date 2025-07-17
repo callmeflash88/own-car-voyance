@@ -34,7 +34,6 @@ const CarDescription = () => (
       appreciate comfort, status, and reliability in one package.
     </p>
 
-    {/* Характеристики */}
     <div className="grid grid-cols-2 gap-y-6">
       <div className="font-inter font-medium text-base leading-none tracking-normal flex flex-col items-start justify-between gap-2">
         <strong className="text-[#2B2B2B4D] flex items-center gap-2 font-inter font-normal text-base leading-none tracking-normal">

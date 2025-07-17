@@ -13,6 +13,7 @@ import { userVehiclesApi } from "@/features/user-vehicles/api/userVehiclesApi";
 import { changePasswordApi } from "@/features/change-password/api/changePasswordApi";
 import { verifyEmailApi } from "@/features/email-verification/api/verifyEmailApi";
 import { verifyApi } from "@/features/auth/api/verifyApi";
+import { carApi } from "../api/carApi";
 
 export const rootReducer = combineReducers({
   auth: authReducer,
@@ -22,6 +23,7 @@ export const rootReducer = combineReducers({
   search: searchSliceReducer,
   sort: sortViewSliceReducer,
   user: userSliceReducer,
+  [carApi.reducerPath]: carApi.reducer,
   [authApi.reducerPath]: authApi.reducer,
   [verifyApi.reducerPath]: verifyApi.reducer,
   [verifyEmailApi.reducerPath]: verifyEmailApi.reducer,

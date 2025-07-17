@@ -1,8 +1,15 @@
+import {
+  CarStatus,
+  useCreateCarMutation,
+  VehicleAd,
+} from "@/shared/api/carApi";
+import { NotificationService } from "@/shared/lib/NotificationService";
 import { Select } from "@/shared/ui";
 import { RHSelect } from "@/shared/ui/FormField/RHSelect";
 import { TextInput } from "@/shared/ui/FormField/TextInput";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import { useForm, UseFormReturn } from "react-hook-form";
 import z from "zod";
 
 const LABEL_CLASSNAME = "font-bold text-gray-dark text-xl";
@@ -195,20 +202,108 @@ export const STEP_DETAILS_FORM_FIELDS = [
 
 const createAdSchema = z.object({
   make: z.string().min(1),
+  model: z.string().min(1),
+  year: z.string().min(1),
+  mileage: z.string().min(1),
+  price: z.string().min(1),
+  condition: z.string().min(1),
+  location: z.string().min(1),
+
+  body_style: z.string().min(1),
+  transmission: z.string().min(1),
+  exterior_color: z.string().min(1),
+  interior_color: z.string().min(1),
+  fuel_type: z.string().min(1),
+  drive_type: z.string().min(1),
+  engine: z.string().min(1),
+  number_of_seats: z.string().min(1),
+  description: z.string().optional(), // если не используете `register`, то не будет работать
 });
 
 export type CreateAdFormValues = z.infer<typeof createAdSchema>;
 
 export const useCreateAdForm = () => {
+  const [createAd, { isLoading }] = useCreateCarMutation();
   const form = useForm<CreateAdFormValues>({
     resolver: zodResolver(createAdSchema),
     defaultValues: {
       make: "",
+      model: "",
+      year: "",
+      mileage: "",
+      price: "",
+      condition: "",
+      location: "",
+      body_style: "",
+      transmission: "",
+      exterior_color: "",
+      interior_color: "",
+      fuel_type: "",
+      drive_type: "",
+      engine: "",
+      number_of_seats: "",
+      description: "",
     },
+    mode: "onChange",
+    shouldUnregister: false,
   });
+
+  const router = useRouter();
+
+  const handleSubmit = (
+    status: CarStatus,
+    uploadedPhotos: any[],
+    features: string[]
+  ) =>
+    form.handleSubmit(async (data) => {
+      const fullData: VehicleAd = {
+        ...data,
+        status,
+        description: data.description ?? "",
+        year: Number(data.year),
+        mileage: Number(data.mileage),
+        price: Number(data.price),
+        features: features,
+        images: uploadedPhotos.map((photo) => photo.url),
+      };
+
+      try {
+        await createAd(fullData).unwrap();
+        form.reset();
+        NotificationService.success("Ad created successfully");
+        router.push("/");
+      } catch (err) {
+        console.error("Create ad error:", err);
+        NotificationService.error("Failed to create ad");
+      }
+    });
 
   return {
     form,
+    handleSubmit,
     createAdSchema,
   };
+};
+
+export const STEP_FIELDS: Record<number, (keyof CreateAdFormValues)[]> = {
+  0: ["make", "model", "year", "mileage", "price", "condition", "location"],
+  1: [
+    "body_style",
+    "transmission",
+    "exterior_color",
+    "interior_color",
+    "fuel_type",
+    "drive_type",
+    "engine",
+    "number_of_seats",
+  ],
+};
+
+export const isCurrentStepValid = (
+  step: number,
+  form: UseFormReturn<CreateAdFormValues>
+) => {
+  const values = form.getValues();
+  const fieldsToCheck = STEP_FIELDS[step] || [];
+  return fieldsToCheck.every((field) => !!values[field]);
 };

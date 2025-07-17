@@ -1,18 +1,38 @@
 "use client";
-import { useCreateAdForm } from "@/features/create-ad/model/useCreateAdForm";
+import {
+  isCurrentStepValid,
+  STEP_FIELDS,
+  useCreateAdForm,
+} from "@/features/create-ad/model/useCreateAdForm";
 import { StepBasicInfo } from "@/features/create-ad/ui/StepBasicInfo";
 import { StepDetails } from "@/features/create-ad/ui/StepDetails";
+import { PreviewStep } from "@/features/create-ad/ui/StepPhotos&Preview";
+import { CarStatus } from "@/shared/api/carApi";
 import createAdBg from "@/shared/assets/bg/createAdBg.jpg";
 import { Button } from "@/shared/ui";
 import { Stepper } from "@/shared/ui/Stepper";
-import { useState } from "react";
-import { FormProvider } from "react-hook-form";
+import { useEffect, useState } from "react";
+import { FormProvider, useWatch } from "react-hook-form";
 
-const steps = [StepBasicInfo, StepDetails];
+const steps = [
+  StepBasicInfo,
+  (props: any) => <StepDetails {...props} />,
+  (props: any) => <PreviewStep {...props} />,
+];
 
 export default function CreateAdPage() {
   const [currentStep, setCurrentStep] = useState(0);
-  const { form } = useCreateAdForm();
+  const [uploadedPhotos, setUploadedPhotos] = useState<any[]>([]);
+  const [features, setFeatures] = useState<string[]>([]);
+  const { form, handleSubmit } = useCreateAdForm();
+  const { formState } = form;
+  const { isValid, errors } = formState;
+
+  const stepFields = STEP_FIELDS[currentStep] || [];
+  const watchedValues = useWatch({ control: form.control, name: stepFields });
+  const isStepValid =
+    watchedValues.length === stepFields.length &&
+    watchedValues.every((value) => !!value);
 
   const CurrentStepComponent = steps[currentStep];
 
@@ -32,10 +52,15 @@ export default function CreateAdPage() {
         </p>
       </section>
       <FormProvider {...form}>
-        <div className="px-56">
-          <form className="bg-white  rounded-2xl shadow w-full p-5">
+        <div className="px-72 mt-10">
+          <form className="bg-white  rounded-2xl shadow w-full px-20 py-16">
             <Stepper currentStep={currentStep} />
-            <CurrentStepComponent />
+            <CurrentStepComponent
+              features={features}
+              setFeatures={setFeatures}
+              uploadedPhotos={uploadedPhotos}
+              setUploadedPhotos={setUploadedPhotos}
+            />
             <div className="flex items-center justify-end mt-5 w-full">
               {currentStep > 0 && (
                 <Button
@@ -54,18 +79,33 @@ export default function CreateAdPage() {
                   size="lg"
                   type="button"
                   onClick={() => setCurrentStep(currentStep + 1)}
+                  disabled={!isStepValid}
                 >
                   Next Step
                 </Button>
               ) : (
-                <Button
-                  variant="primary"
-                  size="lg"
-                  type="button"
-                  onClick={() => {}}
-                >
-                  List my Vehicle
-                </Button>
+                <div className="flex gap-2">
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    type="button"
+                    onClick={() =>
+                      handleSubmit(CarStatus.DRAFT, uploadedPhotos, features)()
+                    }
+                  >
+                    Save as Draft
+                  </Button>
+                  <Button
+                    variant="primary"
+                    size="lg"
+                    type="button"
+                    onClick={() =>
+                      handleSubmit(CarStatus.ACTIVE, uploadedPhotos, features)()
+                    }
+                  >
+                    List my Vehicle
+                  </Button>
+                </div>
               )}
             </div>
           </form>

@@ -7,6 +7,7 @@ import { userVehiclesApi } from "@/features/user-vehicles/api/userVehiclesApi";
 import { changePasswordApi } from "@/features/change-password/api/changePasswordApi";
 import { verifyEmailApi } from "@/features/email-verification/api/verifyEmailApi";
 import { verifyApi } from "@/features/auth/api/verifyApi";
+import { carApi } from "../api/carApi";
 
 export const store = configureStore({
   reducer: rootReducer,
@@ -19,7 +20,8 @@ export const store = configureStore({
       changePasswordApi.middleware,
       uploadApi.middleware,
       userVehiclesApi.middleware,
-      verifyEmailApi.middleware
+      verifyEmailApi.middleware,
+      carApi.middleware
     ),
 });
 
