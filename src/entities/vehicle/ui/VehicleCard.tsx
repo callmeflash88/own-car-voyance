@@ -62,7 +62,7 @@ export const VehicleCard = ({
           </div>
         </div>
 
-        {variant === "owner" && actions && (
+        {actions && (
           <div className="flex justify-between items-center mt-4 gap-2">
             {actions}
           </div>

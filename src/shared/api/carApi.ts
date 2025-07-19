@@ -79,7 +79,7 @@ export const carApi = createApi({
         body: data,
       }),
     }),
-    getMyFavoriteCars: builder.query<any, void>({
+    getMyFavoriteCars: builder.query<GetMyCarResponse, void>({
       query: () => ({
         url: "user/favorite/myFavorites",
         method: "GET",
