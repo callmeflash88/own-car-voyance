@@ -38,7 +38,7 @@ export default function MyVehicles() {
       }).unwrap();
 
       NotificationService.success("Status updated successfully");
-      await refetch(); // ✅ обновляем список
+      await refetch();
     } catch (error) {
       NotificationService.error("Failed to update status");
     } finally {
@@ -51,7 +51,7 @@ export default function MyVehicles() {
     try {
       await deleteCar(String(id)).unwrap();
       NotificationService.success("Car deleted successfully");
-      await refetch(); // ✅ обновляем список
+      await refetch();
     } catch (error) {
       NotificationService.error("Failed to delete car");
     } finally {

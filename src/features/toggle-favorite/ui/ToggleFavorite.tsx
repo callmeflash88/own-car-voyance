@@ -1,19 +1,33 @@
 "use client";
 import { Heart } from "lucide-react";
 import { useState } from "react";
+import {
+  useAddToFavoriteMutation,
+  useDeleteFromFavoriteMutation,
+} from "@/shared/api/carApi";
 
 export const ToggleFavorite = ({
-  // vehicleId,
+  vehicleId,
   isFavorite,
 }: {
   vehicleId: string;
   isFavorite: boolean;
 }) => {
   const [liked, setLiked] = useState(isFavorite);
+  const [addToFavorite] = useAddToFavoriteMutation();
+  const [removeFromFavorite] = useDeleteFromFavoriteMutation();
 
-  const toggle = () => {
+  const toggle = async () => {
     setLiked(!liked);
-    // Здесь можно дернуть api/postFavorite(vehicleId)
+    try {
+      if (!liked) {
+        await addToFavorite(vehicleId);
+      } else {
+        await removeFromFavorite(vehicleId);
+      }
+    } catch (error) {
+      console.error("Ошибка при переключении избранного", error);
+    }
   };
 
   return (

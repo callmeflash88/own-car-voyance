@@ -14,6 +14,7 @@ import { changePasswordApi } from "@/features/change-password/api/changePassword
 import { verifyEmailApi } from "@/features/email-verification/api/verifyEmailApi";
 import { verifyApi } from "@/features/auth/api/verifyApi";
 import { carApi } from "../api/carApi";
+import { webSiteApi } from "../api/webSiteApi";
 
 export const rootReducer = combineReducers({
   auth: authReducer,
@@ -25,6 +26,7 @@ export const rootReducer = combineReducers({
   user: userSliceReducer,
   [carApi.reducerPath]: carApi.reducer,
   [authApi.reducerPath]: authApi.reducer,
+  [webSiteApi.reducerPath]: webSiteApi.reducer,
   [verifyApi.reducerPath]: verifyApi.reducer,
   [verifyEmailApi.reducerPath]: verifyEmailApi.reducer,
   [changePasswordApi.reducerPath]: changePasswordApi.reducer,

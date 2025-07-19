@@ -8,6 +8,7 @@ import { changePasswordApi } from "@/features/change-password/api/changePassword
 import { verifyEmailApi } from "@/features/email-verification/api/verifyEmailApi";
 import { verifyApi } from "@/features/auth/api/verifyApi";
 import { carApi } from "../api/carApi";
+import { webSiteApi } from "../api/webSiteApi";
 
 export const store = configureStore({
   reducer: rootReducer,
@@ -15,6 +16,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
       authApi.middleware,
+      webSiteApi.middleware,
       verifyApi.middleware,
       userApi.middleware,
       changePasswordApi.middleware,
