@@ -8,6 +8,7 @@ import { Fuel, Gauge, Heart, MapPin, Palette, Settings } from "lucide-react";
 import transmissionIcon from "../../../../public/assets/icons/transmissinIcon.svg";
 import Image from "next/image";
 import { MdOutlineAirlineSeatReclineNormal } from "react-icons/md";
+import { PhotoUploader } from "@/shared/ui/photo-uploader/ui/PhotoUploader";
 
 interface UploadedPhoto {
   id: number;
@@ -79,23 +80,13 @@ export const PreviewStep: FC<PreviewStepProps> = ({
   return (
     <div className="flex flex-col gap-2">
       <div className="flex flex-col">
-        <p className="font-inter font-medium text-base leading-normal tracking-normal">
+        {/* <p className="font-inter font-medium text-base leading-normal tracking-normal">
           Vehicle Photos (up to 10)
-        </p>
-        <div
-          {...getRootProps()}
-          className="border border-dashed border-gray-400 rounded-md p-6 text-center cursor-pointer min-h-[200px] flex flex-col justify-center items-center gap-2"
-        >
-          <input {...getInputProps()} />
-          <UploadIcon />
-          <p className="text-sm">
-            <span className="text-violet-600 font-medium">Link</span> or drag
-            image
-          </p>
-          <p className="text-xs text-gray-400">
-            SVG, PNG, JPG or GIF (max. 3MB)
-          </p>
-        </div>
+        </p> */}
+        <PhotoUploader
+          uploadedPhotos={uploadedPhotos}
+          setUploadedPhotos={setUploadedPhotos}
+        />
       </div>
 
       <div className="flex flex-col">

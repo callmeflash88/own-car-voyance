@@ -4,6 +4,7 @@ import Image from "next/image";
 import { ToggleFavorite } from "@/features/toggle-favorite/ui/ToggleFavorite";
 import { Vehicle } from "../model/types";
 import { VehicleAd } from "@/shared/api/carApi";
+import { EditButton } from "@/features/edit-vehicle-button/ui/EditButton";
 
 interface Props {
   vehicle: VehicleAd;
@@ -25,7 +26,10 @@ export const VehicleCard = ({
             vehicleId={vehicle.id}
             isFavorite={vehicle.isFavorite}
           />
-        )} LATER */}
+        )}  */}
+        {variant === "owner" && vehicle.id && (
+          <EditButton id={vehicle.id.toString()} />
+        )}
       </div>
       <div className="p-5 flex flex-col">
         <h4 className="font-inter font-semibold text-[16px] leading-none tracking-normal">

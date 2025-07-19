@@ -29,6 +29,29 @@ export interface VehicleAd {
   status: CarStatus;
 }
 
+export interface UpdateVehicleAd {
+  id: number;
+  make: string;
+  model: string;
+  year: number;
+  mileage: number;
+  price: number;
+  condition: string;
+  location: string;
+  body_style: string;
+  transmission: string;
+  exterior_color: string;
+  interior_color: string;
+  fuel_type: string;
+  drive_type: string;
+  engine: string;
+  number_of_seats: string;
+  features: string[];
+  description: string;
+  images: any[];
+  status: CarStatus;
+}
+
 interface GetMyCarResponse {
   data: VehicleAd[];
   pagination: any;
@@ -51,6 +74,12 @@ export const carApi = createApi({
         method: "GET",
       }),
     }),
+    getMyCarById: builder.query<any, string>({
+      query: (id) => ({
+        url: `user/car/getCar/${id}`,
+        method: "GET",
+      }),
+    }),
     changeCarStatus: builder.mutation<any, { id: string; status: CarStatus }>({
       query: (data) => ({
         url: "user/car/changeMyCarStatus",
@@ -65,6 +94,13 @@ export const carApi = createApi({
         body: { id },
       }),
     }),
+    updateMyCar: builder.mutation<any, UpdateVehicleAd>({
+      query: (data) => ({
+        url: "user/car/update",
+        method: "POST",
+        body: data,
+      }),
+    }),
   }),
 });
 
@@ -73,4 +109,6 @@ export const {
   useGetMyCarsQuery,
   useChangeCarStatusMutation,
   useDeleteMyCarMutation,
+  useGetMyCarByIdQuery,
+  useUpdateMyCarMutation,
 } = carApi;

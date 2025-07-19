@@ -26,6 +26,8 @@ export default function MyVehicles() {
 
   const [loadingId, setLoadingId] = useState<number | null>(null);
 
+  console.log("cars", cars);
+
   const changeStatus = async (id: number, status: CarStatus) => {
     setLoadingId(id);
     try {

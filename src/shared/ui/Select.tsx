@@ -16,10 +16,10 @@ interface SelectProps {
   disabled?: boolean;
   className?: string;
   isBordered?: boolean;
+  labelClassName?: string;
 }
 
 export const Select: FC<SelectProps> = ({
-  label,
   options,
   value,
   onChange,
@@ -29,16 +29,13 @@ export const Select: FC<SelectProps> = ({
   isBordered = true,
 }) => {
   return (
-    <div className={`relative w-full text-black ${className}`}>
-      {label && (
-        <label className="block mb-1 text-sm font-medium">{label}</label>
-      )}
+    <div className={cn("relative w-full text-black", className)}>
       <select
         className={cn(
           "w-full appearance-none px-3 py-2 rounded-md focus:outline-none focus:ring-2",
           isBordered && "border border-gray-300",
           disabled ? "bg-gray-100 cursor-not-allowed" : "focus:ring-blue-500",
-          value === "" ? "text-gray-400" : "text-black", // <-- тут керуємо кольором
+          value === "" ? "text-gray-400" : "text-black",
           "pr-10"
         )}
         value={value}
