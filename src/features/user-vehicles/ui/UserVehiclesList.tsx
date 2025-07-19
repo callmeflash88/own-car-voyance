@@ -14,6 +14,7 @@ export const UserVehiclesList = ({ editMode }: Props) => {
     vehicles,
     isMyCarLoading,
     changeStatus,
+    handleChangeStatus,
     isChangeStatusLoading,
     changeStatusError,
     deleteMyCar,
@@ -21,14 +22,16 @@ export const UserVehiclesList = ({ editMode }: Props) => {
     deleteCarError,
   } = useUserVehicles();
 
+  console.log("vehicles", vehicles);
+
   if (isMyCarLoading) return <p>Loading...</p>;
-  if (!vehicles?.length) return <p>No active vehicles.</p>;
+  if (!vehicles?.data.length) return <p>No active vehicles.</p>;
 
   return (
     <div className="flex flex-col gap-4 ">
-      {vehicles.map((vehicle) => (
+      {vehicles.data.map((vehicle) => (
         <div className="flex items- center gap-5" key={vehicle.id}>
-          <UserVehicleCard />
+          <UserVehicleCard vehicle={vehicle} />
 
           {editMode && (
             <div className="flex flex-col gap-2 py-2">
@@ -36,24 +39,19 @@ export const UserVehiclesList = ({ editMode }: Props) => {
                 variant="primary"
                 className="text-xs px-3 py-2 rounded  text-white font-bold h-full"
                 onClick={() =>
-                  changeStatus({
-                    id: vehicle.id.toString(),
-                    status: CarStatus.DRAFT,
-                  })
+                  vehicle.id !== undefined &&
+                  handleChangeStatus(vehicle.id, vehicle.status)
                 }
               >
                 Change to Draft
               </Button>
-              <Button
-                variant="outline"
-                className="text-xs px-3 py-2 rounded  font-bold h-full"
-              >
-                Edit
-              </Button>
+
               <Button
                 variant="danger"
                 className="text-xs px-3 py-2 rounded  text-white font-bold h-full"
-                onClick={() => deleteMyCar(vehicle.id.toString())}
+                onClick={() =>
+                  vehicle.id !== undefined && deleteMyCar(vehicle.id.toString())
+                }
               >
                 Delete
               </Button>

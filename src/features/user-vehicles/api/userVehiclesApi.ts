@@ -4,13 +4,18 @@ import {
   UserVehicle,
   Vehicle,
 } from "@/entities/vehicle/model/types";
+import { axiosBaseQuery } from "@/shared/lib/axiosBaseQuery";
+import { GetMyCarResponse } from "@/shared/types/car";
 
 export const userVehiclesApi = createApi({
   reducerPath: "userVehiclesApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "/api" }),
+  baseQuery: axiosBaseQuery(),
   endpoints: (builder) => ({
-    getMyVehicles: builder.query<UserVehicle[], void>({
-      query: () => "user/car/getMyCars",
+    getMyVehicles: builder.query<GetMyCarResponse, void>({
+      query: () => ({
+        url: "user/car/getMyCars",
+        method: "GET",
+      }),
     }),
     changeCarStatus: builder.mutation<
       Vehicle,
