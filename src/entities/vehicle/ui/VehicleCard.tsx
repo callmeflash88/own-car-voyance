@@ -9,15 +9,20 @@ interface Props {
   vehicle: VehicleAd & { isFavorite?: boolean };
   variant?: "default" | "owner";
   actions?: React.ReactNode;
+  onClick?: () => void;
 }
 
 export const VehicleCard = ({
   vehicle,
   variant = "default",
   actions,
+  onClick,
 }: Props) => {
   return (
-    <div className="bg-white w-full rounded-xl shadow-sm border border-[#e5e7eb]">
+    <div
+      className="bg-white w-full rounded-xl shadow-sm border border-[#e5e7eb]"
+      onClick={variant !== "owner" ? onClick : undefined}
+    >
       <div className="relative">
         <Image
           src={vehicle.images?.[0] || card1}

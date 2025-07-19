@@ -23,6 +23,23 @@ export interface VehicleAd {
   status: CarStatus;
 }
 
+export interface CarById extends VehicleAd {
+  seller: {
+    created_at: string;
+    bio: string;
+    name: string;
+    phone: string;
+    email: string;
+    email_verification: boolean;
+    register_verification: boolean;
+    _count: {
+      cars: number;
+    };
+  };
+  created_at: string;
+  updated_at: string;
+}
+
 export interface GetMyCarResponse {
   data: VehicleAd[];
   pagination: any;

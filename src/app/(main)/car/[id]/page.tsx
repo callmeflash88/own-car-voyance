@@ -9,6 +9,9 @@ import { Button } from "@/shared/ui";
 import transmissionIcon from "../../../../../public/assets/icons/transmissinIcon.svg";
 import Image from "next/image";
 import { ToggleFavorite } from "@/features/toggle-favorite/ui/ToggleFavorite";
+import { useFindCarByIdQuery } from "@/shared/api/webSiteApi";
+import { useParams } from "next/navigation";
+import { CarById, VehicleAd } from "@/shared/types/car";
 
 const carsImages = [
   image.src, // Извлекаем строку пути из объекта StaticImageData
@@ -25,13 +28,10 @@ const carsImages = [
 
 const tabs = ["Description", "Seller Information"];
 
-const CarDescription = () => (
+const CarDescription = ({ vehicle }: { vehicle: CarById }) => (
   <div className="text-sm text-gray-700 space-y-4">
     <p className="font-inter font-normal text-base leading-relaxed tracking-normal align-middle mt-14">
-      This 2007 Mercedes-Benz S-Class combines timeless design with executive
-      comfort. The vehicle is in good condition, offering a smooth ride, premium
-      interior materials, and classic German engineering. Ideal for those who
-      appreciate comfort, status, and reliability in one package.
+      {vehicle?.description}
     </p>
 
     <div className="grid grid-cols-2 gap-y-6">
@@ -39,100 +39,122 @@ const CarDescription = () => (
         <strong className="text-[#2B2B2B4D] flex items-center gap-2 font-inter font-normal text-base leading-none tracking-normal">
           <Gauge color="#2B2B2B4D" /> Mileage
         </strong>
-        142,000 km
+        {vehicle?.mileage}
       </div>
       <div className="font-inter font-medium text-base leading-none tracking-normal flex flex-col items-start justify-between gap-2">
         <strong className="text-[#2B2B2B4D] flex items-center gap-2 font-inter font-normal text-base leading-none tracking-normal">
           <Fuel /> Fuel Type
         </strong>{" "}
-        Petrol
+        {vehicle?.fuel_type}
       </div>
       <div className="font-inter font-medium text-base leading-none tracking-normal flex flex-col items-start justify-between gap-2">
         <strong className="text-[#2B2B2B4D] flex items-center gap-2 font-inter font-normal text-base leading-none tracking-normal">
           <Image src={transmissionIcon} alt="transmission" /> Transmission
         </strong>{" "}
-        Automatic
+        {vehicle?.transmission}
       </div>
       <div className="font-inter font-medium text-base leading-none tracking-normal flex flex-col items-start justify-between gap-2">
         <strong className="text-[#2B2B2B4D] flex items-center gap-2 font-inter font-normal text-base leading-none tracking-normal">
           <MdOutlineAirlineSeatReclineNormal /> Seats
         </strong>{" "}
-        5
+        {vehicle?.number_of_seats}
       </div>
       <div className="font-inter font-medium text-base leading-none tracking-normal flex flex-col items-start justify-between gap-2">
         <strong className="text-[#2B2B2B4D] flex items-center gap-2 font-inter font-normal text-base leading-none tracking-normal">
           <Settings /> Engine
         </strong>{" "}
-        5.0 L V8
+        {vehicle?.engine}
       </div>
       <div className="font-inter font-medium text-base leading-none tracking-normal flex flex-col items-start justify-between gap-2">
         <strong className="text-[#2B2B2B4D] flex items-center gap-2 font-inter font-normal text-base leading-none tracking-normal">
           <Palette /> Color Exterior
         </strong>{" "}
-        Obsidian Black
+        {vehicle?.exterior_color}
       </div>
       <div className="font-inter font-medium text-base leading-none tracking-normal flex flex-col items-start justify-between gap-2">
         <strong className="text-[#2B2B2B4D] flex items-center gap-2 font-inter font-normal text-base leading-none tracking-normal">
           <Gauge color="#2B2B2B4D" /> Drive Type
         </strong>
-        Rear-wheel drive (RWD)
+        {vehicle?.drive_type}
       </div>
 
       <div className="font-inter font-medium text-base leading-none tracking-normal flex flex-col items-start justify-between gap-2">
         <strong className="text-[#2B2B2B4D] flex items-center gap-2 font-inter font-normal text-base leading-none tracking-normal">
           <Palette /> Color Interior
         </strong>{" "}
-        Beide Leather
+        {vehicle?.interior_color}
       </div>
     </div>
   </div>
 );
 
-const CarSellerInfo = () => (
+const CarSellerInfo = ({ vehicle }: { vehicle: CarById }) => (
   <div className="text-sm text-gray-700 space-y-3">
     <div>
-      <strong>Seller:</strong> John Doe
+      <strong>Seller:</strong> {vehicle?.seller.name}
     </div>
     <div>
-      <strong>Member since:</strong> 2023
+      <strong>Member since:</strong> {vehicle?.seller.created_at}
     </div>
-    <p>“I sell only well-maintained cars with verified history...”</p>
+    <p>{vehicle?.seller.bio}</p>
     <div>
-      <strong>Account Type:</strong> ✅ Verified
-    </div>
-    <div>
-      <strong>Email Verified:</strong> ✅ Completed
-    </div>
-    <div>
-      <strong>Total Listings:</strong> 6 active vehicles
+      <strong>Account Type:</strong>{" "}
+      {vehicle?.seller.register_verification
+        ? "✅ Verified"
+        : "❌ Not Verified"}
     </div>
     <div>
-      <strong>Contact:</strong> +123 45678 901
+      <strong>Email Verified:</strong>{" "}
+      {vehicle?.seller.email_verification ? "✅ Completed" : "❌ Not Verified"}
+    </div>
+    <div>
+      <strong>Total Listings:</strong> {vehicle?.seller?._count?.cars} active
+      vehicles
+    </div>
+    <div>
+      <strong>Contact:</strong> {vehicle?.seller.phone}
     </div>
   </div>
 );
 
 export default function CarPage() {
+  const params = useParams();
+  const id = params.id;
   const [activeTab, setActiveTab] = useState("Description");
+  const { data: vehicle, isLoading } = useFindCarByIdQuery(
+    id?.toString() || ""
+  );
+
+  console.log("vehicle", vehicle);
+
+  if (isLoading || !vehicle) {
+    return (
+      <section className="w-full h-screen flex items-center justify-center">
+        <p className="text-lg font-semibold text-gray-500">
+          Loading vehicle...
+        </p>
+      </section>
+    );
+  }
 
   return (
     <section className="w-full px-[120px] py-10">
       <div className="w-full flex items-start justify-between gap-10">
         <div className="w-1/2">
-          <CarGallery images={carsImages} />
+          <CarGallery images={vehicle?.images} />
         </div>
         <div className="w-1/2 flex flex-col justify-start items-start">
           <div className="flex items-center gap-2">
             <MapPin size={15} />
             <p className="font-inter font-normal text-xs leading-5 tracking-normal">
-              Miamy, FL
+              {vehicle?.location}
             </p>
           </div>
           <h1 className="mt-3 font-inter font-semibold text-3xl leading-none tracking-normal text-[#2B2B2B]">
-            Mercedes-Benz S-Class 2007
+            {vehicle?.make} {vehicle?.model} {vehicle?.year}
           </h1>
           <h2 className="mt-5 font-inter font-semibold text-[40px] leading-none tracking-normal text-[#2B2B2B]">
-            10 900$
+            ${vehicle?.price}
           </h2>
           <div className="mt-10 w-full">
             {/* Tabs */}
@@ -154,8 +176,13 @@ export default function CarPage() {
 
             {/* Content */}
             <div>
-              {activeTab === "Description" && <CarDescription />}
-              {activeTab === "Seller Information" && <CarSellerInfo />}
+              {activeTab === "Description" && vehicle && (
+                <CarDescription vehicle={vehicle} />
+              )}
+
+              {activeTab === "Seller Information" && vehicle && (
+                <CarSellerInfo vehicle={vehicle} />
+              )}
             </div>
           </div>
           <div className="w-full flex mt-14 gap-4">
