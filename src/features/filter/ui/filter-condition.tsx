@@ -1,22 +1,21 @@
 "use client";
 
 import { useAppDispatch, useAppSelector } from "@/shared/lib/hooks";
-import { Slider } from "@/shared/ui/slider";
-import { setPriceFrom, setPriceTo } from "@/features/filter/model/slice";
+import { setCondition } from "@/features/filter/model/slice";
 import { useState } from "react";
 
-export const PriceFilter = () => {
-  const dispatch = useAppDispatch();
+const Conditions = [
+  { key: "All", value: "" },
+  { key: "New", value: "new" },
+  { key: "Used", value: "used" },
+];
 
-  const priceFrom = useAppSelector((state) => state.filters.price_from) ?? 0;
-  const priceTo = useAppSelector((state) => state.filters.price_to) ?? 60000;
+export const ConditionFilter = () => {
+  const dispatch = useAppDispatch();
+  const selectedCondition =
+    useAppSelector((state) => state.filters.condition) ?? "";
 
   const [isOpen, setIsOpen] = useState(true);
-
-  const handlePriceChange = (val: [number, number]) => {
-    dispatch(setPriceFrom(val[0]));
-    dispatch(setPriceTo(val[1] ?? val[0]));
-  };
 
   return (
     <div className="space-y-4 mt-6">
@@ -25,7 +24,7 @@ export const PriceFilter = () => {
         onClick={() => setIsOpen(!isOpen)}
         className="w-full justify-between flex items-center gap-2 font-inter font-medium text-xl leading-none tracking-normal align-middle"
       >
-        <span>Price</span>
+        <span>Condition</span>
         <svg
           className={`w-5 h-5 transition-transform duration-200 ${
             isOpen ? "rotate-90" : "rotate-0"
@@ -45,20 +44,21 @@ export const PriceFilter = () => {
       </button>
 
       {isOpen && (
-        <>
-          <Slider
-            min={0}
-            max={1000000}
-            step={100}
-            value={[priceFrom, priceTo]}
-            onValueChange={handlePriceChange}
-          />
-          <div className="flex justify-between text-sm text-muted-foreground">
-            <span>${priceFrom}</span>
-            <span>${priceTo}</span>
-          </div>
-          <hr className="h-[1px] bg-[#2B2B2B33] mt-6" />
-        </>
+        <div className="flex gap-2">
+          {Conditions.map(({ key, value }) => (
+            <button
+              key={key}
+              className={`px-4 py-2 rounded-[62px] ${
+                selectedCondition === value
+                  ? "bg-[#5511EE] text-white"
+                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+              }`}
+              onClick={() => dispatch(setCondition(value))}
+            >
+              {key}
+            </button>
+          ))}
+        </div>
       )}
       <hr className="h-[1px] bg-[#2B2B2B33] mt-6" />
     </div>

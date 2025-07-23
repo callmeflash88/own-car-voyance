@@ -1,7 +1,9 @@
 "use client";
+import { FiltersState } from "@/features/filter/model/slice";
 import { useGetMyFavoriteCarsQuery } from "@/shared/api/carApi";
 import {
-  useFindCarQuery,
+  FindCarRequest,
+  useFindCarMutation,
   useGetFindCarsFiltersQuery,
 } from "@/shared/api/webSiteApi";
 import { useAppSelector } from "@/shared/lib/hooks";
@@ -9,7 +11,29 @@ import { RootState } from "@/shared/store/store";
 import { Filters } from "@/widgets/filters/ui/filters";
 import { ProductsList } from "@/widgets/products-list/ui/products-list";
 import { TopBar } from "@/widgets/top-bar/ui";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+export const mapFiltersToRequest = (filters: FiltersState): FindCarRequest => {
+  return {
+    page: 1,
+    perPage: 20,
+    condition: [],
+    make: filters.make,
+    body_style: filters.body_style,
+    price: {
+      from: filters.price_from ?? 0,
+      to: filters.price_to ?? 10000000,
+    },
+    year: {
+      from: filters.year_from ?? 1990,
+      to: filters.year_to ?? new Date().getFullYear(),
+    },
+    sort: {
+      key: "popular",
+      value: "desc",
+    },
+  };
+};
 
 export default function ProductsListPage() {
   const isAuthenticated = useAppSelector(
@@ -17,18 +41,29 @@ export default function ProductsListPage() {
   );
   const selectedFilters = useAppSelector((state) => state.filters);
 
-  const { data: vehicles, isLoading } = useFindCarQuery();
   const { data: favorites, isLoading: isFavoritesLoading } =
     useGetMyFavoriteCarsQuery();
   const { data: filters, isLoading: isFiltersLoading } =
     useGetFindCarsFiltersQuery();
 
-  console.log("Is Authenticated:", isAuthenticated);
+  const [findCar, { data: vehicles, isLoading, error }] = useFindCarMutation();
+
+  useEffect(() => {
+    const request = mapFiltersToRequest(selectedFilters);
+    findCar(request);
+  }, []);
+
+  const handleApplyFIlters = () => {
+    const request = mapFiltersToRequest(selectedFilters);
+    findCar(request);
+  };
+
+  if (error) return <div>Error loading cars</div>;
 
   return (
     <div className="max-w-[100vw] overflow-auto flex flex-row px-4 lg:px-[120px] pt-10 gap-10">
       <div className="block w-[300px] shrink-0">
-        <Filters filters={filters} />
+        <Filters filters={filters} applyFilters={handleApplyFIlters} />
       </div>
       <div className="w-full">
         {isLoading || isFavoritesLoading ? (
@@ -38,11 +73,13 @@ export default function ProductsListPage() {
         ) : (
           <>
             <TopBar />
-            <ProductsList
-              vehicles={vehicles}
-              favorites={favorites}
-              isAuthenticated={isAuthenticated}
-            />
+            {vehicles && (
+              <ProductsList
+                vehicles={vehicles}
+                favorites={favorites}
+                isAuthenticated={isAuthenticated}
+              />
+            )}
           </>
         )}
       </div>

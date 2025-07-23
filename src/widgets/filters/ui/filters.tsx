@@ -1,4 +1,5 @@
 import { FilterBody } from "@/features/filter/ui/filter-body";
+import { ConditionFilter } from "@/features/filter/ui/filter-condition";
 import { FilterMake } from "@/features/filter/ui/filter-make";
 import { PriceFilter } from "@/features/filter/ui/filter-price";
 import { FilterYear } from "@/features/filter/ui/filter-year";
@@ -9,12 +10,11 @@ import { FC, useState } from "react";
 
 interface Props {
   filters: any;
+  applyFilters: () => void;
 }
 
-export const Filters: FC<Props> = ({ filters }) => {
+export const Filters: FC<Props> = ({ filters, applyFilters }) => {
   const selectedFilters = useAppSelector((state) => state.filters);
-
-  console.log("Выбранные фильтры:", selectedFilters);
 
   return (
     <aside className="py-10 px-6 border w-full max-w-[300px] h-[900px] rounded-[20px]">
@@ -26,9 +26,12 @@ export const Filters: FC<Props> = ({ filters }) => {
       </div>
       <hr className="h-[1px] bg-[#2B2B2B33] mt-6" />
 
+      <ConditionFilter />
+
       {filters?.makes && <FilterMake makes={filters.makes} />}
 
       <PriceFilter />
+
       {filters?.body_styles && <FilterBody body={filters.body_styles} />}
 
       <FilterYear />
@@ -39,6 +42,7 @@ export const Filters: FC<Props> = ({ filters }) => {
         className="mx-auto mt-6 w-full"
         onClick={() => {
           console.log("Фильтры при нажатии Apply:", selectedFilters);
+          applyFilters();
           // тут можно отправлять selectedFilters в fetch-запрос или роут
         }}
       >

@@ -1,22 +1,24 @@
 // features/filters/model/slice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface FiltersState {
+export interface FiltersState {
   make: string[];
   body_style: string[];
   year_from: number | null;
   year_to: number | null;
   price_from: number | null;
   price_to: number | null;
+  condition: string | null; // добавляем condition
 }
 
 const initialState: FiltersState = {
   make: [],
   body_style: [],
-  year_from: null,
-  year_to: null,
-  price_from: null,
-  price_to: null,
+  year_from: 2010,
+  year_to: 2020,
+  price_from: 1000,
+  price_to: 250000,
+  condition: null, // по умолчанию null — значит "All"
 };
 
 const filtersSlice = createSlice({
@@ -47,6 +49,9 @@ const filtersSlice = createSlice({
     setPriceTo(state, action: PayloadAction<number>) {
       state.price_to = action.payload;
     },
+    setCondition(state, action: PayloadAction<string | null>) {
+      state.condition = action.payload === "" ? null : action.payload;
+    },
     resetFilters() {
       return initialState;
     },
@@ -60,6 +65,7 @@ export const {
   setYearTo,
   setPriceFrom,
   setPriceTo,
+  setCondition,
   resetFilters,
 } = filtersSlice.actions;
 
