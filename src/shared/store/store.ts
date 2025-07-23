@@ -16,6 +16,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
       authApi.middleware,
+
       webSiteApi.middleware,
       verifyApi.middleware,
       userApi.middleware,

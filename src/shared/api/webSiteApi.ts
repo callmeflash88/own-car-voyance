@@ -6,10 +6,11 @@ export const webSiteApi = createApi({
   reducerPath: "webSiteApi",
   baseQuery: axiosBaseQuery(),
   endpoints: (builder) => ({
-    findCar: builder.query<any, void>({
-      query: () => ({
-        url: `website/findCar`,
+    findCar: builder.query<any, Record<string, any>>({
+      query: (params) => ({
+        url: "website/findCar",
         method: "GET",
+        data: params,
       }),
     }),
     findCarById: builder.query<CarById, string>({
@@ -18,7 +19,17 @@ export const webSiteApi = createApi({
         method: "GET",
       }),
     }),
+    getFindCarsFilters: builder.query<any, void>({
+      query: () => ({
+        url: "website/getFindCarsFilters",
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useFindCarQuery, useFindCarByIdQuery } = webSiteApi;
+export const {
+  useFindCarQuery,
+  useFindCarByIdQuery,
+  useGetFindCarsFiltersQuery,
+} = webSiteApi;

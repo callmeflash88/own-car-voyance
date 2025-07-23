@@ -10,12 +10,14 @@ interface Props {
   variant?: "default" | "owner";
   actions?: React.ReactNode;
   onClick?: () => void;
+  isAuthenticated?: boolean;
 }
 
 export const VehicleCard = ({
   vehicle,
   variant = "default",
   actions,
+  isAuthenticated,
   onClick,
 }: Props) => {
   return (
@@ -36,6 +38,7 @@ export const VehicleCard = ({
           <ToggleFavorite
             vehicleId={vehicle.id.toString()}
             isFavorite={vehicle.isFavorite ?? false}
+            isAuthenticated={isAuthenticated ?? false}
           />
         )}
 

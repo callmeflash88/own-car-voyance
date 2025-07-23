@@ -11,11 +11,13 @@ interface Props {
   vehicles: GetMyCarResponse;
   favorites: any;
   proceedButton?: boolean;
+  isAuthenticated: boolean;
 }
 
 export const ProductsList: FC<Props> = ({
   vehicles,
   favorites,
+  isAuthenticated,
   proceedButton = false,
 }) => {
   const favoriteIds = favorites?.data?.map((favorite: any) => favorite.id);
@@ -29,15 +31,12 @@ export const ProductsList: FC<Props> = ({
             <VehicleCard
               vehicle={{
                 ...vehicle,
-                isFavorite: favoriteIds.includes(vehicle.id),
+                isFavorite: favoriteIds?.includes(vehicle.id),
               }}
+              isAuthenticated={isAuthenticated}
               actions={
                 proceedButton && (
-                  <Button
-                    variant="primary"
-                    className="w-full mt-4"
-                    // isLoading={loadingId === vehicle.id}
-                  >
+                  <Button variant="primary" className="w-full mt-4">
                     Proceed to Order
                   </Button>
                 )
