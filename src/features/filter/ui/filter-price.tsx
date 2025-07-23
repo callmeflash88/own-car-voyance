@@ -48,7 +48,7 @@ export const PriceFilter = () => {
         <>
           <Slider
             min={0}
-            max={1000000}
+            max={10000000}
             step={100}
             value={[priceFrom, priceTo]}
             onValueChange={handlePriceChange}

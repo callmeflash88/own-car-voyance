@@ -11,13 +11,14 @@ import { RootState } from "@/shared/store/store";
 import { Filters } from "@/widgets/filters/ui/filters";
 import { ProductsList } from "@/widgets/products-list/ui/products-list";
 import { TopBar } from "@/widgets/top-bar/ui";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const mapFiltersToRequest = (filters: FiltersState): FindCarRequest => {
+  debugger;
   return {
     page: 1,
     perPage: 20,
-    condition: [],
+    condition: filters.condition ? [filters.condition] : [],
     make: filters.make,
     body_style: filters.body_style,
     price: {
@@ -29,8 +30,8 @@ export const mapFiltersToRequest = (filters: FiltersState): FindCarRequest => {
       to: filters.year_to ?? new Date().getFullYear(),
     },
     sort: {
-      key: "popular",
-      value: "desc",
+      key: filters.sort.key,
+      value: filters.sort.value,
     },
   };
 };
@@ -58,6 +59,22 @@ export default function ProductsListPage() {
     findCar(request);
   };
 
+  console.log("filters", filters);
+
+  const prevSortRef = useRef(selectedFilters?.sort);
+
+  useEffect(() => {
+    const prevSort = prevSortRef.current;
+    if (
+      prevSort.key !== selectedFilters.sort.key ||
+      prevSort.value !== selectedFilters.sort.value
+    ) {
+      const request = mapFiltersToRequest(selectedFilters);
+      findCar(request);
+    }
+    prevSortRef.current = selectedFilters.sort;
+  }, [selectedFilters.sort, findCar]);
+
   if (error) return <div>Error loading cars</div>;
 
   return (
@@ -66,13 +83,14 @@ export default function ProductsListPage() {
         <Filters filters={filters} applyFilters={handleApplyFIlters} />
       </div>
       <div className="w-full">
+        <TopBar />
+
         {isLoading || isFavoritesLoading ? (
           <div className="w-full h-[60vh] flex justify-center items-center">
             <div className="w-12 h-12 border-4 border-[#4E17E5] border-t-transparent rounded-full animate-spin" />
           </div>
         ) : (
           <>
-            <TopBar />
             {vehicles && (
               <ProductsList
                 vehicles={vehicles}

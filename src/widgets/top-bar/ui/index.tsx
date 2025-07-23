@@ -8,7 +8,6 @@ export const TopBar = () => {
       <SearchInput />
       <div className="flex gap-5">
         <SortSelect />
-        <ViewToggle />
       </div>
     </div>
   );

@@ -1,19 +1,26 @@
-"use client";
-
+import { setSort } from "@/features/filter/model/slice";
 import { useAppDispatch, useAppSelector } from "@/shared/lib/hooks";
-import { setSort, SortType } from "../model/slice";
+
 import { Select } from "@/shared/ui";
 import { ArrowDownUp } from "lucide-react";
 
-const OPTIONS: { label: string; value: SortType }[] = [
-  { label: "Most Popular", value: "popular" },
+const OPTIONS = [
+  { label: "Most Popular", value: "popular-desc" },
   { label: "Price ↑", value: "price-asc" },
   { label: "Price ↓", value: "price-desc" },
 ];
 
 export const SortSelect = () => {
   const dispatch = useAppDispatch();
-  const value = useAppSelector((state) => state.sort.sort);
+  const sort = useAppSelector((state) => state.filters.sort);
+
+  // Составляем value из объекта sort в строку для Select
+  const currentValue = `${sort.key}-${sort.value}`;
+
+  const handleChange = (val: string) => {
+    const [key, value] = val.split("-") as [string, "asc" | "desc"];
+    dispatch(setSort({ key, value }));
+  };
 
   return (
     <div className="flex items-center gap-2 whitespace-nowrap">
@@ -25,8 +32,8 @@ export const SortSelect = () => {
       </div>
       <Select
         className="min-w-[160px]"
-        value={value}
-        onChange={(e) => dispatch(setSort(value as SortType))}
+        value={currentValue}
+        onChange={handleChange}
         options={OPTIONS}
         isBordered={false}
       />

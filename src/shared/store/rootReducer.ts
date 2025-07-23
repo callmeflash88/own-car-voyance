@@ -3,7 +3,7 @@ import authReducer from "@/features/auth/model/slice";
 import { authApi } from "@/features/auth/api/authApi";
 import filtersReducer from "@/features/filter/model/slice";
 import searchSliceReducer from "@/features/search/model/searchSlice";
-import sortViewSliceReducer from "@/features/sort-view-toggle/model/slice";
+
 import userSliceReducer from "@/entities/user/model/userSlice";
 import { userApi } from "@/entities/user/api/userApi";
 import { uploadApi } from "../api/uploadApi";
@@ -18,7 +18,6 @@ export const rootReducer = combineReducers({
   auth: authReducer,
   filters: filtersReducer,
   search: searchSliceReducer,
-  sort: sortViewSliceReducer,
   user: userSliceReducer,
   [carApi.reducerPath]: carApi.reducer,
   [authApi.reducerPath]: authApi.reducer,
