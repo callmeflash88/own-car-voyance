@@ -99,6 +99,13 @@ export const carApi = createApi({
         body: { id },
       }),
     }),
+    messageSeller: builder.mutation<any, any>({
+      query: (data) => ({
+        url: "user/car/messageSeller",
+        method: "POST",
+        body: data,
+      }),
+    }),
   }),
 });
 
@@ -112,4 +119,5 @@ export const {
   useGetMyFavoriteCarsQuery,
   useAddToFavoriteMutation,
   useDeleteFromFavoriteMutation,
+  useMessageSellerMutation,
 } = carApi;

@@ -10,8 +10,9 @@ import transmissionIcon from "../../../../../public/assets/icons/transmissinIcon
 import Image from "next/image";
 import { ToggleFavorite } from "@/features/toggle-favorite/ui/ToggleFavorite";
 import { useFindCarByIdQuery } from "@/shared/api/webSiteApi";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { CarById, VehicleAd } from "@/shared/types/car";
+import { useMessageSellerMutation } from "@/shared/api/carApi";
 
 const carsImages = [
   image.src, // Извлекаем строку пути из объекта StaticImageData
@@ -119,13 +120,30 @@ const CarSellerInfo = ({ vehicle }: { vehicle: CarById }) => (
 
 export default function CarPage() {
   const params = useParams();
+  const router = useRouter();
+
   const id = params.id;
   const [activeTab, setActiveTab] = useState("Description");
   const { data: vehicle, isLoading } = useFindCarByIdQuery(
     id?.toString() || ""
   );
 
-  console.log("vehicle", vehicle);
+  const [
+    messageSeller,
+    { data: messageSellerResponse, isLoading: isMessageLoading, error },
+  ] = useMessageSellerMutation();
+
+  const handleMessageSeller = async () => {
+    try {
+      const result = await messageSeller({ car_id: vehicle?.id }).unwrap();
+      if (result?.chat_id) {
+        router.push(`/chat/${result.chat_id}`);
+      }
+    } catch (error) {
+      console.error("Error starting chat:", error);
+      // можешь показать toast или alert
+    }
+  };
 
   if (isLoading || !vehicle) {
     return (
@@ -190,6 +208,7 @@ export default function CarPage() {
               variant={"secondary"}
               size="lg"
               className="bg-[#E7E6E7] text-[#2B2B2B]"
+              onClick={handleMessageSeller}
             >
               Message Seller
             </Button>

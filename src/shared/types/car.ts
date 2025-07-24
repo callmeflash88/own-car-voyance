@@ -25,6 +25,7 @@ export interface VehicleAd {
 
 export interface CarById extends VehicleAd {
   seller: {
+    id: number;
     created_at: string;
     bio: string;
     name: string;

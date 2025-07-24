@@ -13,11 +13,13 @@ import { verifyEmailApi } from "@/features/email-verification/api/verifyEmailApi
 import { verifyApi } from "@/features/auth/api/verifyApi";
 import { carApi } from "../api/carApi";
 import { webSiteApi } from "../api/webSiteApi";
+import { chatSlice } from "./chatSlices";
 
 export const rootReducer = combineReducers({
   auth: authReducer,
   filters: filtersReducer,
   search: searchSliceReducer,
+  chat: chatSlice.reducer,
   user: userSliceReducer,
   [carApi.reducerPath]: carApi.reducer,
   [authApi.reducerPath]: authApi.reducer,

@@ -19,6 +19,7 @@ export default function Favorites() {
         vehicles={favorites}
         favorites={favorites}
         proceedButton={true}
+        isAuthenticated
       />
     </div>
   );

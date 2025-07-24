@@ -13,11 +13,11 @@ import Link from "next/link";
 import Image from "next/image";
 import logo from "../../../public/assets/logo.svg";
 import { usePathname } from "next/navigation";
+import { useSelector } from "react-redux";
+import { RootState } from "@/shared/store/store";
 
 export const Sidebar = () => {
   const pathname = usePathname();
-
-  console.log("PATHNAME", pathname);
 
   const linkClass = (href: string) =>
     `flex items-center gap-2 h-14 px-3 rounded-lg transition-colors ${
@@ -25,6 +25,11 @@ export const Sidebar = () => {
         ? "bg-[#6745FF0A] text-[#5511EE] font-semibold"
         : "text-gray-700 hover:bg-gray-50"
     }`;
+
+  const chats = useSelector((state: RootState) => state.chat.chats);
+
+  const totalUnread = chats.reduce((sum, chat) => sum + chat.unreadCount, 0);
+
   return (
     <aside className="w-[240px] h-screen border-r p-6 flex flex-col gap-6 bg-white">
       <Link href="/">
@@ -38,12 +43,14 @@ export const Sidebar = () => {
         <Link href="/my-vehicles" className={linkClass("/my-vehicles")}>
           <Car size={18} /> My Vehicles
         </Link>
-        <Link href="/messages" className={linkClass("/profile-messages")}>
+        <Link href="/chat" className={linkClass("/chat")}>
           <Mail size={18} /> Messages
           {/* example badge */}
-          <span className="absolute -top-1 -right-2 text-xs bg-red-500 text-white rounded-full px-1">
-            3
-          </span>
+          {totalUnread > 0 && (
+            <span className="absolute top-2 right-3 text-xs bg-red-500 text-white rounded-full px-2 py-0.5">
+              {totalUnread}
+            </span>
+          )}
         </Link>
         <Link href="/favorites" className={linkClass("/search")}>
           <Heart size={18} /> Favorites
