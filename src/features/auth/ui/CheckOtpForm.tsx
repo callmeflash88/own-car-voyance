@@ -4,8 +4,10 @@ import { Button } from "@/shared/ui";
 import { OtpInputs } from "./OtpInputs";
 import { useCheckOtp } from "../model/useCheckOtp";
 import { ArrowLeft } from "lucide-react";
+import { useAuthFlow } from "../model/AuthFlowContext";
 
 export const CheckOtpForm = () => {
+  const { setStep } = useAuthFlow();
   const {
     inputsRef,
     email,
@@ -18,7 +20,10 @@ export const CheckOtpForm = () => {
 
   return (
     <div className="flex flex-col justify-center space-y-2">
-      <p className="font-inter font-normal text-base leading-none tracking-normal flex gap-2 items-center cursor-pointer">
+      <p
+        className="font-inter font-normal text-base leading-none tracking-normal flex gap-2 items-center cursor-pointer"
+        onClick={() => setStep("forgot")}
+      >
         <ArrowLeft size={14} /> Back
       </p>
 

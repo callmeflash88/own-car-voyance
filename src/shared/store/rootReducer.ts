@@ -14,6 +14,7 @@ import { verifyApi } from "@/features/auth/api/verifyApi";
 import { carApi } from "../api/carApi";
 import { webSiteApi } from "../api/webSiteApi";
 import { chatSlice } from "./chatSlices";
+import { dashboardApi } from "../api/dashBoardApi";
 
 export const rootReducer = combineReducers({
   auth: authReducer,
@@ -21,6 +22,7 @@ export const rootReducer = combineReducers({
   search: searchSliceReducer,
   chat: chatSlice.reducer,
   user: userSliceReducer,
+  [dashboardApi.reducerPath]: dashboardApi.reducer,
   [carApi.reducerPath]: carApi.reducer,
   [authApi.reducerPath]: authApi.reducer,
   [webSiteApi.reducerPath]: webSiteApi.reducer,

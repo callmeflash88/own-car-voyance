@@ -11,6 +11,8 @@ export const UserProfileCard = () => {
   const { user } = useUserProfile();
   const [editMode, setEditMode] = useState(false);
 
+  console.log("USER: ", user);
+
   if (!user) return null;
 
   return (
