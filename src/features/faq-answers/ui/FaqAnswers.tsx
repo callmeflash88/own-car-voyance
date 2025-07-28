@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp, Minus, Plus } from "lucide-react";
 
 type FAQItem = {
   question: string;
@@ -48,7 +48,7 @@ export const FAQAnswers = () => {
             onClick={() => toggle(index)}
           >
             {item.question}
-            {openIndex === index ? <ChevronUp /> : <ChevronDown />}
+            {openIndex === index ? <Minus /> : <Plus />}
           </button>
           {openIndex === index && (
             <p className="mt-2 text-gray-600 text-sm">{item.answer}</p>

@@ -8,7 +8,7 @@ export const CompleteAutomative = () => {
     <section
       className="
       px-4
-      lg:px-60
+      lg:px-40
       py-4
       lg:py-32
       flex
@@ -49,7 +49,7 @@ export const CompleteAutomative = () => {
           </Button>
         </div>
         {/* Card */}
-        <div className="w-[317px] flex flex-col items-start border-b-2 border-[#DFDFDF] pb-7 mt-5">
+        <div className="w-[317px]  flex flex-col justify-between items-start border-b-2 border-[#DFDFDF] pb-7 mt-5">
           {/* <CircleDollarSign size={80} /> */}
           <div className="flex flex-row lg:flex-col lg:items-start items-center lg:gap-0 gap-5">
             <Image src={dollarIcon} alt="dollar icon" />
@@ -59,7 +59,7 @@ export const CompleteAutomative = () => {
           </div>
 
           <p className="mt-5 font-inter font-semibold text-[16px] leading-[24px] tracking-normal align-middle">
-            Make smarter decisions with verified data.s
+            Make smarter decisions with verified data
           </p>
           <p className="mt-2 font-plus-jakarta-sans font-normal text-[16px] leading-[24px] tracking-normal align-middle">
             Before you buy, check the VIN to uncover accident history, mileage
@@ -74,7 +74,7 @@ export const CompleteAutomative = () => {
           </Button>
         </div>
         {/* Card */}
-        <div className="w-[317px] flex flex-col items-start border-b-2 border-[#DFDFDF] pb-7 mt-5">
+        <div className="w-[317px]  flex flex-col justify-between items-start border-b-2 border-[#DFDFDF] pb-7 mt-5">
           <div className="flex flex-row lg:flex-col lg:items-start items-center lg:gap-0 gap-5">
             <CircleCheck size={80} />
             <h4 className=" mt-2 font-inter font-semibold text-[20px] leading-[32px] tracking-normal">

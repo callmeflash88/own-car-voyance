@@ -29,6 +29,7 @@ export const ProductsList: FC<Props> = ({
         vehicles.data.map((vehicle) => (
           <div key={vehicle.id}>
             <VehicleCard
+              isProductList
               vehicle={{
                 ...vehicle,
                 isFavorite: favoriteIds?.includes(vehicle.id),

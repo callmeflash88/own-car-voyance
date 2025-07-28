@@ -4,6 +4,7 @@ import card1 from "../../../../public/assets/images/car1.png";
 import { ToggleFavorite } from "@/features/toggle-favorite/ui/ToggleFavorite";
 import { EditButton } from "@/features/edit-vehicle-button/ui/EditButton";
 import { VehicleAd } from "@/shared/types/car";
+import speedIcon from "@/shared/assets/icons/vehicle-card/speed.svg";
 
 interface Props {
   vehicle: VehicleAd & { isFavorite?: boolean };
@@ -11,6 +12,7 @@ interface Props {
   actions?: React.ReactNode;
   onClick?: () => void;
   isAuthenticated?: boolean;
+  isProductList?: boolean;
 }
 
 export const VehicleCard = ({
@@ -18,8 +20,10 @@ export const VehicleCard = ({
   variant = "default",
   actions,
   isAuthenticated,
+  isProductList,
   onClick,
 }: Props) => {
+  console.log("vehicle", vehicle);
   return (
     <div
       className="bg-white w-full rounded-xl shadow-sm border border-[#e5e7eb]"
@@ -52,19 +56,37 @@ export const VehicleCard = ({
         <span className="font-semibold text-[24px] mt-2">${vehicle.price}</span>
 
         <div className="grid grid-cols-2 gap-2 mt-2 text-sm text-gray-700">
-          <div className="flex items-center gap-1">
-            <Gauge className="w-4 h-4" />
-            <span>{vehicle.mileage} mi</span>
+          <div
+            className={`flex ${
+              isProductList ? "flex-col items-start" : "flex-row items-center"
+            }   gap-1`}
+          >
+            <Image src={speedIcon} alt="speed" className="w-4 h-4" />
+            <span>{vehicle.mileage} miles</span>
           </div>
-          <div className="flex items-center gap-1">
+          <div
+            className={`flex ${
+              isProductList ? "flex-col items-start" : "flex-row items-center"
+            }   gap-1`}
+          >
             <Settings className="w-4 h-4" />
             <span>{vehicle.transmission}</span>
           </div>
-          <div className="flex items-center gap-1">
+          <div
+            className={`flex ${
+              isProductList ? "flex-col items-start" : "flex-row items-center"
+            }   gap-1`}
+          >
             <Fuel className="w-4 h-4" />
-            <span>{vehicle.fuel_type}</span>
+            <span>
+              {vehicle.fuel_type} {vehicle.engine}
+            </span>
           </div>
-          <div className="flex items-center gap-1">
+          <div
+            className={`flex ${
+              isProductList ? "flex-col items-start" : "flex-row items-center"
+            }   gap-1`}
+          >
             <MapPin className="w-4 h-4" />
             <span>{vehicle.location}</span>
           </div>

@@ -15,10 +15,10 @@ const forBuyersLinks = [
     name: "Insurance Quotes",
     href: "#",
   },
-  {
-    name: "VIN Vault",
-    href: "#",
-  },
+  // {
+  //   name: "VIN Vault",
+  //   href: "#",
+  // },
 ];
 
 const fontSellerLinks = [
@@ -109,7 +109,10 @@ export const Footer = () => {
                 <ul className="flex flex-col gap-2 mt-8">
                   {links.map((link) => (
                     <li key={link.name}>
-                      <a href={link.href} className="text-[#2B2B2B]">
+                      <a
+                        href={link.href}
+                        className="font-inter font-extralight text-[15px] leading-[30px] tracking-normal text-[#2B2B2B]"
+                      >
                         {link.name}
                       </a>
                     </li>
@@ -182,7 +185,7 @@ export const Footer = () => {
           <Image
             src={logo}
             alt="logo"
-            width={200}
+            width={330}
             className="hidden lg:block"
           />
           <div>

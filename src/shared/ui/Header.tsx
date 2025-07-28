@@ -18,14 +18,14 @@ export const Header = () => {
 
   return (
     <header className="bg-white px-6 md:px-[120px] h-[70px] md:h-[90px] relative z-50">
-      <div className="w-full h-full flex justify-between items-center">
+      <div className="w-full h-full flex items-center justify-between relative">
         {/* Logo */}
         <div>
-          <Image src={logo} alt="logo" width={160} height={40} />
+          <Image src={logo} alt="logo" className="w-40 lg:w-72" />
         </div>
 
-        {/* Desktop Nav */}
-        <nav className="hidden md:block">
+        {/* Centered nav */}
+        <nav className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden md:block">
           <ul className="flex gap-8 justify-center items-center">
             <li className="cursor-pointer">Buy</li>
             <li className="cursor-pointer">Sell</li>
