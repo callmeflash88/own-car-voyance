@@ -86,12 +86,12 @@ export const RegisterForm = ({ onSwitch }: RegisterFormProps) => {
               I agree to the Terms & Conditions
             </label>
           </div>
-          {errors.terms && (
+          {/* {errors.terms && (
             <p className="text-sm text-red-600 mt-1 flex items-center gap-1">
               <CircleAlert size={16} />
               {errors.terms.message?.toString()}
             </p>
-          )}
+          )} */}
 
           <Button
             variant="primary"

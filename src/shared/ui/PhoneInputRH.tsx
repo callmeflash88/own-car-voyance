@@ -20,6 +20,7 @@ interface PhoneInputRHProps {
   className?: string;
   fieldClassName?: string;
   labelClassName?: string;
+  isError?: boolean;
 }
 
 export const PhoneInputRH = ({
@@ -30,6 +31,7 @@ export const PhoneInputRH = ({
   className,
   fieldClassName,
   labelClassName,
+  isError = true,
 }: PhoneInputRHProps) => {
   const {
     control,
@@ -53,7 +55,9 @@ export const PhoneInputRH = ({
           label={label}
           placeholder={placeholder}
           className={className}
-          error={errors[name]?.message?.toString()}
+          error={
+            isError !== false ? errors[name]?.message?.toString() : undefined
+          }
         />
       )}
     />

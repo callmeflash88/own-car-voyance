@@ -25,6 +25,7 @@ export const TextInput: FC<IFormField> = ({
   autoComplete,
   disabled,
   name,
+  isError = true,
 }) => {
   const {
     register,
@@ -33,7 +34,7 @@ export const TextInput: FC<IFormField> = ({
 
   const fieldId = id || name;
   const error = errors?.[name]?.message as string | undefined;
-  const isShownError = !!error;
+  const isShownError = isError && !!error;
 
   const InputComponent = useMemo(() => {
     if (mask) return "input";

@@ -29,6 +29,7 @@ export const LOGIN_FORM_FIELDS = [
     component: TextInput,
     labelClassName: LABEL_CLASSNAME,
     fieldClassName: TEXT_INPUT_CLASSNAME,
+    isError: false,
   },
   {
     name: "password",
@@ -37,6 +38,7 @@ export const LOGIN_FORM_FIELDS = [
     component: PasswordInput,
     labelClassName: LABEL_CLASSNAME,
     fieldClassName: TEXT_INPUT_CLASSNAME,
+    isError: false,
   },
 ];
 

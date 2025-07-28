@@ -22,6 +22,7 @@ export interface IFormField {
   variant?: FormFieldVariants;
   disabled?: boolean;
   options?: IOptionSelect[];
+  isError?: boolean;
 
   rows?: number;
   maxLength?: number;

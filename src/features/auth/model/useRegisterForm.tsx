@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TextInput } from "@/shared/ui/FormField/TextInput";
 import { PhoneInputRH } from "@/shared/ui/PhoneInputRH";
+import { isError } from "util";
 
 const LABEL_CLASSNAME = "font-bold text-gray-dark text-xl mt-2";
 const TEXT_INPUT_CLASSNAME = " py-0 ";
@@ -16,6 +17,7 @@ export const REGISTER_FORM_FIELDS = [
     component: TextInput,
     labelClassName: LABEL_CLASSNAME,
     fieldClassName: TEXT_INPUT_CLASSNAME,
+    isError: false,
   },
   {
     name: "email",
@@ -24,6 +26,7 @@ export const REGISTER_FORM_FIELDS = [
     component: TextInput,
     labelClassName: LABEL_CLASSNAME,
     fieldClassName: TEXT_INPUT_CLASSNAME,
+    isError: false,
   },
   {
     name: "phone",
@@ -34,6 +37,7 @@ export const REGISTER_FORM_FIELDS = [
     className: "w-full",
     fieldClassName: "mt-1",
     labelClassName: "text-sm font-medium text-gray-700",
+    isError: false,
   },
   {
     name: "password",
@@ -42,6 +46,7 @@ export const REGISTER_FORM_FIELDS = [
     component: TextInput,
     labelClassName: LABEL_CLASSNAME,
     fieldClassName: TEXT_INPUT_CLASSNAME,
+    isError: false,
   },
   {
     name: "confirm_password",
@@ -50,6 +55,7 @@ export const REGISTER_FORM_FIELDS = [
     component: TextInput,
     labelClassName: LABEL_CLASSNAME,
     fieldClassName: TEXT_INPUT_CLASSNAME,
+    isError: false,
   },
 ];
 const REGEX_PHONE = /^\+[1-9]\d{9,14}$/;

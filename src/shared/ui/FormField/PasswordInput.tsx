@@ -21,6 +21,7 @@ export const PasswordInput: FC<IFormField> = ({
   disabled,
   autoComplete,
   required,
+  isError = true,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const fieldId = id || name;
@@ -31,7 +32,7 @@ export const PasswordInput: FC<IFormField> = ({
   } = useFormContext();
 
   const error = errors?.[name]?.message as string | undefined;
-  const isShownError = !!error;
+  const isShownError = isError && !!error;
 
   const togglePasswordVisibility = () => {
     setShowPassword((prevState) => !prevState);
