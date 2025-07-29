@@ -54,9 +54,7 @@ export default function ChatPage() {
     const sock = io("https://app-api.carvoyance.com", {
       transports: ["websocket"],
       path: "/socket.io",
-      auth: {
-        token: accessToken,
-      },
+      auth: { token: accessToken },
     });
 
     sock.on("connect_error", (err) => console.error("WS error:", err));
@@ -98,8 +96,6 @@ export default function ChatPage() {
       sock.disconnect();
     };
   }, [accessToken]);
-
-  console.log("chats", chats);
 
   return (
     <div className="px-10 w-full flex flex-col gap-10 items-start">

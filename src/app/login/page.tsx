@@ -1,9 +1,9 @@
 // src/app/login/page.tsx
 "use client";
 
-import authBg from "../../../../public/assets/backgrounds/authBg.jpg";
-import logo from "../../../../public/assets/whiteLogo.svg";
-import car from "../../../../public/assets/images/audi.png";
+import authBg from "../../../public/assets/backgrounds/authBg.jpg";
+import logo from "../../../public/assets/whiteLogo.svg";
+import car from "../../../public/assets/images/audi.png";
 import Image from "next/image";
 
 import { AuthFlowProvider } from "@/features/auth/model/AuthFlowContext";
