@@ -8,8 +8,7 @@ import fourhCard from "../../../../public/assets/images/howItWorks/card4.svg";
 
 export const HowItWorks = () => {
   return (
-    <section className="relative py-32 flex flex-col justify-start items-start overflow-hidden bg-white">
-      {/* Овальный фон */}
+    <section className="relative py-10 lg:py-32 flex flex-col justify-start items-start overflow-hidden bg-white">
       <div className="absolute inset-0 z-0 flex justify-center items-center">
         <div className="w-[90vw] h-[800px] bg-[#5511EE] opacity-10 rounded-full blur-[50px]" />
       </div>

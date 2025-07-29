@@ -47,8 +47,12 @@ export default function ChatPage() {
 
   useEffect(() => {
     console.log("accessToken", accessToken);
+    if (!accessToken) {
+      console.warn("No access token found!");
+    }
+
     const sock = io("https://app-api.carvoyance.com", {
-      transports: ["polling", "websocket"],
+      transports: ["websocket"],
       path: "/socket.io",
       auth: {
         token: accessToken,

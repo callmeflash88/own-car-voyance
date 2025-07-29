@@ -7,7 +7,7 @@ export const FeaturedVehicles = async () => {
   const vehicles = await getFeaturedVehicles();
 
   return (
-    <section className="px-4 lg:px-32 py-5 lg:py-32 flex flex-col justify-start items-start">
+    <section className="px-4 lg:px-32 py-20 lg:py-32 flex flex-col justify-start items-start">
       <div className="w-full flex justify-between items-center">
         <h2 className="font-inter font-semibold text-[24px] lg:text-[35px] leading-none tracking-normal">
           Featured Vehicles
