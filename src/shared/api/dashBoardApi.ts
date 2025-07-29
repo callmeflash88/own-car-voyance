@@ -11,7 +11,30 @@ export const dashboardApi = createApi({
         method: "GET",
       }),
     }),
+    getMostPopularMakes: builder.query<any, void>({
+      query: () => ({
+        url: "admin/dashboard/mostPopularMakes",
+        method: "GET",
+      }),
+    }),
+    getUserRegistrationThisWeek: builder.query<any, void>({
+      query: () => ({
+        url: "admin/dashboard/userRegistrationThisWeek",
+        method: "GET",
+      }),
+    }),
+    getTopSales: builder.query<any, void>({
+      query: () => ({
+        url: "admin/dashboard/topSales",
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useGetDashboardQuery } = dashboardApi;
+export const {
+  useGetDashboardQuery,
+  useGetMostPopularMakesQuery,
+  useGetUserRegistrationThisWeekQuery,
+  useGetTopSalesQuery,
+} = dashboardApi;
