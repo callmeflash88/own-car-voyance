@@ -11,9 +11,9 @@ import { RootState } from "@/shared/store/store";
 import { Filters } from "@/widgets/filters/ui/filters";
 import { ProductsList } from "@/widgets/products-list/ui/products-list";
 import { TopBar } from "@/widgets/top-bar/ui";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
-export const mapFiltersToRequest = (filters: FiltersState): FindCarRequest => {
+const mapFiltersToRequest = (filters: FiltersState): FindCarRequest => {
   debugger;
   return {
     page: 1,
@@ -52,6 +52,7 @@ export default function ProductsListPage() {
   useEffect(() => {
     const request = mapFiltersToRequest(selectedFilters);
     findCar(request);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleApplyFIlters = () => {

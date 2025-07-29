@@ -1,3 +1,4 @@
+"use client";
 import { useAuthFlow } from "@/features/auth/model/AuthFlowContext";
 import { LoginForm } from "./LoginForm";
 import { RegisterForm } from "./RegisterForm";

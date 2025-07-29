@@ -109,7 +109,7 @@ export default function ChatPage() {
         </div>
         <div className="flex-1 flex flex-col justify-between h-[80vh] bg-white rounded-2xl shadow w-full p-5">
           <ChatMessages />
-          <MessageInput />
+          {/* <MessageInput /> */}
         </div>
       </div>
     </div>

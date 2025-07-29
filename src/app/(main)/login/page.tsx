@@ -1,27 +1,22 @@
 // src/app/login/page.tsx
 "use client";
 
-import { useState } from "react";
-import { LoginForm } from "@/features/auth/ui/LoginForm";
-// import { RegisterForm } from "@/features/auth/ui/RegisterForm";
 import authBg from "../../../../public/assets/backgrounds/authBg.jpg";
 import logo from "../../../../public/assets/whiteLogo.svg";
 import car from "../../../../public/assets/images/audi.png";
 import Image from "next/image";
-import { RegisterForm } from "@/features/auth/ui/RegisterForm";
-import { Checkbox } from "@radix-ui/react-checkbox";
-import { ForgotPasswordForm } from "@/features/auth/ui/ForgotPasswordForm";
-import { CheckOtpForm } from "@/features/auth/ui/CheckOtpForm";
-import { CreatePasswordForm } from "@/features/auth/ui/CreatePasswordForm";
+
 import { AuthFlowProvider } from "@/features/auth/model/AuthFlowContext";
 import { AuthUI } from "@/features/auth/ui/AuthUI";
+import { Suspense } from "react";
 
 export default function LoginPage() {
   return (
     <AuthFlowProvider>
       <div className="flex min-w-[100vw] min-h-[100vh] p-0 m-0">
-        <AuthUI />
-
+        <Suspense>
+          <AuthUI />
+        </Suspense>
         <div
           className="relative flex-1 min-h-[100vh] bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: `url(${authBg.src})` }}
