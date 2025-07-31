@@ -10,7 +10,7 @@ interface Props {
 export const Table: FC<Props> = ({ className, children, ariaLabel }) => (
   <div
     className={cn(
-      "mt-10 w-full  custom-scrollbar overflow-y-hidden",
+      "mt-5 w-full  custom-scrollbar overflow-y-hidden bg-white pb-10",
       className
     )}
   >

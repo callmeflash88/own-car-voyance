@@ -29,6 +29,30 @@ export const dashboardApi = createApi({
         method: "GET",
       }),
     }),
+    getUsers: builder.query<any, { page: number; perPage: number }>({
+      query: ({ page, perPage }) => ({
+        url: "admin/users/",
+        method: "GET",
+        params: {
+          page: page.toString(),
+          perPage: perPage.toString(),
+        },
+      }),
+    }),
+    blockUnblockUsers: builder.mutation<{ ids: [string] }, any>({
+      query: (data) => ({
+        url: "admin/users/blockUsers",
+        method: "POST",
+        body: data,
+      }),
+    }),
+    deleteUsers: builder.mutation<{ ids: [string] }, any>({
+      query: (data) => ({
+        url: "admin/users/deleteUsers",
+        method: "POST",
+        body: data,
+      }),
+    }),
   }),
 });
 
@@ -37,4 +61,7 @@ export const {
   useGetMostPopularMakesQuery,
   useGetUserRegistrationThisWeekQuery,
   useGetTopSalesQuery,
+  useGetUsersQuery,
+  useBlockUnblockUsersMutation,
+  useDeleteUsersMutation,
 } = dashboardApi;
