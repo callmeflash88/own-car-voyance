@@ -23,6 +23,8 @@ import {
   useGetUserRegistrationThisWeekQuery,
 } from "@/shared/api/dashBoardApi";
 import { Table, TableBody, TableHeader } from "@/shared/ui/Table";
+import { Row } from "@/shared/types/table";
+import { ArrowRight, ChevronRight } from "lucide-react";
 
 export const TOP_SALES_COLUMNS = [
   { key: "logo", label: "" },
@@ -33,31 +35,31 @@ export const TOP_SALES_COLUMNS = [
   { key: "action_buttons", label: "" },
 ];
 
+export const getTableItems = (topSales: any) => {
+  debugger;
+  return topSales?.map((item: any) => ({
+    logo: item.logo,
+    full_name: item.full_name,
+    email: item.email,
+    count: item._count?.cars ?? 0,
+    location: item.location,
+    action_buttons: {
+      type: "component",
+      component: () => (
+        <div className="rounded-full bg-[#4E17E5] h-10 w-10  flex justify-center items-center">
+          <ChevronRight className="w-4 h-4" color="#fff" />
+        </div>
+      ),
+    },
+  }));
+};
+
 export default function DashboardPage() {
   const { data: dashboard } = useGetDashboardQuery();
   const { data: mostPopularMakes } = useGetMostPopularMakesQuery();
   const { data: userRegistrationThisWeek } =
     useGetUserRegistrationThisWeekQuery();
   const { data: topSales } = useGetTopSalesQuery();
-
-  const data = [
-    { name: "Mon", registrations: 500 },
-    { name: "Tue", registrations: 750 },
-    { name: "Wed", registrations: 850 },
-    { name: "Thu", registrations: 900 },
-    { name: "Fri", registrations: 950 },
-    { name: "Sat", registrations: 850 },
-    { name: "Sun", registrations: 700 },
-  ];
-
-  const data2 = [
-    { name: "BMW", sales: 450 },
-    { name: "Mercedes", sales: 550 },
-    { name: "Toyota", sales: 400 },
-    { name: "Audi", sales: 350 },
-    { name: "Honda", sales: 300 },
-    { name: "Ford", sales: 250 },
-  ];
 
   const transformedData =
     mostPopularMakes?.map((item) => ({
@@ -73,7 +75,7 @@ export default function DashboardPage() {
 
   const maxValue = Math.max(...transformedData.map((d) => d.sales || 0));
 
-  console.log("topSales", topSales);
+  const items = getTableItems(topSales) as unknown as Row[];
 
   return (
     <div className="flex flex-col px-10 gap-4">
@@ -237,11 +239,12 @@ export default function DashboardPage() {
 
       <div className="flex flex-col justify-between items-start p-5 rounded-xl shadow-sm bg-white dark:bg-zinc-900 w-full">
         <h2 className="text-2xl font-bold mb-4">Top Sales Representative</h2>
-
-        <Table>
-          <TableHeader columns={TOP_SALES_COLUMNS} />
-          <TableBody items={[]} columns={TOP_SALES_COLUMNS} isLoading />
-        </Table>
+        <div className="px-5 w-full">
+          <Table>
+            <TableHeader columns={TOP_SALES_COLUMNS} />
+            <TableBody items={items} columns={TOP_SALES_COLUMNS} />
+          </Table>
+        </div>
       </div>
     </div>
   );

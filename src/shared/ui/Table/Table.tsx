@@ -8,7 +8,12 @@ interface Props {
 }
 
 export const Table: FC<Props> = ({ className, children, ariaLabel }) => (
-  <div className={cn("mt-10  custom-scrollbar overflow-y-hidden", className)}>
+  <div
+    className={cn(
+      "mt-10 w-full  custom-scrollbar overflow-y-hidden",
+      className
+    )}
+  >
     <table aria-label={ariaLabel} className="min-w-full">
       {children}
     </table>

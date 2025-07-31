@@ -36,9 +36,7 @@ export default function RootLayout({
         {showWaitlist ? (
           <WaitlistPage />
         ) : (
-          <ReduxProvider>
-            {children} {/* сюда попадут layout’ы из (main)/(dashboard) */}
-          </ReduxProvider>
+          <ReduxProvider>{children}</ReduxProvider>
         )}
         <Toaster position="top-right" />
       </body>

@@ -1,7 +1,4 @@
-#!/bin/bash
 
-# Скрипт переключения origin между личным и орг-репозиторием
-# Настройки
 PERSONAL_REMOTE="git@github.com-comeback:callmeflash88/own-car-voyance.git"
 ORG_REMOTE="git@github.com-comeback:CBA-React/car-voyance.git"
 

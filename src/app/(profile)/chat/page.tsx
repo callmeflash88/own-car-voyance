@@ -40,12 +40,14 @@ export default function ChatPage() {
 
   const accessToken = Cookies.get(ACCESS_TOKEN);
   const activeChatIdRef = useRef<number | null>(null);
+  //app-api.carvoyance.com
 
-  useEffect(() => {
+  https: useEffect(() => {
     activeChatIdRef.current = activeChatId;
   }, [activeChatId]);
 
   useEffect(() => {
+    debugger;
     console.log("accessToken", accessToken);
     if (!accessToken) {
       console.warn("No access token found!");
@@ -54,10 +56,12 @@ export default function ChatPage() {
     const sock = io("https://app-api.carvoyance.com", {
       transports: ["websocket"],
       path: "/socket.io",
-      auth: { token: accessToken },
+      auth: {
+        token: accessToken,
+      },
     });
 
-    sock.on("connect_error", (err) => console.error("WS error:", err));
+    sock.on("connect_error", (err) => console.error("WS error:", err.message));
 
     sock.on("connect", () => {
       sock.emit("get_chats");
