@@ -39,6 +39,12 @@ export const dashboardApi = createApi({
         },
       }),
     }),
+    getUserById: builder.query<any, string>({
+      query: (id) => ({
+        url: `admin/users/getUserById/${id}`,
+        method: "GET",
+      }),
+    }),
     blockUnblockUsers: builder.mutation<{ ids: [string] }, any>({
       query: (data) => ({
         url: "admin/users/blockUsers",
@@ -53,6 +59,20 @@ export const dashboardApi = createApi({
         body: data,
       }),
     }),
+    approveAccount: builder.mutation<any, string>({
+      query: (id) => ({
+        url: `admin/users/approveUser`,
+        method: "POST",
+        body: { id },
+      }),
+    }),
+    deleteUserCar: builder.mutation<any, string>({
+      query: (id) => ({
+        url: `admin/car/deleteCar`,
+        method: "POST",
+        body: { id },
+      }),
+    }),
   }),
 });
 
@@ -62,6 +82,9 @@ export const {
   useGetUserRegistrationThisWeekQuery,
   useGetTopSalesQuery,
   useGetUsersQuery,
+  useGetUserByIdQuery,
   useBlockUnblockUsersMutation,
   useDeleteUsersMutation,
+  useApproveAccountMutation,
+  useDeleteUserCarMutation,
 } = dashboardApi;
