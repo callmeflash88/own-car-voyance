@@ -14,7 +14,6 @@ import { TopBar } from "@/widgets/top-bar/ui";
 import { useEffect, useRef } from "react";
 
 const mapFiltersToRequest = (filters: FiltersState): FindCarRequest => {
-  debugger;
   return {
     page: 1,
     perPage: 20,

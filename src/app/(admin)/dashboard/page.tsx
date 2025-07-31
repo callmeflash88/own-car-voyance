@@ -36,7 +36,6 @@ export const TOP_SALES_COLUMNS = [
 ];
 
 export const getTableItems = (topSales: any) => {
-  debugger;
   return topSales?.map((item: any) => ({
     logo: item.logo,
     full_name: item.full_name,
@@ -78,8 +77,8 @@ export default function DashboardPage() {
   const items = getTableItems(topSales) as unknown as Row[];
 
   return (
-    <div className="flex flex-col px-10 gap-4">
-      <div className="grid grid-cols-3 gap-4">
+    <div className="flex flex-col px-2 lg:px-10 gap-4 max-w-screen">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {/* Total Users */}
         <div className="flex justify-between items-start p-5 rounded-xl shadow-sm bg-white dark:bg-zinc-900 w-full">
           <div>
@@ -180,7 +179,7 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <div className="flex flex-col justify-between items-start p-5 rounded-xl shadow-sm bg-white dark:bg-zinc-900 w-full ">
           <h2 className="text-2xl font-bold mb-4">
             User Registrations This Week

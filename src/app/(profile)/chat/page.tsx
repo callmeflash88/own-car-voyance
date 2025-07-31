@@ -47,7 +47,6 @@ export default function ChatPage() {
   }, [activeChatId]);
 
   useEffect(() => {
-    debugger;
     console.log("accessToken", accessToken);
     if (!accessToken) {
       console.warn("No access token found!");
