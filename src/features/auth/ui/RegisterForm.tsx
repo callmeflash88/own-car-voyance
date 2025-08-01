@@ -51,7 +51,7 @@ export const RegisterForm = ({ onSwitch }: RegisterFormProps) => {
 
   return (
     <div className="flex flex-col justify-center">
-      <h1 className="font-inter font-semibold text-[40px] leading-[54px] tracking-normal">
+      <h1 className="font-inter font-semibold text-[32px] md:text-[40px] leading-[54px] tracking-normal">
         Sign Up
       </h1>
       <p className="mt-2 font-inter text-base text-[#2B2B2B80]">
@@ -64,8 +64,10 @@ export const RegisterForm = ({ onSwitch }: RegisterFormProps) => {
             <div className=" text-red-600 p-3 rounded mb-4 text-sm space-y-1">
               {Object.values(errors).map((error, index) => (
                 <div key={index} className="flex items-center gap-2">
-                  <CircleAlert size={16} />
-                  {error?.message?.toString()}
+                  <div className="min-w-4">
+                    <CircleAlert size={16} />
+                  </div>
+                  <span>{error?.message?.toString()}</span>
                 </div>
               ))}
             </div>
@@ -108,7 +110,7 @@ export const RegisterForm = ({ onSwitch }: RegisterFormProps) => {
           <p className="text-sm text-center mt-5">
             Already have an account?{" "}
             <span
-              className="text-[#4E17E5] cursor-pointer"
+              className="text-[#4E17E5] cursor-pointer font-medium"
               onClick={() => setStep("login")}
             >
               Sign in

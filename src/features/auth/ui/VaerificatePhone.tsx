@@ -61,7 +61,7 @@ export const VaerificatePhone = () => {
   console.log("data", data);
   return (
     <div className="flex flex-col justify-center space-y-2">
-      <h1 className="font-inter font-semibold text-[40px] leading-[54px] tracking-normal">
+      <h1 className="font-inter font-semibold text-[32px] md:text-[40px] leading-[54px] tracking-normal">
         Verify your phone
       </h1>
 

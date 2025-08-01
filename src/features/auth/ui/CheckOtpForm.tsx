@@ -27,7 +27,7 @@ export const CheckOtpForm = () => {
         <ArrowLeft size={14} /> Back
       </p>
 
-      <h1 className="font-inter font-semibold text-[40px] leading-[54px] tracking-normal">
+      <h1 className="font-inter font-semibold text-[32px] md:text-[40px] leading-[54px] tracking-normal">
         Reset Password
       </h1>
 
