@@ -13,7 +13,7 @@ import { PasswordRules } from "./PasswordRules";
 import { useAuthFlow } from "../model/AuthFlowContext";
 
 export const CreatePasswordForm = () => {
-  const [email, setEmail] = useState("");
+  const { email } = useAuthFlow();
   const { form, onSubmit, isLoading } = useCreatePasswordForm(email);
   const watchedPassword = form.watch("password");
   const rules = validatePassword(watchedPassword);

@@ -11,7 +11,6 @@ export const CheckOtpForm = () => {
   const {
     inputsRef,
     email,
-    setEmail,
     handleChange,
     handleKeyDown,
     handleSubmit,

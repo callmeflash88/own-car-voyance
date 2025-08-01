@@ -27,7 +27,7 @@ interface ICheckOtpPayload {
 
 export interface ICreateNewPasswordPayload {
   email: string;
-  password: string;
+  new_password: string;
   confirm_password: string;
 }
 
