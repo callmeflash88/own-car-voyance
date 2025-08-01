@@ -12,7 +12,9 @@ interface Props {
 export const PasswordRules = ({ rules }: Props) => {
   const renderItem = (valid: boolean, text: string) => (
     <li className="flex items-center gap-2" key={text}>
-      <CheckCircle2 className={valid ? "text-green-600" : "text-gray-400"} />
+      <div className="min-w-4">
+        <CheckCircle2 className={valid ? "text-green-600" : "text-gray-400"} />
+      </div>
       <span className={valid ? "text-green-600" : "text-gray-400"}>{text}</span>
     </li>
   );

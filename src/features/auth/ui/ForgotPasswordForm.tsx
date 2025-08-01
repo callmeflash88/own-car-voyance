@@ -6,6 +6,7 @@ import {
 import { RenderFormFields } from "@/shared/ui/RenderFormFiled";
 import { Button } from "@/shared/ui";
 import { useAuthFlow } from "../model/AuthFlowContext";
+import { ChevronLeft } from "lucide-react";
 
 export const ForgotPasswordForm = () => {
   const { form, onSubmit, isLoading, error } = useForgotForm();
@@ -21,7 +22,14 @@ export const ForgotPasswordForm = () => {
 
   return (
     <div className="flex flex-col justify-center">
-      <h1 className="font-inter font-semibold text-[40px] leading-[54px] tracking-normal">
+      <p
+        className="flex items-center gap-1 text-base leading-none cursor-pointer mb-2"
+        onClick={() => setStep("login")}
+      >
+        <ChevronLeft size={13} />
+        <span>Back</span>
+      </p>
+      <h1 className="font-inter font-semibold text-[32px] md:text-[40px] leading-[54px] tracking-normal">
         Reset Password
       </h1>
       <p className="mt-2 font-inter font-normal text-base leading-tight tracking-normal text-[#2B2B2B80]">
