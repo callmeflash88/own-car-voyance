@@ -15,7 +15,6 @@ export default function ContactSwitcher() {
 
     if (method === "phone") {
       console.log("📱 Phone submitted:", phone);
-      // сюда добавишь отправку с Twilio в будущем
     } else {
       console.log("📧 Email submitted:", email);
     }
