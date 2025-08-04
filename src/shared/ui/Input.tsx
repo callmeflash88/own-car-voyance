@@ -1,15 +1,27 @@
 import { forwardRef, ReactNode } from "react";
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: string;
   icon?: ReactNode;
   iconPosition?: "left" | "right";
+  wrapperClassName?: string;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ label, error, icon, iconPosition = "left", className, ...props }, ref) => {
+  (
+    {
+      label,
+      error,
+      icon,
+      iconPosition = "left",
+      className,
+      wrapperClassName,
+      ...props
+    },
+    ref
+  ) => {
     return (
       <div className="">
         {label && (
@@ -18,11 +30,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           </label>
         )}
         <div
-          className={clsx(
+          className={cn(
             "relative flex items-center rounded-md border px-3 py-2",
             error
               ? "border-red-500 focus-within:ring-red-500"
-              : "border-gray-300 focus-within:ring-2 focus-within:ring-blue-500"
+              : "border-gray-300 focus-within:ring-2 focus-within:ring-blue-500",
+            wrapperClassName
           )}
         >
           {icon && iconPosition === "left" && (
@@ -30,7 +43,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           )}
           <input
             ref={ref}
-            className={clsx(
+            className={cn(
               "w-full bg-transparent outline-none placeholder-gray-400",
               className
             )}

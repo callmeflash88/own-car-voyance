@@ -1,8 +1,9 @@
 "use client";
 
-import { useAppDispatch, useAppSelector } from "@/shared/lib/hooks";
-import { setCondition } from "@/features/filter/model/slice";
 import { useState } from "react";
+import { setCondition } from "@/features/filter/model/slice";
+import { useAppDispatch, useAppSelector } from "@/shared/lib/hooks";
+import { Badge } from "@/shared/ui";
 
 const Conditions = [
   { key: "All", value: "" },
@@ -22,7 +23,7 @@ export const ConditionFilter = () => {
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full justify-between flex items-center gap-2 font-inter font-medium text-xl leading-none tracking-normal align-middle"
+        className="w-full justify-between flex items-center gap-2 font-inter font-medium text-xl leading-none tracking-normal align-middle cursor-pointer"
       >
         <span>Condition</span>
         <svg
@@ -45,19 +46,19 @@ export const ConditionFilter = () => {
 
       {isOpen && (
         <div className="flex gap-2">
-          {Conditions.map(({ key, value }) => (
-            <button
-              key={key}
-              className={`px-4 py-2 rounded-[62px] ${
-                selectedCondition === value
-                  ? "bg-[#5511EE] text-white"
-                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-              }`}
-              onClick={() => dispatch(setCondition(value))}
-            >
-              {key}
-            </button>
-          ))}
+          {Conditions.map(({ key, value }) => {
+            const isSelected = selectedCondition === value;
+
+            return (
+              <div key={key}>
+                <Badge
+                  label={key}
+                  active={isSelected}
+                  onClick={() => dispatch(setCondition(value))}
+                />
+              </div>
+            );
+          })}
         </div>
       )}
       <hr className="h-[1px] bg-[#2B2B2B33] mt-6" />

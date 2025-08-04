@@ -5,6 +5,7 @@ import { ToggleFavorite } from "@/features/toggle-favorite/ui/ToggleFavorite";
 import { EditButton } from "@/features/edit-vehicle-button/ui/EditButton";
 import { VehicleAd } from "@/shared/types/car";
 import speedIcon from "@/shared/assets/icons/vehicle-card/speed.svg";
+import { formatRelativeTime } from "@/shared/lib/utils";
 
 interface Props {
   vehicle: VehicleAd & { isFavorite?: boolean };
@@ -90,6 +91,10 @@ export const VehicleCard = ({
             <MapPin className="w-4 h-4" />
             <span>{vehicle.location}</span>
           </div>
+        </div>
+
+        <div className="mt-5 text-sm text-[#2B2B2B80]">
+          {formatRelativeTime(vehicle.created_at)}
         </div>
 
         {actions && (

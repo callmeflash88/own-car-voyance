@@ -24,7 +24,7 @@ export const FilterMake: FC<Props> = ({ makes }) => {
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex justify-between items-center gap-2 font-inter font-medium text-xl leading-none tracking-normal align-middle"
+        className="w-full flex justify-between items-center gap-2 font-inter font-medium text-xl leading-none tracking-normal align-middle cursor-pointer"
       >
         <span>Make</span>
         <svg
@@ -47,14 +47,22 @@ export const FilterMake: FC<Props> = ({ makes }) => {
       {isOpen && (
         <div className="mt-6">
           {makes.map((make) => (
-            <div key={make.value} className="flex items-center gap-2 mb-1">
+            <div
+              key={make.value}
+              className="flex items-center justify-between gap-2 mb-1"
+            >
+              <label
+                htmlFor={make.value}
+                className="cursor-pointer text-[#2B2B2B80]"
+              >
+                {make.value} ({make.count})
+              </label>
               <Checkbox
+                id={make.value}
+                className="cursor-pointer"
                 checked={selected.includes(make.value)}
                 onCheckedChange={() => dispatch(toggleMake(make.value))}
               />
-              <span>
-                {make.value} ({make.count})
-              </span>
             </div>
           ))}
         </div>
