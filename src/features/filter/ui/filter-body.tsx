@@ -24,7 +24,7 @@ export const FilterBody: FC<Props> = ({ body }) => {
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full justify-between flex items-center gap-2 font-inter font-medium text-xl leading-none tracking-normal align-middle"
+        className="w-full justify-between flex items-center gap-2 font-inter font-medium text-xl leading-none tracking-normal align-middle cursor-pointer"
       >
         <span>Body Style</span>
         <svg

@@ -23,19 +23,16 @@ export const SortSelect = () => {
   };
 
   return (
-    <div className="flex items-center gap-2 whitespace-nowrap">
-      <div className="flex items-center gap-1 whitespace-nowrap">
-        <ArrowDownUp color="#5511EE" size={20} />
-        <span className="text-[#2B2B2B80] font-inter font-normal text-[16px]">
-          Sort By:
-        </span>
-      </div>
+    <div className="flex-1 flex items-center gap-2 whitespace-nowrap md:flex-auto">
       <Select
-        className="min-w-[160px]"
+        name="sort-by"
+        className="min-w-[160px] font-medium bg-white border border-gray-200 rounded-[20px]"
+        fieldClassName="py-4 rounded-[20px]"
         value={currentValue}
         onChange={handleChange}
         options={OPTIONS}
         isBordered={false}
+        icon={<ArrowDownUp color="#5511EE" size={20} />}
       />
     </div>
   );

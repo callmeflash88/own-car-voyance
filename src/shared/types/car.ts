@@ -21,6 +21,7 @@ export interface VehicleAd {
   description: string;
   images: string[];
   status: CarStatus;
+  created_at: string;
 }
 
 export interface CarById extends VehicleAd {
@@ -37,7 +38,7 @@ export interface CarById extends VehicleAd {
       cars: number;
     };
   };
-  created_at: string;
+  // created_at: string;
   updated_at: string;
 }
 
