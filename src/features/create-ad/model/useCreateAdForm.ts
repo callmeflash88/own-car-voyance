@@ -198,6 +198,14 @@ export const STEP_DETAILS_FORM_FIELDS = [
     labelClassName: LABEL_CLASSNAME,
     fieldClassName: TEXT_INPUT_CLASSNAME,
   },
+  {
+    name: "vin_code",
+    label: "Enter VIN code",
+    placeholder: "VIN code",
+    component: TextInput,
+    labelClassName: LABEL_CLASSNAME,
+    fieldClassName: TEXT_INPUT_CLASSNAME,
+  },
 ];
 
 const createAdSchema = z.object({
@@ -217,7 +225,8 @@ const createAdSchema = z.object({
   drive_type: z.string().min(1),
   engine: z.string().min(1),
   number_of_seats: z.string().min(1),
-  description: z.string().optional(), // если не используете `register`, то не будет работать
+  description: z.string().optional(),
+  vin_code: z.string().optional(),
 });
 
 export type CreateAdFormValues = z.infer<typeof createAdSchema>;
@@ -243,6 +252,7 @@ export const useCreateAdForm = () => {
       engine: "",
       number_of_seats: "",
       description: "",
+      vin_code: "",
     },
     mode: "onChange",
     shouldUnregister: false,
@@ -265,6 +275,7 @@ export const useCreateAdForm = () => {
         price: Number(data.price),
         features: features,
         images: uploadedPhotos.map((photo) => photo.url),
+        vin_code: data.vin_code ?? "",
       };
 
       try {

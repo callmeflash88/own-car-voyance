@@ -42,7 +42,7 @@ export const FAQAnswers = () => {
   return (
     <div className="max-w-2xl mx-auto p-4">
       {faqData.map((item, index) => (
-        <div key={index} className="border-b border-gray-300 py-4">
+        <div key={index} className="border-b border-gray-300 py-10">
           <button
             className="flex justify-between w-full text-left text-lg font-medium text-gray-800"
             onClick={() => toggle(index)}

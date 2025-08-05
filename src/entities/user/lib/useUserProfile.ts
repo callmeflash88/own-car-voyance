@@ -11,9 +11,7 @@ export const useUserProfile = () => {
   const dispatch = useDispatch();
   const user = useAppSelector((state) => state.user);
 
-  const { data, isLoading, isError, refetch } = useGetUserQuery(undefined, {
-    skip: !!user, // не делать запрос, если юзер уже в store
-  });
+  const { data, isLoading, isError, refetch } = useGetUserQuery();
 
   useEffect(() => {
     if (data) dispatch(setUser(data));

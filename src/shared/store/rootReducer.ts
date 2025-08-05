@@ -3,7 +3,7 @@ import authReducer from "@/features/auth/model/slice";
 import { authApi } from "@/features/auth/api/authApi";
 import filtersReducer from "@/features/filter/model/slice";
 import searchSliceReducer from "@/features/search/model/searchSlice";
-
+import selectedUsersSlice from "@/features/admin-users/model/selectedUsersSlice";
 import userSliceReducer from "@/entities/user/model/userSlice";
 import { userApi } from "@/entities/user/api/userApi";
 import { uploadApi } from "../api/uploadApi";
@@ -22,6 +22,7 @@ export const rootReducer = combineReducers({
   search: searchSliceReducer,
   chat: chatSlice.reducer,
   user: userSliceReducer,
+  selectedUser: selectedUsersSlice,
   [dashboardApi.reducerPath]: dashboardApi.reducer,
   [carApi.reducerPath]: carApi.reducer,
   [authApi.reducerPath]: authApi.reducer,

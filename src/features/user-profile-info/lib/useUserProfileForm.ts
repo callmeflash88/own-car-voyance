@@ -16,7 +16,7 @@ const EditUserSchema = z.object({
 
 export type EditUserFormValues = z.infer<typeof EditUserSchema>;
 
-export const useEditUserProfileForm = (user: any) => {
+export const useEditUserProfileForm = (user: any, refetch?: () => void) => {
   const form = useForm({ defaultValues: user });
   const [updateUserProfile, { isLoading, error }] =
     useUpdateUserProfileMutation();
@@ -29,12 +29,13 @@ export const useEditUserProfileForm = (user: any) => {
       if (id) {
         fullData.logo = { id };
       } else {
-        delete fullData.logo; // 👈 запобігає відправці logo: null
+        delete fullData.logo;
       }
 
       delete fullData.photo;
 
       await updateUserProfile(fullData).unwrap();
+      refetch?.();
     } catch (e) {
       console.error("Failed to update user:", e);
     }

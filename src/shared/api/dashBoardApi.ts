@@ -29,6 +29,50 @@ export const dashboardApi = createApi({
         method: "GET",
       }),
     }),
+    getUsers: builder.query<any, { page: number; perPage: number }>({
+      query: ({ page, perPage }) => ({
+        url: "admin/users/",
+        method: "GET",
+        params: {
+          page: page.toString(),
+          perPage: perPage.toString(),
+        },
+      }),
+    }),
+    getUserById: builder.query<any, string>({
+      query: (id) => ({
+        url: `admin/users/getUserById/${id}`,
+        method: "GET",
+      }),
+    }),
+    blockUnblockUsers: builder.mutation<{ ids: [string] }, any>({
+      query: (data) => ({
+        url: "admin/users/blockUsers",
+        method: "POST",
+        body: data,
+      }),
+    }),
+    deleteUsers: builder.mutation<{ ids: [string] }, any>({
+      query: (data) => ({
+        url: "admin/users/deleteUsers",
+        method: "POST",
+        body: data,
+      }),
+    }),
+    approveAccount: builder.mutation<any, string>({
+      query: (id) => ({
+        url: `admin/users/approveUser`,
+        method: "POST",
+        body: { id },
+      }),
+    }),
+    deleteUserCar: builder.mutation<any, string>({
+      query: (id) => ({
+        url: `admin/car/deleteCar`,
+        method: "POST",
+        body: { id },
+      }),
+    }),
   }),
 });
 
@@ -37,4 +81,10 @@ export const {
   useGetMostPopularMakesQuery,
   useGetUserRegistrationThisWeekQuery,
   useGetTopSalesQuery,
+  useGetUsersQuery,
+  useGetUserByIdQuery,
+  useBlockUnblockUsersMutation,
+  useDeleteUsersMutation,
+  useApproveAccountMutation,
+  useDeleteUserCarMutation,
 } = dashboardApi;

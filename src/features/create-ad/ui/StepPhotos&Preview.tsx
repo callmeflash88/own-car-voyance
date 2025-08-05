@@ -95,26 +95,32 @@ export const PreviewStep: FC<PreviewStepProps> = ({
         </p>
         <div className="border-2 border-[#E7E6E7] rounded-3xl p-4 flex justify-between">
           <div className="w-2/4 pr-4">
-            {/* Главное фото */}
             {uploadedPhotos[0] && (
-              <div className="mb-4 rounded-xl overflow-hidden border">
+              <div className="mb-4 rounded-xl overflow-hidden border relative group w-full">
                 <Image
                   src={uploadedPhotos[0].url}
                   alt="Main"
                   width={320}
                   height={240}
-                  className="object-cover w-full "
+                  className="object-cover w-full h-[240px]"
                 />
+                <button
+                  type="button"
+                  onClick={() => {
+                    setUploadedPhotos((prev) => prev.slice(1));
+                  }}
+                  className="absolute top-2 right-2 bg-black/60 hover:bg-black/80 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-lg"
+                >
+                  &times;
+                </button>
               </div>
             )}
 
-            {/* Миниатюры */}
             <div className="flex gap-2">
               {uploadedPhotos.slice(1, 4).map((photo, index) => (
                 <div
                   key={photo.id}
-                  className="w-[100px] h-[75px] overflow-hidden rounded-md border cursor-pointer"
-                  onClick={() => handleMainPhotoChange(index + 1)}
+                  className="relative group w-[100px] h-[75px] overflow-hidden rounded-md border cursor-pointer"
                 >
                   <Image
                     src={photo.url}
@@ -122,7 +128,22 @@ export const PreviewStep: FC<PreviewStepProps> = ({
                     width={100}
                     height={75}
                     className="object-cover w-full h-full"
+                    onClick={() => handleMainPhotoChange(index + 1)}
                   />
+
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      const photoToRemoveId = photo.id;
+                      setUploadedPhotos((prev) =>
+                        prev.filter((p) => p.id !== photoToRemoveId)
+                      );
+                    }}
+                    className="absolute top-1 right-1 bg-black/60 hover:bg-black/80 text-white rounded-full w-5 h-5 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                  >
+                    &times;
+                  </button>
                 </div>
               ))}
             </div>
