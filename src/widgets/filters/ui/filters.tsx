@@ -31,7 +31,7 @@ export const Filters: FC<Props> = ({
         </h2>
         <SlidersVertical className="hidden text-[#2B2B2B80] md:block" />
         <X
-          className="block text-[#2B2B2B80] md:hidden"
+          className="block text-[#2B2B2B80] md:hidden cursor-pointer"
           onClick={handleCloseFilters}
         />
       </div>
