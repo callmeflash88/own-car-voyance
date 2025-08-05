@@ -15,8 +15,8 @@ export async function POST(req: NextRequest) {
 
   const res = NextResponse.json({
     success: true,
-    access_token: data.access_token, // ✅ вернуть токен в теле
-    refresh_token: data.refresh_token, // ✅ вернуть рефреш тоже
+    access_token: data.access_token,
+    refresh_token: data.refresh_token,
   });
 
   return res;

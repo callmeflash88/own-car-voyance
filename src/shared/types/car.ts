@@ -19,6 +19,7 @@ export interface VehicleAd {
   number_of_seats: string;
   features: string[];
   description: string;
+  vin_code: string;
   images: string[];
   status: CarStatus;
   created_at: string;
