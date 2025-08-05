@@ -4,7 +4,6 @@ import { Button } from "@/shared/ui";
 export const Faq = () => {
   return (
     <section className="relative py-32 flex flex-col justify-start items-start overflow-hidden bg-white">
-      {/* Овальный фон */}
       <div className="absolute inset-0 z-0 flex justify-center items-center">
         <div className="w-[90vw] h-[600px] bg-[#6F76F2] opacity-10 rounded-full blur-[25px]" />
       </div>
