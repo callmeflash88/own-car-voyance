@@ -52,7 +52,7 @@ export const Sidebar = () => {
             </span>
           )}
         </Link>
-        <Link href="/favorites" className={linkClass("/search")}>
+        <Link href="/favorites" className={linkClass("/favorites")}>
           <Heart size={18} /> Favorites
         </Link>
         <Link href="/profile" className={linkClass("/profile")}>
