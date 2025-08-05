@@ -43,7 +43,7 @@ export const Button = ({
     <button
       disabled={disabled || isLoading}
       className={cn(
-        "rounded-full flex items-center justify-center gap-2 transition disabled:opacity-50 disabled:cursor-not-allowed",
+        "rounded-full flex items-center justify-center gap-2 transition disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed",
         sizeClasses[size],
         variantClasses[variant],
         className

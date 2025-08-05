@@ -15,7 +15,7 @@ export const TopBar = ({ handleOpenFilters }: Props) => {
       </div>
       <div className="flex gap-2 w-full xs:gap-5 lg:w-auto">
         <div
-          className="flex items-center gap-2 px-5 bg-white border border-gray-200 rounded-[20px] md:hidden"
+          className="flex items-center gap-2 px-5 bg-white border border-gray-200 rounded-[20px] md:hidden cursor-pointer"
           onClick={handleOpenFilters}
         >
           <SlidersVertical className="text-[#5511EE]" />

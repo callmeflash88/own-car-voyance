@@ -52,7 +52,7 @@ export default function CreateAdPage() {
         </p>
       </section>
       <FormProvider {...form}>
-        <div className="px-72 mt-10">
+        <div className="px-72 mt-10 pb-10">
           <form className="bg-white  rounded-2xl shadow w-full px-20 py-16">
             <Stepper currentStep={currentStep} />
             <CurrentStepComponent
