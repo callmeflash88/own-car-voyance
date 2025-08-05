@@ -8,6 +8,8 @@ interface Option {
 }
 
 interface SelectProps {
+  // select should have id or name
+  name?: string;
   label?: string;
   options: Option[];
   value: string;
@@ -17,9 +19,12 @@ interface SelectProps {
   className?: string;
   isBordered?: boolean;
   labelClassName?: string;
+  icon?: React.ReactNode;
+  fieldClassName?: string;
 }
 
 export const Select: FC<SelectProps> = ({
+  name,
   options,
   value,
   onChange,
@@ -27,16 +32,26 @@ export const Select: FC<SelectProps> = ({
   disabled = false,
   className = "",
   isBordered = true,
+  icon,
+  fieldClassName,
 }) => {
   return (
     <div className={cn("relative w-full text-black", className)}>
+      {icon && (
+        <div className="pointer-events-none absolute left-3 top-1/2 transform -translate-y-1/2">
+          {icon}
+        </div>
+      )}
       <select
+        name={name}
         className={cn(
-          "w-full appearance-none px-3 py-2 rounded-md focus:outline-none focus:ring-2",
+          "w-full appearance-none px-3 py-2 rounded-md focus:outline-none focus:ring-2 cursor-pointer",
           isBordered && "border border-gray-300",
           disabled ? "bg-gray-100 cursor-not-allowed" : "focus:ring-blue-500",
           value === "" ? "text-gray-400" : "text-black",
-          "pr-10"
+          icon && "pl-10",
+          "pr-10",
+          fieldClassName
         )}
         value={value}
         onChange={(e) => onChange(e.target.value)}

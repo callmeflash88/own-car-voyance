@@ -1,11 +1,10 @@
 "use client";
 import { VehicleCard } from "@/entities/vehicle/ui/VehicleCard";
-import { useGetMyFavoriteCarsQuery } from "@/shared/api/carApi";
 import { GetMyCarResponse } from "@/shared/types/car";
 import { Button } from "@/shared/ui";
 import { useRouter } from "next/navigation";
 
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 
 interface Props {
   vehicles: GetMyCarResponse;
@@ -24,7 +23,7 @@ export const ProductsList: FC<Props> = ({
   const router = useRouter();
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 grid-cols-5-3xl gap-4">
       {vehicles.data?.length ? (
         vehicles.data.map((vehicle) => (
           <div key={vehicle.id}>

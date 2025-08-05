@@ -56,7 +56,7 @@ export const useCreatePasswordForm = (
   const onSubmit = form.handleSubmit(async (data) => {
     const fullData = {
       email,
-      password: data.password,
+      new_password: data.password,
       confirm_password: data.confirm,
     };
 

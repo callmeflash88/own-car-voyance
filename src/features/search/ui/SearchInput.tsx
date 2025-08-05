@@ -16,7 +16,8 @@ export const SearchInput = () => {
         value={value}
         onChange={(e) => dispatch(setQuery(e.target.value))}
         placeholder="Search (Ex. BMW, car parts, reviews)"
-        className="!w-[35vw]"
+        className="w-full"
+        wrapperClassName="py-4 px-6 rounded-[20px]"
       />
     </>
   );

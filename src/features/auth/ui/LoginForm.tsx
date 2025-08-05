@@ -18,7 +18,7 @@ export const LoginForm = ({ onSwitch }: { onSwitch?: () => void }) => {
 
   return (
     <div className="flex flex-col justify-center">
-      <h1 className="font-inter font-semibold text-[40px] leading-[54px] tracking-normal">
+      <h1 className="font-inter font-semibold text-[32px] md:text-[40px] leading-[54px] tracking-normal">
         Sign In
       </h1>
       <p className="mt-2 font-inter font-normal text-base leading-tight tracking-normal text-[#2B2B2B80]">
@@ -31,14 +31,18 @@ export const LoginForm = ({ onSwitch }: { onSwitch?: () => void }) => {
             <div className=" text-red-600 p-3 rounded mb-4 text-sm space-y-1">
               {serverError && (
                 <div className="flex items-center gap-2">
-                  <CircleAlert size={16} />
-                  {serverError}
+                  <div className="min-w-4">
+                    <CircleAlert size={16} />
+                  </div>
+                  <span>{serverError}</span>
                 </div>
               )}
               {Object.values(errors).map((error, index) => (
                 <div key={index} className="flex items-center gap-2">
-                  <CircleAlert size={16} />
-                  {error?.message?.toString()}
+                  <div className="min-w-4">
+                    <CircleAlert size={16} />
+                  </div>
+                  <span>{error?.message?.toString()}</span>
                 </div>
               ))}
             </div>
@@ -49,10 +53,10 @@ export const LoginForm = ({ onSwitch }: { onSwitch?: () => void }) => {
           </div>
 
           <div className="flex justify-between mt-5">
-            <div className="flex items-center gap-2">
+            <label className="flex items-center gap-2">
               <Checkbox />
               <span className="text-sm">Remember me</span>
-            </div>
+            </label>
             <p
               className="text-sm text-[#4E17E5] cursor-pointer"
               onClick={() => setStep("forgot")}
@@ -76,7 +80,7 @@ export const LoginForm = ({ onSwitch }: { onSwitch?: () => void }) => {
           <p className="text-sm text-center mt-5">
             Don’t have an account?{" "}
             <span
-              className="text-[#4E17E5] cursor-pointer"
+              className="text-[#4E17E5] cursor-pointer font-medium"
               onClick={() => setStep("register")}
             >
               Sign up

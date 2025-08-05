@@ -5,7 +5,7 @@ import { useCheckOtpMutation } from "../api/authApi";
 import { useAuthFlow } from "./AuthFlowContext";
 
 export const useCheckOtp = () => {
-  const [email, setEmail] = useState("");
+  const { email } = useAuthFlow();
   const [otp, setOtp] = useState("");
   const [checkOtp, { isLoading, error }] = useCheckOtpMutation();
   const { setStep } = useAuthFlow();
@@ -48,7 +48,7 @@ export const useCheckOtp = () => {
 
   return {
     email,
-    setEmail,
+
     otp,
     handleChange,
     handleKeyDown,

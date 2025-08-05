@@ -47,7 +47,7 @@ export const ToggleFavorite = ({
 
   return (
     <button
-      className="absolute bottom-5 right-2 bg-white rounded-full p-2 shadow"
+      className="absolute w-12 h-12 flex items-center justify-center bottom-5 right-2 bg-white rounded-full shadow"
       onClick={handleClick}
     >
       <Heart

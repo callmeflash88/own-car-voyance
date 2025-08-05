@@ -1,5 +1,6 @@
 "use client";
 import { FiltersState } from "@/features/filter/model/slice";
+import { cn } from "@/lib/utils";
 import { useGetMyFavoriteCarsQuery } from "@/shared/api/carApi";
 import {
   FindCarRequest,
@@ -11,7 +12,7 @@ import { RootState } from "@/shared/store/store";
 import { Filters } from "@/widgets/filters/ui/filters";
 import { ProductsList } from "@/widgets/products-list/ui/products-list";
 import { TopBar } from "@/widgets/top-bar/ui";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const mapFiltersToRequest = (filters: FiltersState): FindCarRequest => {
   return {
@@ -48,15 +49,58 @@ export default function ProductsListPage() {
 
   const [findCar, { data: vehicles, isLoading, error }] = useFindCarMutation();
 
+  const [isFiltersOpen, setIsFiltersOpen] = useState(false);
+
   useEffect(() => {
     const request = mapFiltersToRequest(selectedFilters);
     findCar(request);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    if (isFiltersOpen) {
+      // Store the current scroll position
+      const scrollY = window.scrollY;
+
+      // Apply styles to prevent scrolling on mobile Chrome
+      document.body.style.position = "fixed";
+      document.body.style.height = "100%";
+      document.body.style.width = "100%";
+      document.body.style.overflow = "hidden";
+
+      // Store scroll position for restoration
+      document.body.dataset.scrollY = scrollY.toString();
+    } else {
+      // Restore the scroll position
+      const scrollY = document.body.dataset.scrollY;
+
+      // Remove the fixed positioning
+      document.body.style.position = "";
+      document.body.style.height = "";
+      document.body.style.width = "";
+      document.body.style.overflow = "";
+
+      // Restore scroll position
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY));
+      }
+
+      // Clean up the data attribute
+      delete document.body.dataset.scrollY;
+    }
+  }, [isFiltersOpen]);
+
   const handleApplyFIlters = () => {
     const request = mapFiltersToRequest(selectedFilters);
     findCar(request);
+  };
+
+  const handleOpenFilters = () => {
+    setIsFiltersOpen(true);
+  };
+
+  const handleCloseFilters = () => {
+    setIsFiltersOpen(false);
   };
 
   console.log("filters", filters);
@@ -78,12 +122,23 @@ export default function ProductsListPage() {
   if (error) return <div>Error loading cars</div>;
 
   return (
-    <div className="max-w-[100vw] overflow-auto flex flex-row px-4 lg:px-[120px] pt-10 gap-10">
-      <div className="block w-[300px] shrink-0">
-        <Filters filters={filters} applyFilters={handleApplyFIlters} />
+    <div className="max-w-[100vw] overflow-auto flex flex-row px-4 md:px-[90px] lg:px-[120px] pt-10 gap-10">
+      <div
+        className={cn(
+          "fixed inset-0 bg-[#2B2B2B99] z-10 flex justify-center overflow-y-auto pt-[140px] pb-[40px] md:relative md:bg-transparent md:w-[300px] md:shrink-0 md:py-0",
+          isFiltersOpen ? "flex" : "hidden",
+          "md:block"
+        )}
+      >
+        <Filters
+          isOpen={isFiltersOpen}
+          filters={filters}
+          applyFilters={handleApplyFIlters}
+          handleCloseFilters={handleCloseFilters}
+        />
       </div>
       <div className="w-full">
-        <TopBar />
+        <TopBar handleOpenFilters={handleOpenFilters} />
 
         {isLoading || isFavoritesLoading ? (
           <div className="w-full h-[60vh] flex justify-center items-center">
