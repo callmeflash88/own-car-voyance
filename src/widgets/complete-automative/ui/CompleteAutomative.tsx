@@ -24,7 +24,7 @@ export const CompleteAutomative = () => {
           <br className="hidden lg:block" /> Automotive Platform
         </h3>
       </div>
-      <div className="w-full flex flex-col lg:flex-row justify-between mt-14 lg:mt-24 z-10">
+      <div className="w-full flex flex-col lg:flex-row justify-between items-center lg:items-stretch mt-14 lg:mt-24 z-10 gap-5">
         {/* Card */}
         <div className="w-[317px] flex flex-col justify-between items-between border-b-2 border-[#DFDFDF] pb-7">
           <div className="flex flex-row lg:flex-col lg:items-start items-center lg:gap-0 gap-5">
