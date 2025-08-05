@@ -3,10 +3,11 @@
 import { useState } from "react";
 import { Input, Button } from "@/shared/ui";
 import { useEditUserProfileForm } from "../lib/useUserProfileForm";
+import { useUserProfile } from "@/entities/user/lib/useUserProfile";
 
-export const UserProfileEditForm = ({ user, onCancel }: any) => {
+export const UserProfileEditForm = ({ user, refetch, onCancel }: any) => {
   const { form, handleSubmit, uploadFile, isLoading, error } =
-    useEditUserProfileForm(user);
+    useEditUserProfileForm(user, refetch);
   const {
     register,
     handleSubmit: submitForm,
