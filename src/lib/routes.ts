@@ -7,6 +7,8 @@ export const MAIN_ROUTES = {
   CREATE_AD: "/create-ad",
   PRODUCTS_LIST: "/products-list",
 
+  LOGIN: "/login",
+
   CAR: (id: string | number) => `/car/${id}`,
 } as const;
 

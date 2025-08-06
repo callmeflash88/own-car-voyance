@@ -27,6 +27,8 @@ export function middleware(request: NextRequest) {
     "/dashboard",
     "/orders",
     "/chat",
+    "/favorites",
+    "/my-vehicles",
   ];
   const isProtected = protectedRoutes.some((route) =>
     pathname.startsWith(route)
@@ -78,5 +80,9 @@ export const config = {
     "/chat",
     "/sign-up",
     "/verification",
+    "/favorites",
+    "/favorites/:path*",
+    "/my-vehicles",
+    "/my-vehicles/:path*",
   ],
 };
