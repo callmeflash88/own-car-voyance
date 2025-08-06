@@ -19,6 +19,7 @@ import { ConditionFilter } from "@/features/filter/ui/filter-condition";
 
 import { Button } from "@/shared/ui";
 import { SlidersVertical, ChevronDown } from "lucide-react";
+import { AdminFilterMake } from "@/features/filter/ui/admin-filter-select";
 
 interface Props {
   onClose?: () => void;
@@ -111,7 +112,7 @@ export default function FilterPanel({ onClose }: Props) {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <ConditionFilter isShowBorder={false} />
             <PriceFilter isShowBorder={false} />
-            <FilterMake makes={filters?.makes} isShowBorder={false} />
+            <AdminFilterMake makes={filters?.makes} isShowBorder={false} />
             <FilterYear isShowBorder={false} />
             <FilterBody body={filters?.body_styles} isShowBorder={false} />
           </div>
