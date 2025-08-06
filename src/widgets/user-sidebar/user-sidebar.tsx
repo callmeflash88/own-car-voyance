@@ -12,12 +12,15 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import logo from "../../../public/assets/logo.svg";
-import { usePathname } from "next/navigation";
-import { useSelector } from "react-redux";
+import { usePathname, useRouter } from "next/navigation";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/shared/store/store";
+import { logout } from "@/features/auth/model/slice";
+import { MAIN_ROUTES } from "@/lib/routes";
 
 export const Sidebar = () => {
   const pathname = usePathname();
+  const router = useRouter();
 
   const linkClass = (href: string) =>
     `flex items-center gap-2 h-14 px-3 rounded-lg transition-colors ${
@@ -26,9 +29,15 @@ export const Sidebar = () => {
         : "text-gray-700 hover:bg-gray-50"
     }`;
 
+  const dispatch = useDispatch();
   const chats = useSelector((state: RootState) => state.chat.chats);
 
   const totalUnread = chats.reduce((sum, chat) => sum + chat.unreadCount, 0);
+
+  const handleLogout = () => {
+    dispatch(logout());
+    router.replace(MAIN_ROUTES.LOGIN);
+  };
 
   return (
     <aside className="w-[240px] h-screen border-r p-6 flex flex-col gap-6 bg-white">
@@ -63,7 +72,10 @@ export const Sidebar = () => {
         </Link>
       </nav>
 
-      <button className="mt-auto flex items-center gap-2 text-red-500 hover:text-red-700">
+      <button
+        className="mt-auto flex items-center self-start gap-2 text-red-500 hover:text-red-700 cursor-pointer"
+        onClick={handleLogout}
+      >
         <LogOut size={18} /> Logout
       </button>
     </aside>
