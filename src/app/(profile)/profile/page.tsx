@@ -18,7 +18,10 @@ export default function Profile() {
         <div className="bg-white rounded-2xl shadow w-full p-5">
           <div className="flex justify-between items-center border-b border-gray-200 pb-5">
             <h2 className="text-lg font-semibold">Active Vehicles</h2>
-            <button onClick={() => setEditMode(!editMode)}>
+            <button
+              className="cursor-pointer"
+              onClick={() => setEditMode(!editMode)}
+            >
               <Pencil size={16} />
             </button>
           </div>

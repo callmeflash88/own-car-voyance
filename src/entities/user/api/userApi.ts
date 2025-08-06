@@ -4,12 +4,14 @@ import { IUpdateProfile } from "../types";
 
 export const userApi = createApi({
   reducerPath: "userApi",
+  tagTypes: ["Profile"],
   baseQuery: axiosBaseQuery(),
   endpoints: (builder) => ({
     getUser: builder.query<any, void>({
       query: () => ({
         url: "user/profile",
       }),
+      providesTags: [{ type: "Profile", id: "PROFILE" }],
     }),
     updateUserProfile: builder.mutation<any, Partial<IUpdateProfile>>({
       query: (body) => ({
@@ -17,6 +19,7 @@ export const userApi = createApi({
         method: "POST",
         body,
       }),
+      invalidatesTags: [{ type: "Profile", id: "PROFILE" }],
     }),
   }),
 });

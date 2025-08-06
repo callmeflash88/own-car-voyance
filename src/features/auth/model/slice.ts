@@ -1,4 +1,8 @@
-import { ACCESS_TOKEN } from "@/shared/constants/cookiesKeys";
+import {
+  ACCESS_TOKEN,
+  AUTH_REFRESH_TOKEN,
+  REGISTER_VERIFICATION,
+} from "@/shared/constants/cookiesKeys";
 import { isTokenExpired } from "@/shared/lib/interceptors";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import Cookies from "js-cookie";
@@ -27,6 +31,11 @@ const authSlice = createSlice({
     logout(state) {
       state.user = null;
       state.isAuthenticated = false;
+
+      // remove auth cookies
+      Cookies.remove(ACCESS_TOKEN);
+      Cookies.remove(AUTH_REFRESH_TOKEN);
+      Cookies.remove(REGISTER_VERIFICATION);
     },
   },
 });

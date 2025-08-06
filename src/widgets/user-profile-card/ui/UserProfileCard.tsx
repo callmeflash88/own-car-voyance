@@ -19,7 +19,10 @@ export const UserProfileCard = () => {
     <div className="bg-white  rounded-2xl shadow w-full p-5">
       <div className="flex justify-between items-center border-b border-gray-200 pb-5">
         <h2 className="text-lg font-semibold">Personal Profile</h2>
-        <button onClick={() => setEditMode((prev) => !prev)}>
+        <button
+          className="cursor-pointer"
+          onClick={() => setEditMode((prev) => !prev)}
+        >
           <Pencil size={16} />
         </button>
       </div>
