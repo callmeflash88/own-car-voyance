@@ -1,5 +1,11 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { axiosBaseQuery } from "../lib/axiosBaseQuery";
+import { FindCarRequest } from "./webSiteApi";
+
+interface ListingsResponse {
+  data: any;
+  pagination: any;
+}
 
 export const dashboardApi = createApi({
   reducerPath: "dashboardApi",
@@ -73,6 +79,20 @@ export const dashboardApi = createApi({
         body: { id },
       }),
     }),
+    getAdminCars: builder.mutation<any, FindCarRequest>({
+      query: (body) => ({
+        url: "admin/car",
+        method: "POST",
+        body,
+      }),
+    }),
+    deleteCar: builder.mutation<any, string>({
+      query: (id) => ({
+        url: `admin/car/deleteCar`,
+        method: "POST",
+        body: { id },
+      }),
+    }),
   }),
 });
 
@@ -87,4 +107,6 @@ export const {
   useDeleteUsersMutation,
   useApproveAccountMutation,
   useDeleteUserCarMutation,
+  useGetAdminCarsMutation,
+  useDeleteCarMutation,
 } = dashboardApi;

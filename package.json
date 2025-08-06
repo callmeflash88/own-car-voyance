@@ -34,6 +34,7 @@
     "react-input-mask": "^3.0.0-alpha.2",
     "react-input-mask-next": "^3.0.0-alpha.12",
     "react-redux": "^9.2.0",
+    "react-select": "^5.10.2",
     "recharts": "^3.1.0",
     "socket.io-client": "^4.8.1",
     "tailwind-merge": "^3.3.1",
