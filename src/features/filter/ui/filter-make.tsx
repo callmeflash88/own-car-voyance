@@ -11,9 +11,10 @@ interface Make {
 
 interface Props {
   makes: Make[];
+  isShowBorder?: boolean;
 }
 
-export const FilterMake: FC<Props> = ({ makes }) => {
+export const FilterMake: FC<Props> = ({ makes, isShowBorder = true }) => {
   const dispatch = useAppDispatch();
   const selected = useAppSelector((state) => state.filters.make);
 
@@ -27,26 +28,28 @@ export const FilterMake: FC<Props> = ({ makes }) => {
         className="w-full flex justify-between items-center gap-2 font-inter font-medium text-xl leading-none tracking-normal align-middle cursor-pointer"
       >
         <span>Make</span>
-        <svg
-          className={`w-5 h-5 transition-transform duration-200 ${
-            isOpen ? "rotate-90" : "rotate-0"
-          }`}
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M9 5l7 7-7 7"
-          ></path>
-        </svg>
+        {isShowBorder && (
+          <svg
+            className={`w-5 h-5 transition-transform duration-200 ${
+              isOpen ? "rotate-90" : "rotate-0"
+            }`}
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M9 5l7 7-7 7"
+            ></path>
+          </svg>
+        )}
       </button>
       {isOpen && (
         <div className="mt-6">
-          {makes.map((make) => (
+          {makes?.map((make) => (
             <div
               key={make.value}
               className="flex items-center justify-between gap-2 mb-1"
@@ -67,7 +70,7 @@ export const FilterMake: FC<Props> = ({ makes }) => {
           ))}
         </div>
       )}
-      <hr className="h-[1px] bg-[#2B2B2B33] mt-6" />
+      {isShowBorder && <hr className="h-[1px] bg-[#2B2B2B33] mt-6" />}
     </div>
   );
 };

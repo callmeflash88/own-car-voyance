@@ -4,7 +4,11 @@ import { Input } from "@/shared/ui";
 import { setYearFrom, setYearTo } from "../model/slice";
 import { useState } from "react";
 
-export const FilterYear = () => {
+interface Props {
+  isShowBorder?: boolean;
+}
+
+export const FilterYear = ({ isShowBorder = true }: Props) => {
   const dispatch = useAppDispatch();
 
   const yearFrom = useAppSelector((state) => state.filters.year_from) ?? 2010;
@@ -20,22 +24,24 @@ export const FilterYear = () => {
         className="w-full justify-between flex items-center gap-2 font-inter font-medium text-xl leading-none tracking-normal align-middle cursor-pointer"
       >
         <span>Year</span>
-        <svg
-          className={`w-5 h-5 transition-transform duration-200 ${
-            isOpen ? "rotate-90" : "rotate-0"
-          }`}
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M9 5l7 7-7 7"
-          ></path>
-        </svg>
+        {isShowBorder && (
+          <svg
+            className={`w-5 h-5 transition-transform duration-200 ${
+              isOpen ? "rotate-90" : "rotate-0"
+            }`}
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M9 5l7 7-7 7"
+            ></path>
+          </svg>
+        )}
       </button>
 
       {isOpen && (
@@ -55,7 +61,7 @@ export const FilterYear = () => {
           />
         </div>
       )}
-      <hr className="h-[1px] bg-[#2B2B2B33] mt-6" />
+      {isShowBorder && <hr className="h-[1px] bg-[#2B2B2B33] mt-6" />}
     </div>
   );
 };
