@@ -8,10 +8,8 @@ import { UserProfileAvatar } from "../../../features/user-profile-info/ui/UserPr
 import { UserProfileVerification } from "../../../features/user-profile-info/ui/UserProfileVerification";
 
 export const UserProfileCard = () => {
-  const { user } = useUserProfile();
+  const { user, refetch } = useUserProfile();
   const [editMode, setEditMode] = useState(false);
-
-  console.log("USER: ", user);
 
   if (!user) return null;
 
@@ -29,7 +27,11 @@ export const UserProfileCard = () => {
       {!editMode && <UserProfileAvatar user={user} />}
 
       {editMode ? (
-        <UserProfileEditForm user={user} onCancel={() => setEditMode(false)} />
+        <UserProfileEditForm
+          user={user}
+          refetch={refetch}
+          onCancel={() => setEditMode(false)}
+        />
       ) : (
         <div className="mt-4 space-y-2 text-sm text-gray-800">
           <p className="font-inter font-normal text-base leading-none tracking-normal flex flex-col gap-3">

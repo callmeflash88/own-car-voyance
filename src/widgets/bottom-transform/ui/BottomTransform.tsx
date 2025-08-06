@@ -4,9 +4,9 @@ import { Button } from "@/shared/ui";
 
 export const BottomTransform = () => {
   return (
-    <section className="px-4 lg:px-20 w-full flex justify-center items-center">
+    <section className="px-4 lg:px-0 w-full flex justify-center items-center">
       <div
-        className="rounded-[40px] bg-cover bg-center bg-no-repeat lg:h-[400px] lg:w-[90vw] max-w-[95vw] py-10 lg:py-32"
+        className="rounded-[40px] bg-cover bg-center bg-no-repeat lg:h-[500px] lg:w-[95vw] max-w-[100vw] py-10 lg:py-32"
         style={{ backgroundImage: "url('/assets/backgrounds/bottomBg.jpg')" }}
       >
         <div className="w-full h-full flex flex-col lg:flex-row gap-10 lg:gap-0 px-20 justify-between items-center">
@@ -32,7 +32,7 @@ export const BottomTransform = () => {
               </Button>
             </div>
           </div>
-          <Image src={audi} alt="car" className="w-[600px]" />
+          <Image src={audi} alt="car" className="w-[700px]" />
         </div>
       </div>
     </section>

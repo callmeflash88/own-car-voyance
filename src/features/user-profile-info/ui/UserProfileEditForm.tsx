@@ -6,9 +6,9 @@ import { useEditUserProfileForm } from "../lib/useUserProfileForm";
 import { NotificationService } from "@/shared/lib/NotificationService";
 import Image from "next/image";
 
-export const UserProfileEditForm = ({ user, onCancel }: any) => {
+export const UserProfileEditForm = ({ user, refetch, onCancel }: any) => {
   const { form, handleSubmit, uploadFile, isLoading, error } =
-    useEditUserProfileForm(user);
+    useEditUserProfileForm(user, refetch);
   const {
     register,
     handleSubmit: submitForm,
