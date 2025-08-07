@@ -36,7 +36,7 @@ export default function WaitlistPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <div className="relative overflow-hidden">
+    <div className="relative overflow-hidden bg-[#FAFAFA]">
       <header className="mt-6 h-[88px] w-full bg-cover bg-center px-10 lg:px-[160px] flex justify-between lg:justify-between items-center z-20 relative">
         <Image
           src={logo}
@@ -53,7 +53,10 @@ export default function WaitlistPage() {
               {item}
             </li>
           ))}
-          <div className="flex flex-col justify-between w-6 h-4 ml-6 cursor-pointer">
+          <div
+            className="flex flex-col justify-between w-6 h-4 ml-6 cursor-pointer"
+            onClick={() => setIsModalOpen(true)}
+          >
             <span className="block h-[2px] w-8 bg-[#4E17E5] rounded-full"></span>
             <span className="block h-[2px] w-8 bg-[#4E17E5] rounded-full"></span>
           </div>
