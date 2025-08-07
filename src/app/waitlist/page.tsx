@@ -245,7 +245,7 @@ export default function WaitlistPage() {
           >
             Privacy Policy
           </a>
-          <p className="font-inter text-sm text-center">
+          <p className="font-inter text-sm text-center hidden lg:block">
             © 2025 CarVoyance{""}
             <span className="hidden lg:inline">. All Rights Reserved.</span>
           </p>
@@ -260,6 +260,9 @@ export default function WaitlistPage() {
           >
             Privacy Policy
           </a>
+          <p className="font-inter text-sm text-center block lg:hidden">
+            © 2025 CarVoyance{""}
+          </p>
         </div>
       </footer>
 
