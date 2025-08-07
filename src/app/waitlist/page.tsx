@@ -223,6 +223,7 @@ export default function WaitlistPage() {
               className="p-2 rounded-full bg-white inline-flex items-center justify-center"
             >
               <FaThreads />
+              {/* test */}
             </a>
           </div>
         </div>
