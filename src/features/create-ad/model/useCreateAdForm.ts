@@ -3,10 +3,12 @@ import {
   useCreateCarMutation,
   VehicleAd,
 } from "@/shared/api/carApi";
+import { VehicleData, VehicleFilters } from "@/shared/lib/hooks";
 import { NotificationService } from "@/shared/lib/NotificationService";
 import { Select } from "@/shared/ui";
 import { RHSelect } from "@/shared/ui/FormField/RHSelect";
 import { TextInput } from "@/shared/ui/FormField/TextInput";
+import { VehicleSelect } from "@/shared/ui/FormField/VehicleSelect";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useForm, UseFormReturn } from "react-hook-form";
@@ -43,7 +45,7 @@ export const STEP_BASIC_FORM_FIELDS = [
   {
     name: "year",
     label: "Year",
-    placeholder: "",
+    placeholder: "Select year",
     component: TextInput,
     labelClassName: LABEL_CLASSNAME,
     fieldClassName: TEXT_INPUT_CLASSNAME,
@@ -82,7 +84,7 @@ export const STEP_BASIC_FORM_FIELDS = [
     placeholder: "",
     component: TextInput,
     labelClassName: LABEL_CLASSNAME,
-    fieldClassName: TEXT_INPUT_CLASSNAME + " col-span-2",
+    fieldClassName: TEXT_INPUT_CLASSNAME + " col-span-1 sm:col-span-2",
   },
 ];
 
@@ -317,4 +319,57 @@ export const isCurrentStepValid = (
   const values = form.getValues();
   const fieldsToCheck = STEP_FIELDS[step] || [];
   return fieldsToCheck.every((field) => !!values[field]);
+};
+
+// function to replace field with dynamic data
+
+export const createDynamicFields = (
+  currentStep: number,
+  vehicleData: VehicleData,
+  filters: VehicleFilters
+) => {
+  const FIELDS = [STEP_BASIC_FORM_FIELDS, STEP_DETAILS_FORM_FIELDS];
+  return FIELDS[currentStep].map((field) => {
+    if (field.name === "make") {
+      return {
+        ...field,
+        component: VehicleSelect,
+        field: "Make",
+        vehicleData,
+        vehicleFilters: filters,
+      };
+    }
+
+    if (field.name === "model") {
+      return {
+        ...field,
+        component: VehicleSelect,
+        field: "Model",
+        vehicleData,
+        vehicleFilters: filters,
+      };
+    }
+
+    if (field.name === "year") {
+      return {
+        ...field,
+        component: VehicleSelect,
+        field: "Year",
+        vehicleData,
+        vehicleFilters: filters,
+      };
+    }
+
+    if (field.name === "body_style") {
+      return {
+        ...field,
+        component: VehicleSelect,
+        field: "Category",
+        vehicleData,
+        vehicleFilters: filters,
+      };
+    }
+
+    return field;
+  });
 };
