@@ -1,11 +1,23 @@
 import { RenderFormFields } from "@/shared/ui/RenderFormFiled";
-import { STEP_BASIC_FORM_FIELDS } from "../model/useCreateAdForm";
-import { Button } from "@/shared/ui";
+import { createDynamicFields } from "../model/useCreateAdForm";
+import { VehicleData, VehicleFilters } from "@/shared/lib/hooks";
 
-export const StepBasicInfo = () => {
+interface StepBasicInfoProps {
+  currentStep: number;
+  vehicleData: VehicleData;
+  filters: VehicleFilters;
+}
+
+export const StepBasicInfo = ({
+  currentStep,
+  vehicleData,
+  filters,
+}: StepBasicInfoProps) => {
+  const dynamicFields = createDynamicFields(currentStep, vehicleData, filters);
+
   return (
-    <div className="grid grid-cols-2 gap-5">
-      <RenderFormFields fields={STEP_BASIC_FORM_FIELDS} />
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+      <RenderFormFields fields={dynamicFields} />
     </div>
   );
 };
