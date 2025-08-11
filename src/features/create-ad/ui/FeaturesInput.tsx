@@ -1,5 +1,5 @@
 "use client";
-import { X } from "lucide-react";
+import { X, Plus } from "lucide-react";
 import { useState } from "react";
 
 interface FeaturesInputProps {
@@ -32,14 +32,24 @@ export const FeaturesInput = ({ value, onChange }: FeaturesInputProps) => {
   return (
     <div className="w-full flex flex-col gap-2">
       <label className="font-bold text-gray-800 text-xl">Features</label>
-      <input
-        type="text"
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-        onKeyDown={handleKeyDown}
-        placeholder="ex. #Sunroof"
-        className="w-full border border-gray-300 rounded-2xl px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none"
-      />
+      <div className="flex gap-2">
+        <input
+          type="text"
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          onKeyDown={handleKeyDown}
+          placeholder="ex. Sunroof"
+          className="flex-1 border border-gray-300 rounded-2xl px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none"
+        />
+        <button
+          type="button"
+          onClick={addFeature}
+          className="flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white rounded-2xl p-3"
+        >
+          <Plus size={20} />
+        </button>
+      </div>
+
       <div className="flex flex-wrap gap-3 mt-2">
         {value.map((feature) => (
           <div

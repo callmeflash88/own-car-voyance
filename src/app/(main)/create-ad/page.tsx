@@ -98,7 +98,10 @@ export default function CreateAdPage() {
                     size="lg"
                     type="button"
                     onClick={() => setCurrentStep(currentStep + 1)}
-                    disabled={!isStepValid}
+                    disabled={
+                      !isStepValid ||
+                      (currentStep === 1 && features.length === 0)
+                    }
                   >
                     Next Step
                   </Button>
