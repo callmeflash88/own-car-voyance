@@ -9,7 +9,7 @@ import { useState } from "react";
 export default function Profile() {
   const [editMode, setEditMode] = useState(false);
   return (
-    <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-4 px-10">
+    <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-4 px-2 lg:px-10">
       <div className="flex flex-col gap-4">
         <ProfileProgress />
         <UserProfileCard />
