@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useLoginMutation } from "../api/authApi";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import { TextInput } from "@/shared/ui/FormField/TextInput";
 import { PasswordInput } from "@/shared/ui/FormField/PasswordInput";
@@ -60,9 +60,15 @@ export type LoginSchema = z.infer<typeof loginSchema>;
 
 export const useLoginForm = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+
   const [serverError, setServerError] = useState<string | null>(null);
   const [getProfile] = useLazyGetUserQuery();
   const { setStep } = useAuthFlow();
+
+  const redirectPath = searchParams.get("redirect");
+
+  console.log("redirectPath", redirectPath);
 
   const form = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
@@ -93,7 +99,11 @@ export const useLoginForm = () => {
         if (profile.register_verification === false) {
           router.push("/login?step=verification-phone");
         } else {
-          router.push("/");
+          if (redirectPath) {
+            router.push(redirectPath);
+          } else {
+            router.push("/");
+          }
         }
       }
     } catch (err: any) {

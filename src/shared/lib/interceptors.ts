@@ -2,6 +2,10 @@ import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
 import Cookies from "js-cookie";
 import { ACCESS_TOKEN, AUTH_REFRESH_TOKEN } from "../constants/cookiesKeys";
 import { UNAUTHORIZED_STATUS_CODE_401 } from "../constants/httpStatuses";
+// import { store } from "../store/store";
+import { logout } from "@/features/auth/model/slice";
+import { clearUser } from "@/entities/user/model/userSlice";
+import { MAIN_ROUTES } from "@/lib/routes";
 
 // not secure, client-side use only
 export const isTokenExpired = (token?: string): boolean => {
@@ -49,7 +53,10 @@ export const updateAccessToken = async (error: AxiosError) => {
   }
 
   const token = await accessTokenPromise;
-  if (!token) return Promise.reject(error);
+  if (!token) {
+    handleAuthFailure();
+    return Promise.reject(error);
+  }
 
   Cookies.set(ACCESS_TOKEN, token);
 
@@ -65,14 +72,27 @@ const fetchAccessToken = async (): Promise<string | null> => {
 
   try {
     const { data } = await axios.post<{ access: string }>(
-      "/token/refresh/",
+      "token/refresh/",
       { refresh },
-      { baseURL: "https://app-api.205medical.com/" }
+      { baseURL: "https://app-api.carvoyance.com/" }
     );
+
     return data.access;
   } catch (error) {
     Cookies.remove(ACCESS_TOKEN);
     Cookies.remove(AUTH_REFRESH_TOKEN);
     return null;
   }
+};
+
+const handleAuthFailure = () => {
+  // temporary solution to avoid circular dependency
+  // todo: make better solution
+  import("../store/store").then(({ store }) => {
+    store.dispatch(logout());
+    store.dispatch(clearUser());
+    window.location.replace(
+      `${MAIN_ROUTES.LOGIN}?redirect=${window.location.pathname}`
+    );
+  });
 };
