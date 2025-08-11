@@ -10,7 +10,7 @@ const TEXT_INPUT_CLASSNAME = " py-2 ";
 export const CREATE_PASSWORD_FORM_FIELDS = [
   {
     name: "password",
-    label: "Password",
+    label: "New Password",
     placeholder: "",
     component: PasswordInput,
     labelClassName: LABEL_CLASSNAME,

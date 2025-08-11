@@ -10,7 +10,7 @@ const TEXT_INPUT_CLASSNAME = " py-2 ";
 
 export const CHANGE_PASSWORD_FORM_FIELDS = [
   {
-    name: "current_password",
+    name: "password",
     label: "Current Password",
     placeholder: "Enter password",
     component: PasswordInput,
@@ -44,7 +44,7 @@ const passwordSchema = z
 
 const changePassordSchema = z
   .object({
-    current_password: passwordSchema,
+    password: passwordSchema,
     new_password: passwordSchema,
     confirm_password: z.string(),
   })
@@ -61,7 +61,7 @@ export const useChangePasswordForm = () => {
   const form = useForm<ChangePasswordFormValues>({
     resolver: zodResolver(changePassordSchema),
     defaultValues: {
-      current_password: "",
+      password: "",
       new_password: "",
       confirm_password: "",
     },

@@ -103,8 +103,6 @@ export default function ProductsListPage() {
     setIsFiltersOpen(false);
   };
 
-  console.log("filters", filters);
-
   const prevSortRef = useRef(selectedFilters?.sort);
 
   useEffect(() => {

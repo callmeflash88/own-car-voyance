@@ -22,6 +22,8 @@ export const ProductsList: FC<Props> = ({
   const favoriteIds = favorites?.data?.map((favorite: any) => favorite.id);
   const router = useRouter();
 
+  console.log("ProductsList", vehicles);
+
   return (
     <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 grid-cols-5-3xl gap-4">
       {vehicles.data?.length ? (

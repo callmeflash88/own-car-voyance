@@ -3,82 +3,88 @@
 import { useState } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import NonPhoto from "@/shared/assets/images/NonPhoto.png";
 
 interface CarGalleryProps {
   images: string[];
 }
 
 export const CarGallery = ({ images }: CarGalleryProps) => {
+  const hasImages = images && images.length > 0;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handlePrev = () => {
+    if (!hasImages) return;
     setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
   };
 
   const handleNext = () => {
+    if (!hasImages) return;
     setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
 
   return (
     <>
       <div className="flex flex-col gap-4">
-        {/* Главное изображение */}
         <div
           className="w-full aspect-square relative rounded-xl overflow-hidden cursor-pointer"
-          onClick={() => setIsModalOpen(true)}
+          onClick={() => hasImages && setIsModalOpen(true)}
         >
           <Image
-            src={images[currentIndex]}
-            alt={`Image ${currentIndex + 1}`}
+            src={hasImages ? images[currentIndex] : NonPhoto}
+            alt={hasImages ? `Image ${currentIndex + 1}` : "No photo"}
             fill
             className="object-cover transition duration-300"
           />
 
-          {/* Стрелки */}
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              handlePrev();
-            }}
-            className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white text-black p-2 rounded-full shadow-md"
-          >
-            <ChevronLeft size={24} />
-          </button>
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              handleNext();
-            }}
-            className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white text-black p-2 rounded-full shadow-md"
-          >
-            <ChevronRight size={24} />
-          </button>
+          {hasImages && (
+            <>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handlePrev();
+                }}
+                className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white text-black p-2 rounded-full shadow-md"
+              >
+                <ChevronLeft size={24} />
+              </button>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleNext();
+                }}
+                className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white text-black p-2 rounded-full shadow-md"
+              >
+                <ChevronRight size={24} />
+              </button>
+            </>
+          )}
         </div>
 
-        {/* Миниатюры */}
-        <div className="flex gap-3 overflow-x-auto">
-          {images.map((img, idx) => (
-            <button
-              key={idx}
-              onClick={() => setCurrentIndex(idx)}
-              className={`w-[160px] h-[100px] relative rounded-lg border ${
-                currentIndex === idx ? "border-primary" : "border-transparent"
-              }`}
-            >
-              <Image
-                src={img}
-                alt={`Thumbnail ${idx + 1}`}
-                fill
-                className="object-cover"
-              />
-            </button>
-          ))}
-        </div>
+        {hasImages && (
+          <div className="flex gap-3 overflow-x-auto">
+            {images.map((img, idx) => (
+              <button
+                key={idx}
+                onClick={() => setCurrentIndex(idx)}
+                className={`w-[160px] h-[100px] relative rounded-lg border ${
+                  currentIndex === idx ? "border-primary" : "border-transparent"
+                }`}
+              >
+                <Image
+                  src={img}
+                  alt={`Thumbnail ${idx + 1}`}
+                  fill
+                  className="object-cover"
+                />
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
-      {/* Модалка */}
-      {isModalOpen && (
+      {hasImages && isModalOpen && (
         <div
           onClick={() => setIsModalOpen(false)}
           className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center"

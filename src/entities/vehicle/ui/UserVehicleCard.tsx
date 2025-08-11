@@ -9,11 +9,12 @@ interface Props {
 }
 
 export const UserVehicleCard = ({ vehicle }: Props) => {
+  console.log("vehicle", vehicle);
   return (
     <div className="w-full h-[144px] bg-white rounded-[20px] flex overflow-hidden shadow-sm relative group transition-all">
       <div className="w-[180px] h-full relative flex-shrink-0">
         <Image
-          src={card1}
+          src={vehicle?.images[0]}
           alt="Car"
           className="object-cover rounded-l-[20px]"
           fill
