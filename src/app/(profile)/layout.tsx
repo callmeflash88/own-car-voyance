@@ -27,7 +27,7 @@ export default function DashboardLayout({
   return (
     <div className="flex min-h-screen">
       <div
-        className={`fixed inset-y-0 left-0 z-50 bg-white transition-transform transform md:translate-x-0 md:static md:block ${
+        className={`fixed inset-y-0 left-0 z-50 bg-white transition-transform transform lg:translate-x-0 lg:static lg:block ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -35,7 +35,7 @@ export default function DashboardLayout({
       </div>
 
       <div className="flex flex-col flex-1 min-h-screen bg-gray-50">
-        <header className="flex items-center justify-between p-4 bg-white border-b md:px-6">
+        <header className="flex items-center justify-between p-4 bg-white border-b lg:px-6">
           <div className="flex items-center lg:hidden">
             <Link href="/" className="flex items-center gap-2">
               <Image
@@ -76,7 +76,7 @@ export default function DashboardLayout({
 
           <div className="hidden lg:flex items-center gap-4 ">
             <Button
-              size="md"
+              size="lg"
               variant="primary"
               iconLeft={<Plus className="w-4 h-4" />}
               onClick={handleListYourCarClick}

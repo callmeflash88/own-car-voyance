@@ -32,7 +32,7 @@ export const CheckOtpForm = () => {
 
       <p className="mt-2 font-inter font-normal text-base leading-tight tracking-normal text-[#2B2B2B80]">
         Enter your registered email address. we’ll send
-        <br /> you a code to reset your password.
+        <br className="hidden lg:block" /> you a code to reset your password.
       </p>
 
       <p className="font-inter font-medium text-base leading-relaxed tracking-normal">

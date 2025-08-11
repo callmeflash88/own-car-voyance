@@ -1,6 +1,6 @@
 import { Fuel, Gauge, MapPin, Settings } from "lucide-react";
 import Image from "next/image";
-import card1 from "../../../../public/assets/images/car1.png";
+import nonPhoto from "@/shared/assets/images/NonPhoto.png";
 import { ToggleFavorite } from "@/features/toggle-favorite/ui/ToggleFavorite";
 import { EditButton } from "@/features/edit-vehicle-button/ui/EditButton";
 import { VehicleAd } from "@/shared/types/car";
@@ -32,7 +32,7 @@ export const VehicleCard = ({
     >
       <div className="relative">
         <Image
-          src={vehicle.images?.[0] || card1}
+          src={vehicle.images?.[0] || nonPhoto}
           alt={vehicle.model}
           width={500}
           height={300}
