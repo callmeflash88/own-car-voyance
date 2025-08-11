@@ -67,14 +67,14 @@ export default function WaitlistPage() {
 
       <div className="relative z-10 max-w-[100vw] overflow-hidden min-h-[80vh] mt-10 lg:mt-0 px-4 lg:px-[160px] flex flex-col xl:flex-row items-center justify-between">
         <div className="flex flex-col justify-center items-center lg:items-start lg:flex-1">
-          <h2 className="font-medium text-[80px] lg:text-[140px] leading-[120%] tracking-[0%] font-inter">
+          <h2 className="font-medium text-[80px] lg:text-[120px] leading-[120%] tracking-[0%] font-inter">
             COMING
             <br /> <span className="text-[#4E17E5]">Fall 2025</span>
           </h2>
 
           {/*  */}
           {isFormShow && (
-            <div className="w-full max-w-[600px] mt-4">
+            <div className="w-full max-w-[500px] mt-4">
               <div className="w-full border-2 border-[#292929] rounded-full flex justify-between transition-all">
                 <button
                   onClick={() => setIsMailForm(false)}
@@ -194,11 +194,13 @@ export default function WaitlistPage() {
               </Button>
             )}
 
-            <p className="font-normal text-[18px] leading-[155%] tracking-[0%] font-inter mt-5">
-              One platform. Endless possibilities.
-              <br className="block lg:hidden" /> Welcome to the future of car
-              ownership
-            </p>
+            <div className="w-full">
+              <p className="font-normal text-[16px] text-center lg:text-start leading-[155%] tracking-[0%] font-inter mt-5">
+                One platform. Endless possibilities.
+                <br className="block lg:hidden" /> Welcome to the future of car
+                ownership
+              </p>
+            </div>
           </div>
         </div>
 
