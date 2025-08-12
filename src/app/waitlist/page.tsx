@@ -271,7 +271,12 @@ export default function WaitlistPage() {
         </div>
       </footer>
 
-      {isModalOpen && <WaitlistModal onClose={() => setIsModalOpen(false)} />}
+      {isModalOpen && (
+        <WaitlistModal
+          onClose={() => setIsModalOpen(false)}
+          setIsFormShow={setIsFormShow}
+        />
+      )}
     </div>
   );
 }

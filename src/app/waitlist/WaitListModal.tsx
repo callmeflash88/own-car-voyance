@@ -5,7 +5,13 @@ import { X } from "lucide-react";
 import { Button } from "@/shared/ui";
 import { useEffect } from "react";
 
-export default function WaitlistModal({ onClose }: { onClose: () => void }) {
+export default function WaitlistModal({
+  onClose,
+  setIsFormShow,
+}: {
+  onClose: () => void;
+  setIsFormShow: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -34,7 +40,14 @@ export default function WaitlistModal({ onClose }: { onClose: () => void }) {
             to know <br className="block lg:hidden" /> when we go live
           </p>
           <div className="mt-8 flex justify-center">
-            <Button variant="primary" size="lg" onClick={onClose}>
+            <Button
+              variant="primary"
+              size="lg"
+              onClick={() => {
+                onClose();
+                setIsFormShow(true);
+              }}
+            >
               Join The Waitlist
             </Button>
           </div>
