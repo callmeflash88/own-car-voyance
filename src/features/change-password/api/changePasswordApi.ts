@@ -1,9 +1,9 @@
-import { axiosBaseQuery } from "@/shared/lib/axiosBaseQuery";
+import { axiosBaseQueryWithReauth } from "@/shared/lib/axiosBaseQuery";
 import { createApi } from "@reduxjs/toolkit/query/react";
 
 export const changePasswordApi = createApi({
   reducerPath: "changePasswordApi",
-  baseQuery: axiosBaseQuery(),
+  baseQuery: axiosBaseQueryWithReauth,
   endpoints: (builder) => ({
     changePassword: builder.mutation<any, any>({
       query: (data) => ({

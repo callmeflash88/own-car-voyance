@@ -1,9 +1,9 @@
-import { axiosBaseQuery } from "@/shared/lib/axiosBaseQuery";
+import { axiosBaseQueryWithReauth } from "@/shared/lib/axiosBaseQuery";
 import { createApi } from "@reduxjs/toolkit/query/react";
 
 export const verifyApi = createApi({
   reducerPath: "verifyApi",
-  baseQuery: axiosBaseQuery(),
+  baseQuery: axiosBaseQueryWithReauth,
   endpoints: (builder) => ({
     sendPhoneVerification: builder.mutation<any, void>({
       query: (data) => ({

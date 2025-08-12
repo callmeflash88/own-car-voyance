@@ -1,4 +1,4 @@
-import { axiosBaseQuery } from "@/shared/lib/axiosBaseQuery";
+import { axiosBaseQueryWithReauth } from "@/shared/lib/axiosBaseQuery";
 import { createApi } from "@reduxjs/toolkit/query/react";
 
 interface ILoginPayload {
@@ -37,7 +37,7 @@ interface IForgotPassword {
 
 export const authApi = createApi({
   reducerPath: "authApi",
-  baseQuery: axiosBaseQuery(),
+  baseQuery: axiosBaseQueryWithReauth,
   endpoints: (builder) => ({
     login: builder.mutation<IAuthTokens, ILoginPayload>({
       query: (credentials) => ({

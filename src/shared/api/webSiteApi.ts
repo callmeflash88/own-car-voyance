@@ -1,5 +1,5 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { axiosBaseQuery } from "../lib/axiosBaseQuery";
+import { axiosBaseQueryWithReauth } from "../lib/axiosBaseQuery";
 import { CarById, VehicleAd } from "../types/car";
 
 export interface FindCarRequest {
@@ -40,7 +40,7 @@ export interface FiltersResponse {
 
 export const webSiteApi = createApi({
   reducerPath: "webSiteApi",
-  baseQuery: axiosBaseQuery(),
+  baseQuery: axiosBaseQueryWithReauth,
   endpoints: (builder) => ({
     findCar: builder.mutation<any, FindCarRequest>({
       query: (body) => ({

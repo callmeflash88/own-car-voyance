@@ -1,5 +1,5 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { axiosBaseQuery } from "@/shared/lib/axiosBaseQuery";
+import { axiosBaseQueryWithReauth } from "@/shared/lib/axiosBaseQuery";
 
 interface Response {
   result: {
@@ -13,7 +13,7 @@ interface Response {
 
 export const uploadApi = createApi({
   reducerPath: "uploadApi",
-  baseQuery: axiosBaseQuery(),
+  baseQuery: axiosBaseQueryWithReauth,
   endpoints: (builder) => ({
     uploadFile: builder.mutation<Response, File>({
       query: (file) => {
