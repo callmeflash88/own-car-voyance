@@ -93,6 +93,39 @@ export const dashboardApi = createApi({
         body: { id },
       }),
     }),
+    getAdminSettings: builder.query<any, void>({
+      query: () => ({
+        url: "admin/setting",
+        method: "GET",
+      }),
+    }),
+    updateAdminSettings: builder.mutation<any, any>({
+      query: (data) => ({
+        url: "admin/setting/updateProfile",
+        method: "POST",
+        body: data,
+      }),
+    }),
+    changePassword: builder.mutation<any, any>({
+      query: (data) => ({
+        url: "admin/setting/changePassword",
+        method: "POST",
+        body: data,
+      }),
+    }),
+    inviteTeam: builder.mutation<any, any>({
+      query: (data) => ({
+        url: "admin/setting/inviteTeam",
+        method: "POST",
+        body: data,
+      }),
+    }),
+    getTeamMembers: builder.query<any, void>({
+      query: () => ({
+        url: "admin/setting/getTeamMembers",
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -109,4 +142,9 @@ export const {
   useDeleteUserCarMutation,
   useGetAdminCarsMutation,
   useDeleteCarMutation,
+  useGetAdminSettingsQuery,
+  useUpdateAdminSettingsMutation,
+  useChangePasswordMutation,
+  useInviteTeamMutation,
+  useGetTeamMembersQuery,
 } = dashboardApi;
