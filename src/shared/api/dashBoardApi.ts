@@ -1,5 +1,5 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { axiosBaseQuery } from "../lib/axiosBaseQuery";
+import { axiosBaseQueryWithReauth } from "../lib/axiosBaseQuery";
 import { FindCarRequest } from "./webSiteApi";
 
 interface ListingsResponse {
@@ -9,7 +9,7 @@ interface ListingsResponse {
 
 export const dashboardApi = createApi({
   reducerPath: "dashboardApi",
-  baseQuery: axiosBaseQuery(),
+  baseQuery: axiosBaseQueryWithReauth,
   endpoints: (builder) => ({
     getDashboard: builder.query<any, void>({
       query: () => ({

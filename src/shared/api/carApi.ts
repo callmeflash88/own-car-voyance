@@ -1,5 +1,5 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { axiosBaseQuery } from "../lib/axiosBaseQuery";
+import { axiosBaseQueryWithReauth } from "../lib/axiosBaseQuery";
 import { VehicleAd } from "../types/car";
 
 export enum CarStatus {
@@ -37,7 +37,7 @@ interface GetMyCarResponse {
 
 export const carApi = createApi({
   reducerPath: "carApi",
-  baseQuery: axiosBaseQuery(),
+  baseQuery: axiosBaseQueryWithReauth,
   endpoints: (builder) => ({
     createCar: builder.mutation<any, VehicleAd>({
       query: (data) => ({

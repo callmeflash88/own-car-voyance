@@ -1,11 +1,11 @@
-import { axiosBaseQuery } from "@/shared/lib/axiosBaseQuery";
+import { axiosBaseQueryWithReauth } from "@/shared/lib/axiosBaseQuery";
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { IUpdateProfile } from "../types";
 
 export const userApi = createApi({
   reducerPath: "userApi",
   tagTypes: ["Profile"],
-  baseQuery: axiosBaseQuery(),
+  baseQuery: axiosBaseQueryWithReauth,
   endpoints: (builder) => ({
     getUser: builder.query<any, void>({
       query: () => ({

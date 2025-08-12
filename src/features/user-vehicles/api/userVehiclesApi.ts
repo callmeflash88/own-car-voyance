@@ -4,12 +4,12 @@ import {
   UserVehicle,
   Vehicle,
 } from "@/entities/vehicle/model/types";
-import { axiosBaseQuery } from "@/shared/lib/axiosBaseQuery";
+import { axiosBaseQueryWithReauth } from "@/shared/lib/axiosBaseQuery";
 import { GetMyCarResponse } from "@/shared/types/car";
 
 export const userVehiclesApi = createApi({
   reducerPath: "userVehiclesApi",
-  baseQuery: axiosBaseQuery(),
+  baseQuery: axiosBaseQueryWithReauth,
   endpoints: (builder) => ({
     getMyVehicles: builder.query<GetMyCarResponse, void>({
       query: () => ({

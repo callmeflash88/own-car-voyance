@@ -1,6 +1,9 @@
-import { BaseQueryFn } from "@reduxjs/toolkit/query";
+import { BaseQueryApi, BaseQueryFn, FetchArgs } from "@reduxjs/toolkit/query";
 import { AxiosRequestConfig, AxiosError } from "axios";
 import { instance } from "./api-client";
+import { logout } from "@/features/auth/model/slice";
+import { clearUser } from "@/entities/user/model/userSlice";
+import { MAIN_ROUTES } from "@/lib/routes";
 
 export const axiosBaseQuery =
   (): BaseQueryFn<
@@ -37,3 +40,28 @@ export const axiosBaseQuery =
       };
     }
   };
+
+export const axiosBaseQueryWithReauth = async (
+  args: FetchArgs,
+  api: BaseQueryApi,
+  extraOptions: Record<string, any>
+) => {
+  const result = await axiosBaseQuery()(args, api, extraOptions);
+
+  if (result.error?.status === 401) {
+    // todo: refresh token
+
+    // reset user state
+    api.dispatch(logout());
+    api.dispatch(clearUser());
+
+    // redirect to login
+    if (typeof window !== undefined) {
+      window.location.replace(
+        `${MAIN_ROUTES.LOGIN}?redirect=${window.location.pathname}`
+      );
+    }
+  }
+
+  return result;
+};

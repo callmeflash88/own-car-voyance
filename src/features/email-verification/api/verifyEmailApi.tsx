@@ -1,9 +1,9 @@
-import { axiosBaseQuery } from "@/shared/lib/axiosBaseQuery";
+import { axiosBaseQueryWithReauth } from "@/shared/lib/axiosBaseQuery";
 import { createApi } from "@reduxjs/toolkit/query/react";
 
 export const verifyEmailApi = createApi({
   reducerPath: "verifyEmailApi",
-  baseQuery: axiosBaseQuery(),
+  baseQuery: axiosBaseQueryWithReauth,
   endpoints: (builder) => ({
     verifyEmail: builder.mutation<void, void>({
       query: () => ({
