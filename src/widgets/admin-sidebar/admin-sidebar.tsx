@@ -40,7 +40,7 @@ export const AdminSidebar = () => {
           <Link href="/profile-search" className={linkClass("/profile-search")}>
             <Archive size={18} /> Listings
           </Link>
-          <Link href="/profile-search" className={linkClass("/profile-search")}>
+          <Link href="/profile-search" className={linkClass("/admin-settings")}>
             <Settings size={18} /> Settings
           </Link>
         </nav>
