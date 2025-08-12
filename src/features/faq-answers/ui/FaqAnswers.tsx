@@ -40,15 +40,19 @@ export const FAQAnswers = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-4">
+    <div className="w-full max-w-2xl mx-auto">
       {faqData.map((item, index) => (
         <div key={index} className="border-b border-gray-300 py-10">
           <button
-            className="flex justify-between w-full text-left text-lg font-medium text-gray-800"
+            className="flex justify-between w-full gap-4 text-left text-lg font-medium text-gray-800"
             onClick={() => toggle(index)}
           >
             {item.question}
-            {openIndex === index ? <Minus /> : <Plus />}
+            {openIndex === index ? (
+              <Minus className="min-w-6 min-h-6" />
+            ) : (
+              <Plus className="min-w-6 min-h-6" />
+            )}
           </button>
           {openIndex === index && (
             <p className="mt-2 text-gray-600 text-sm">{item.answer}</p>

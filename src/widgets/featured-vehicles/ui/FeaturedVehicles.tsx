@@ -1,5 +1,5 @@
 "use client";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronRight } from "lucide-react";
 import { VehicleCard } from "@/entities/vehicle/ui/VehicleCard";
 import { Button } from "@/shared/ui";
 import { useAppSelector } from "@/shared/lib/hooks";
@@ -23,7 +23,7 @@ export const FeaturedVehicles = () => {
   }, [findCar]);
 
   return (
-    <section className="px-4 lg:px-32 py-20 lg:py-32 flex flex-col justify-start items-start">
+    <section className="max-w-[1200px] mx-auto px-4 py-20 box-content lg:py-32 flex flex-col justify-start items-start">
       <div className="w-full flex justify-between items-center">
         <h2 className="font-inter font-semibold text-[24px] lg:text-[35px] leading-none tracking-normal">
           Featured Vehicles
@@ -31,11 +31,11 @@ export const FeaturedVehicles = () => {
 
         <button className="hidden border-none bg-none lg:flex items-center justify-center gap-2">
           <span>View All</span>
-          <ArrowRight className="w-4 h-4" />
+          <ChevronRight className="w-4 h-4" />
         </button>
       </div>
 
-      <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 grid-cols-5-3xl gap-4 mt-12">
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-12">
         {isLoading ? (
           Array.from({ length: 4 }).map((_, i) => (
             <VehicleCardSkeleton key={i} />
@@ -55,8 +55,8 @@ export const FeaturedVehicles = () => {
         <Button
           variant="outline"
           size="md"
-          className="!w-full !flex"
-          iconRight={<ArrowRight className="w-4 h-4" />}
+          className="flex w-full"
+          iconRight={<ChevronRight className="w-4 h-4" />}
         >
           View All
         </Button>
