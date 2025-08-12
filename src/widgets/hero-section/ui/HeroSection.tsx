@@ -7,7 +7,7 @@ export const HeroSection = () => {
   return (
     <section
       className={clsx(
-        "relative min-h-[742px] bg-cover bg-center bg-no-repeat text-white py-20 px-4"
+        "relative min-h-[742px] bg-cover bg-center bg-no-repeat text-white py-10 px-4 md:py-20"
       )}
       style={{ backgroundImage: "url('/assets/backgrounds/home-hero-bg.png')" }}
     >

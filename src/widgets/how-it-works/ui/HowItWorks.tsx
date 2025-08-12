@@ -13,7 +13,7 @@ export const HowItWorks = () => {
         <div className="w-[90vw] h-[800px] bg-[#5511EE] opacity-10 rounded-full blur-[50px]" />
       </div>
 
-      <div className="w-full flex flex-col justify-center items-center z-10 relative">
+      <div className="w-full max-w-[1200px] mx-auto flex flex-col justify-center items-center z-10 relative px-4">
         <h3 className="font-inter font-semibold text-[24px] lg:text-[40px] leading-none tracking-normal text-center">
           How It Works?
         </h3>
@@ -25,12 +25,12 @@ export const HowItWorks = () => {
         </p>
       </div>
 
-      <div className="w-full flex lg:flex-row flex-col justify-between mt-10 lg:mt-24 z-10">
+      <div className="w-full flex items-center lg:flex-row flex-col justify-between mt-10 px-4 lg:mt-24 lg:px-0 z-10">
         <Image src={bgMobile} alt="how it works" className="block lg:hidden" />
 
         <Image src={bg} alt="how it works" className="hidden lg:block" />
-        <div className="flex flex-wrap w-full gap-5 lg:gap-0 mt-10 px-4 lg:w-1/2">
-          <div className="w-full lg:w-1/2 flex flex-row lg:flex-col gap-3 items-start">
+        <div className="w-full flex flex-wrap flex-col md:flex-row md:gap-0 lg:max-w-[620px] lg:mx-auto lg:box-content lg:px-4 mt-10">
+          <div className="flex flex-row flex-1 md:flex-1/2 lg:flex-col gap-3 items-start">
             <Image
               src={firstCard}
               alt="how it works"
@@ -48,7 +48,7 @@ export const HowItWorks = () => {
               </p>
             </div>
           </div>
-          <div className="w-full lg:w-1/2 flex flex-row lg:flex-col gap-3 items-start">
+          <div className="flex flex-row flex-1 md:flex-1/2 lg:flex-col gap-3 items-start">
             <Image
               src={secondCard}
               alt="how it works"
@@ -65,7 +65,7 @@ export const HowItWorks = () => {
               </p>
             </div>
           </div>
-          <div className="w-full lg:w-1/2 flex flex-row lg:flex-col gap-3 items-start">
+          <div className="flex flex-row flex-1 md:flex-1/2 lg:flex-col gap-3 items-start">
             <Image
               src={thirdCard}
               alt="how it works"
@@ -82,7 +82,7 @@ export const HowItWorks = () => {
               </p>
             </div>
           </div>
-          <div className="w-full lg:w-1/2 flex flex-row lg:flex-col gap-3 items-start">
+          <div className="flex flex-row flex-1 md:flex-1/2 lg:flex-col gap-3 items-start">
             <Image
               src={fourhCard}
               alt="how it works"

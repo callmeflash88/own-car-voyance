@@ -6,17 +6,8 @@ import Image from "next/image";
 export const CompleteAutomative = () => {
   return (
     <section
-      className="
-      px-4
-      lg:px-40
-      py-4
-      lg:py-32
-      flex
-      flex-col
-      justify-start
-      items-start
-      overflow-hidden
-      bg-white"
+      className="w-full max-w-[1200px] mx-auto px-4 py-4 lg:py-32
+      flex flex-col justify-start items-start overflow-hidden bg-white"
     >
       <div className="w-full flex flex-col justify-center items-center z-10 relative">
         <h3 className="font-inter font-semibold text-[24px] lg:text-[40px] lg:leading-[54px] tracking-normal text-center">
@@ -26,7 +17,7 @@ export const CompleteAutomative = () => {
       </div>
       <div className="w-full flex flex-col lg:flex-row justify-between items-center lg:items-stretch mt-14 lg:mt-24 z-10 gap-5">
         {/* Card */}
-        <div className="w-[317px] flex flex-col justify-between items-between border-b-2 border-[#DFDFDF] pb-7">
+        <div className="w-full sm:max-w-[317px] flex flex-col justify-between items-between border-b-2 border-[#DFDFDF] pb-7">
           <div className="flex flex-row lg:flex-col lg:items-start items-center lg:gap-0 gap-5">
             <Tag size={80} />
             <h4 className=" mt-2 font-inter font-semibold text-[20px] leading-[32px] tracking-normal">
@@ -49,7 +40,7 @@ export const CompleteAutomative = () => {
           </Button>
         </div>
         {/* Card */}
-        <div className="w-[317px]  flex flex-col justify-between items-start border-b-2 border-[#DFDFDF] pb-7 mt-5">
+        <div className="w-full sm:max-w-[317px] flex flex-col justify-between items-start border-b-2 border-[#DFDFDF] pb-7 mt-5">
           {/* <CircleDollarSign size={80} /> */}
           <div className="flex flex-row lg:flex-col lg:items-start items-center lg:gap-0 gap-5">
             <Image src={dollarIcon} alt="dollar icon" />
@@ -74,7 +65,7 @@ export const CompleteAutomative = () => {
           </Button>
         </div>
         {/* Card */}
-        <div className="w-[317px]  flex flex-col justify-between items-start border-b-2 border-[#DFDFDF] pb-7 mt-5">
+        <div className="w-full sm:max-w-[317px] flex flex-col justify-between items-start border-b-2 border-[#DFDFDF] pb-7 mt-5">
           <div className="flex flex-row lg:flex-col lg:items-start items-center lg:gap-0 gap-5">
             <CircleCheck size={80} />
             <h4 className=" mt-2 font-inter font-semibold text-[20px] leading-[32px] tracking-normal">
