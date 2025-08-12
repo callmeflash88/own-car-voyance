@@ -88,11 +88,11 @@ const fetchAccessToken = async (): Promise<string | null> => {
 const handleAuthFailure = () => {
   // temporary solution to avoid circular dependency
   // todo: make better solution
-  import("../store/store").then(({ store }) => {
-    store.dispatch(logout());
-    store.dispatch(clearUser());
-    window.location.replace(
-      `${MAIN_ROUTES.LOGIN}?redirect=${window.location.pathname}`
-    );
-  });
+  // import("../store/store").then(({ store }) => {
+  //   store.dispatch(logout());
+  //   store.dispatch(clearUser());
+  //   window.location.replace(
+  //     `${MAIN_ROUTES.LOGIN}?redirect=${window.location.pathname}`
+  //   );
+  // });
 };
