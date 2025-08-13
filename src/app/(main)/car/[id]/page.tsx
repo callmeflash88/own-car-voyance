@@ -13,6 +13,7 @@ import { useFindCarByIdQuery } from "@/shared/api/webSiteApi";
 import { useParams, useRouter } from "next/navigation";
 import { CarById, VehicleAd } from "@/shared/types/car";
 import { useMessageSellerMutation } from "@/shared/api/carApi";
+import Breadcrumbs from "@/shared/ui/Breadcrumbs";
 
 const carsImages = [
   image.src, // Извлекаем строку пути из объекта StaticImageData
@@ -155,9 +156,12 @@ export default function CarPage() {
     );
   }
 
+  const vehicleName = `${vehicle.make} ${vehicle.model} ${vehicle.year}`;
+
   return (
     <section className="w-full px-[120px] py-10">
-      <div className="w-full flex items-start justify-between gap-10">
+      <Breadcrumbs customLastLabel={vehicleName} />
+      <div className="w-full flex items-start justify-between gap-10 pt-5 md:pt-10">
         <div className="w-1/2">
           <CarGallery images={vehicle?.images} />
         </div>
@@ -169,7 +173,7 @@ export default function CarPage() {
             </p>
           </div>
           <h1 className="mt-3 font-inter font-semibold text-3xl leading-none tracking-normal text-[#2B2B2B]">
-            {vehicle?.make} {vehicle?.model} {vehicle?.year}
+            {vehicleName}
           </h1>
           <h2 className="mt-5 font-inter font-semibold text-[40px] leading-none tracking-normal text-[#2B2B2B]">
             ${vehicle?.price}

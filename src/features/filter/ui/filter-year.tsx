@@ -11,10 +11,21 @@ interface Props {
 export const FilterYear = ({ isShowBorder = true }: Props) => {
   const dispatch = useAppDispatch();
 
-  const yearFrom = useAppSelector((state) => state.filters.year_from) ?? 2010;
-  const yearTo = useAppSelector((state) => state.filters.year_to) ?? 2020;
+  const yearFrom = useAppSelector((state) => state.filters.year_from);
+  const yearTo = useAppSelector((state) => state.filters.year_to);
 
   const [isOpen, setIsOpen] = useState(true);
+
+  const handleYearChange = (inputValue: string, type: "from" | "to") => {
+    if (!/^(\d*)$/.test(inputValue)) return;
+    const value = !inputValue ? null : Number(inputValue);
+
+    if (type === "from") {
+      dispatch(setYearFrom(value));
+    } else {
+      dispatch(setYearTo(value));
+    }
+  };
 
   return (
     <div className="mb-2 mt-6">
@@ -48,16 +59,16 @@ export const FilterYear = ({ isShowBorder = true }: Props) => {
         <div className="mt-6 flex justify-between items-center">
           <Input
             placeholder="From"
-            onChange={(e) => dispatch(setYearFrom(Number(e.target.value)))}
-            value={yearFrom}
-            className="w-[48%]"
+            onChange={(e) => handleYearChange(e.target.value, "from")}
+            value={yearFrom ?? ""}
+            className="placeholder:text-center"
           />
           <span className="text-gray-400 mx-1">–</span>
           <Input
             placeholder="To"
-            onChange={(e) => dispatch(setYearTo(Number(e.target.value)))}
-            value={yearTo}
-            className="w-[48%]"
+            onChange={(e) => handleYearChange(e.target.value, "to")}
+            value={yearTo ?? ""}
+            className="placeholder:text-center"
           />
         </div>
       )}

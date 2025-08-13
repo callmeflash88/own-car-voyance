@@ -17,8 +17,6 @@ export const PriceFilter = ({ isShowBorder = true }: Props) => {
 
   const [isOpen, setIsOpen] = useState(true);
 
-  console.log("IS SHOW BORDER", isShowBorder);
-
   const handlePriceChange = (val: [number, number]) => {
     dispatch(setPriceFrom(val[0]));
     dispatch(setPriceTo(val[1] ?? val[0]));
@@ -65,8 +63,6 @@ export const PriceFilter = ({ isShowBorder = true }: Props) => {
             <span>${priceFrom}</span>
             <span>${priceTo}</span>
           </div>
-
-          {isShowBorder && <hr className="h-[1px] bg-[#2B2B2B33] mt-6" />}
         </>
       )}
       {isShowBorder && <hr className="h-[1px] bg-[#2B2B2B33] mt-6" />}

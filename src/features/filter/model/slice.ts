@@ -18,8 +18,8 @@ export interface FiltersState {
 const initialState: FiltersState = {
   make: [],
   body_style: [],
-  year_from: 0,
-  year_to: 2030,
+  year_from: null,
+  year_to: null,
   price_from: 1000,
   price_to: 250000,
   condition: null,
@@ -48,11 +48,11 @@ const filtersSlice = createSlice({
         : [...state.body_style, value];
       state.readyToApply = false;
     },
-    setYearFrom(state, action: PayloadAction<number>) {
+    setYearFrom(state, action: PayloadAction<number | null>) {
       state.year_from = action.payload;
       state.readyToApply = false;
     },
-    setYearTo(state, action: PayloadAction<number>) {
+    setYearTo(state, action: PayloadAction<number | null>) {
       state.year_to = action.payload;
       state.readyToApply = false;
     },
