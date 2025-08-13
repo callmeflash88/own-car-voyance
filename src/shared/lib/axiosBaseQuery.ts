@@ -56,7 +56,10 @@ export const axiosBaseQueryWithReauth = async (
     api.dispatch(clearUser());
 
     // redirect to login
-    if (typeof window !== undefined) {
+    if (
+      typeof window !== undefined &&
+      window.location.pathname !== MAIN_ROUTES.LOGIN
+    ) {
       window.location.replace(
         `${MAIN_ROUTES.LOGIN}?redirect=${window.location.pathname}`
       );

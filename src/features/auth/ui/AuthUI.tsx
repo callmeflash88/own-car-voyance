@@ -40,7 +40,6 @@ export const AuthUI = () => {
   }, [step]);
 
   return (
-    // FOR TEST
     <div className="relative overflow-hidden flex-1 flex-col w-full flex items-center  justify-start !z-10 md:justify-center">
       {/* background image */}
       <div

@@ -11,7 +11,7 @@ export const FORGOT_PASSWORD_FORM_FIELDS = [
   {
     name: "email",
     label: "Email",
-    placeholder: "",
+    placeholder: "example@gmail.com",
     component: TextInput,
     labelClassName: LABEL_CLASSNAME,
     fieldClassName: TEXT_INPUT_CLASSNAME,

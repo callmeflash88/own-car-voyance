@@ -25,7 +25,7 @@ export const LOGIN_FORM_FIELDS = [
   {
     name: "email",
     label: "Email",
-    placeholder: "",
+    placeholder: "olivia@example.com",
     component: TextInput,
     labelClassName: LABEL_CLASSNAME,
     fieldClassName: TEXT_INPUT_CLASSNAME,
@@ -34,7 +34,7 @@ export const LOGIN_FORM_FIELDS = [
   {
     name: "password",
     label: "Password",
-    placeholder: "",
+    placeholder: "Enter password",
     component: PasswordInput,
     labelClassName: LABEL_CLASSNAME,
     fieldClassName: TEXT_INPUT_CLASSNAME,

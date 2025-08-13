@@ -11,7 +11,7 @@ export const CREATE_PASSWORD_FORM_FIELDS = [
   {
     name: "password",
     label: "New Password",
-    placeholder: "",
+    placeholder: "Enter password",
     component: PasswordInput,
     labelClassName: LABEL_CLASSNAME,
     fieldClassName: TEXT_INPUT_CLASSNAME,
@@ -19,7 +19,7 @@ export const CREATE_PASSWORD_FORM_FIELDS = [
   {
     name: "confirm",
     label: "Confirm Password",
-    placeholder: "",
+    placeholder: "Re-enter password",
     component: PasswordInput,
     labelClassName: LABEL_CLASSNAME,
     fieldClassName: TEXT_INPUT_CLASSNAME,
