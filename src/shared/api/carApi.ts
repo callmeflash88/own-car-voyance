@@ -117,6 +117,7 @@ export const {
   useGetMyCarByIdQuery,
   useUpdateMyCarMutation,
   useGetMyFavoriteCarsQuery,
+  useLazyGetMyFavoriteCarsQuery,
   useAddToFavoriteMutation,
   useDeleteFromFavoriteMutation,
   useMessageSellerMutation,

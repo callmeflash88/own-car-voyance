@@ -13,7 +13,7 @@ export const REGISTER_FORM_FIELDS = [
   {
     name: "full_name",
     label: "Full Name",
-    placeholder: "",
+    placeholder: "Olivia Klark",
     component: TextInput,
     labelClassName: LABEL_CLASSNAME,
     fieldClassName: TEXT_INPUT_CLASSNAME,
@@ -22,7 +22,7 @@ export const REGISTER_FORM_FIELDS = [
   {
     name: "email",
     label: "Email",
-    placeholder: "",
+    placeholder: "olivia@example.com",
     component: TextInput,
     labelClassName: LABEL_CLASSNAME,
     fieldClassName: TEXT_INPUT_CLASSNAME,
@@ -32,6 +32,7 @@ export const REGISTER_FORM_FIELDS = [
     name: "phone",
     label: "Phone number",
     placeholder: "+38 (___) ___-__-__",
+    // placeholder: "+1 xxx xx xxx",
     required: true,
     component: PhoneInputRH,
     className: "w-full",
@@ -42,7 +43,7 @@ export const REGISTER_FORM_FIELDS = [
   {
     name: "password",
     label: "Password",
-    placeholder: "",
+    placeholder: "Enter password",
     component: TextInput,
     labelClassName: LABEL_CLASSNAME,
     fieldClassName: TEXT_INPUT_CLASSNAME,
@@ -51,7 +52,7 @@ export const REGISTER_FORM_FIELDS = [
   {
     name: "confirm_password",
     label: "Confirm Password",
-    placeholder: "",
+    placeholder: "Re-enter password",
     component: TextInput,
     labelClassName: LABEL_CLASSNAME,
     fieldClassName: TEXT_INPUT_CLASSNAME,

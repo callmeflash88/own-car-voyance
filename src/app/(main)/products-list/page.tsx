@@ -1,7 +1,7 @@
 "use client";
 import { FiltersState } from "@/features/filter/model/slice";
 import { cn } from "@/lib/utils";
-import { useGetMyFavoriteCarsQuery } from "@/shared/api/carApi";
+import { useLazyGetMyFavoriteCarsQuery } from "@/shared/api/carApi";
 import {
   FindCarRequest,
   useFindCarMutation,
@@ -9,6 +9,7 @@ import {
 } from "@/shared/api/webSiteApi";
 import { useAppSelector } from "@/shared/lib/hooks";
 import { RootState } from "@/shared/store/store";
+import Breadcrumbs from "@/shared/ui/Breadcrumbs";
 import { Filters } from "@/widgets/filters/ui/filters";
 import { ProductsList } from "@/widgets/products-list/ui/products-list";
 import { TopBar } from "@/widgets/top-bar/ui";
@@ -42,8 +43,10 @@ export default function ProductsListPage() {
   );
   const selectedFilters = useAppSelector((state) => state.filters);
 
-  const { data: favorites, isLoading: isFavoritesLoading } =
-    useGetMyFavoriteCarsQuery();
+  const [
+    getMyFavoriteCars,
+    { data: favorites, isLoading: isFavoritesLoading },
+  ] = useLazyGetMyFavoriteCarsQuery();
   const { data: filters, isLoading: isFiltersLoading } =
     useGetFindCarsFiltersQuery();
 
@@ -54,6 +57,10 @@ export default function ProductsListPage() {
   useEffect(() => {
     const request = mapFiltersToRequest(selectedFilters);
     findCar(request);
+
+    if (isAuthenticated) {
+      getMyFavoriteCars();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -120,39 +127,42 @@ export default function ProductsListPage() {
   if (error) return <div>Error loading cars</div>;
 
   return (
-    <div className="max-w-[100vw] overflow-auto flex flex-row px-4 md:px-[90px] lg:px-[120px] pt-10 gap-10">
-      <div
-        className={cn(
-          "fixed inset-0 bg-[#2B2B2B99] z-10 flex justify-center overflow-y-auto pt-[140px] pb-[40px] md:relative md:bg-transparent md:w-[300px] md:shrink-0 md:py-0",
-          isFiltersOpen ? "flex" : "hidden",
-          "md:block"
-        )}
-      >
-        <Filters
-          isOpen={isFiltersOpen}
-          filters={filters}
-          applyFilters={handleApplyFIlters}
-          handleCloseFilters={handleCloseFilters}
-        />
-      </div>
-      <div className="w-full">
-        <TopBar handleOpenFilters={handleOpenFilters} />
+    <div className="max-w-[100vw] overflow-auto flex flex-col px-4 md:px-[90px] lg:px-[120px] pt-10 gap-5 md:gap-10">
+      <Breadcrumbs />
+      <div className="flex flex-row gap-10">
+        <div
+          className={cn(
+            "fixed inset-0 bg-[#2B2B2B99] z-10 flex justify-center overflow-y-auto pt-[140px] pb-[40px] md:relative md:bg-transparent md:w-[300px] md:shrink-0 md:py-0",
+            isFiltersOpen ? "flex" : "hidden",
+            "md:block"
+          )}
+        >
+          <Filters
+            isOpen={isFiltersOpen}
+            filters={filters}
+            applyFilters={handleApplyFIlters}
+            handleCloseFilters={handleCloseFilters}
+          />
+        </div>
+        <div className="w-full">
+          <TopBar handleOpenFilters={handleOpenFilters} />
 
-        {isLoading || isFavoritesLoading ? (
-          <div className="w-full h-[60vh] flex justify-center items-center">
-            <div className="w-12 h-12 border-4 border-[#4E17E5] border-t-transparent rounded-full animate-spin" />
-          </div>
-        ) : (
-          <>
-            {vehicles && (
-              <ProductsList
-                vehicles={vehicles}
-                favorites={favorites}
-                isAuthenticated={isAuthenticated}
-              />
-            )}
-          </>
-        )}
+          {isLoading || isFavoritesLoading ? (
+            <div className="w-full h-[60vh] flex justify-center items-center">
+              <div className="w-12 h-12 border-4 border-[#4E17E5] border-t-transparent rounded-full animate-spin" />
+            </div>
+          ) : (
+            <>
+              {vehicles && (
+                <ProductsList
+                  vehicles={vehicles}
+                  favorites={favorites}
+                  isAuthenticated={isAuthenticated}
+                />
+              )}
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

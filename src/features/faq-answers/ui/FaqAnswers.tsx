@@ -32,7 +32,7 @@ const faqData: FAQItem[] = [
 ];
 
 export const FAQAnswers = () => {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const toggle = (index: number) => {
     console.log("index", index);
@@ -44,7 +44,7 @@ export const FAQAnswers = () => {
       {faqData.map((item, index) => (
         <div key={index} className="border-b border-gray-300 py-10">
           <button
-            className="flex justify-between w-full gap-4 text-left text-lg font-medium text-gray-800"
+            className="flex justify-between w-full gap-4 text-left text-lg font-medium text-gray-800 cursor-pointer"
             onClick={() => toggle(index)}
           >
             {item.question}
