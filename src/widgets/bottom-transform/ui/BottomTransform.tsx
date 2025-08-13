@@ -5,7 +5,7 @@ import { Button } from "@/shared/ui";
 export const BottomTransform = () => {
   return (
     <section className="px-4 w-full flex justify-center items-center">
-      <div className="rounded-[40px] bg-cover bg-center bg-no-repeat lg:h-[500px] w-full py-10 lg:py-32 overflow-hidden bg-gradient-to-r from-[#4E17E5] from-11% to-[#2B2B2B] to-104%">
+      <div className="rounded-[40px] bg-cover bg-center bg-no-repeat lg:h-[500px] w-full py-10 lg:py-32 overflow-hidden bg-gradient-to-r from-[#4E17E5] from-11% to-[#2B2B2B] to-104% lg:bg-[url('/assets/backgrounds/bottomBg.jpg')]">
         <div className="w-full h-full flex flex-col gap-10 px-4 lg:flex-row lg:gap-0 lg:px-20 justify-between items-center">
           <div className="flex flex-col w-full xs:items-center">
             <h3 className="font-inter font-semibold text-[28px] lg:text-[56px] leading-[120%] tracking-[1%] text-[#FFFFFF]">
@@ -33,7 +33,11 @@ export const BottomTransform = () => {
               </Button>
             </div>
           </div>
-          <Image src={audi} alt="car" className="min-w-[320px] w-full" />
+          <Image
+            src={audi}
+            alt="car"
+            className="min-w-[320px] w-full max-w-[620px]"
+          />
         </div>
       </div>
     </section>
