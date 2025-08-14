@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TextInput } from "@/shared/ui/FormField/TextInput";
 import { PhoneInputRH } from "@/shared/ui/PhoneInputRH";
-import { isError } from "util";
 
 const LABEL_CLASSNAME = "font-bold text-gray-dark text-xl mt-2";
 const TEXT_INPUT_CLASSNAME = " py-0 ";
@@ -31,8 +30,7 @@ export const REGISTER_FORM_FIELDS = [
   {
     name: "phone",
     label: "Phone number",
-    placeholder: "+38 (___) ___-__-__",
-    // placeholder: "+1 xxx xx xxx",
+    placeholder: "+1 (xxx) xxx-xxxx",
     required: true,
     component: PhoneInputRH,
     className: "w-full",
@@ -59,7 +57,7 @@ export const REGISTER_FORM_FIELDS = [
     isError: false,
   },
 ];
-const REGEX_PHONE = /^\+[1-9]\d{9,14}$/;
+const REGEX_PHONE = /^\+1\d{10}$/;
 
 const normalizePhone = (phone: string): string => {
   const digits = phone.replace(/\D/g, "");

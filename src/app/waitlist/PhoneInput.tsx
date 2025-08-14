@@ -12,7 +12,7 @@ interface PhoneInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   iconPosition?: "left" | "right";
 }
 
-const MASK_TEMPLATE = "+38 (000) 000-00-00"; // 💡 Замените маску здесь при необходимости
+const MASK_TEMPLATE = "+1 (000) 000-0000"; // 💡 replace mask here if needed
 
 export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
   (

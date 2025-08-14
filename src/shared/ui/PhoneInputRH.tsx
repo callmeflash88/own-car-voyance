@@ -3,9 +3,9 @@
 import { Controller, useFormContext } from "react-hook-form";
 import { PhoneInput } from "@/app/waitlist/PhoneInput";
 
-const REGEX_PHONE = /^\+[1-9]\d{9,14}$/; // Можно заменить на: /^\+380\d{9}$/ для Украины
+const REGEX_PHONE = /^\+1\d{10}$/; // American phone number regex
 
-// Нормализация телефона: +380XXXXXXXXX
+// Normalize phone: +1XXXXXXXXXX
 const normalizePhone = (phone: string): string => {
   const digits = phone.replace(/\D/g, "");
   if (!digits) return "";
