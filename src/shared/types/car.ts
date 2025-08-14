@@ -25,21 +25,22 @@ export interface VehicleAd {
   created_at: string;
 }
 
-export interface CarById extends VehicleAd {
-  seller: {
-    id: number;
-    created_at: string;
-    bio: string;
-    name: string;
-    phone: string;
-    email: string;
-    email_verification: boolean;
-    register_verification: boolean;
-    _count: {
-      cars: number;
-    };
+export interface CarSeller {
+  id: number;
+  created_at: string;
+  bio: string;
+  email: string;
+  email_verification: boolean;
+  full_name: string;
+  phone: string;
+  register_verification: boolean;
+  _count: {
+    cars: number;
   };
-  // created_at: string;
+}
+
+export interface CarById extends VehicleAd {
+  seller: CarSeller;
   updated_at: string;
 }
 
