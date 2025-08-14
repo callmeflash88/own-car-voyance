@@ -39,3 +39,12 @@ export function formatRelativeTime(createdAt: Date | string): string {
     return years === 1 ? "Year ago" : `${years} Years ago`;
   }
 }
+
+export function formatNumber(value: number, useSpace: boolean = true): string {
+  const formatted = new Intl.NumberFormat("en-US", {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2,
+  }).format(value);
+
+  return useSpace ? formatted.replace(/,/g, " ") : formatted;
+}

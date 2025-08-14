@@ -26,7 +26,7 @@ export const CarGallery = ({ images }: CarGalleryProps) => {
 
   return (
     <>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 w-full">
         <div
           className="w-full aspect-square relative rounded-xl overflow-hidden cursor-pointer"
           onClick={() => hasImages && setIsModalOpen(true)}
@@ -45,7 +45,7 @@ export const CarGallery = ({ images }: CarGalleryProps) => {
                   e.stopPropagation();
                   handlePrev();
                 }}
-                className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white text-black p-2 rounded-full shadow-md"
+                className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white text-black p-2 rounded-full shadow-md cursor-pointer"
               >
                 <ChevronLeft size={24} />
               </button>
@@ -54,7 +54,7 @@ export const CarGallery = ({ images }: CarGalleryProps) => {
                   e.stopPropagation();
                   handleNext();
                 }}
-                className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white text-black p-2 rounded-full shadow-md"
+                className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white text-black p-2 rounded-full shadow-md cursor-pointer"
               >
                 <ChevronRight size={24} />
               </button>
@@ -68,15 +68,16 @@ export const CarGallery = ({ images }: CarGalleryProps) => {
               <button
                 key={idx}
                 onClick={() => setCurrentIndex(idx)}
-                className={`w-[160px] h-[100px] relative rounded-lg border ${
+                className={`relative  rounded-lg border overflow-hidden cursor-pointer ${
                   currentIndex === idx ? "border-primary" : "border-transparent"
                 }`}
               >
                 <Image
                   src={img}
                   alt={`Thumbnail ${idx + 1}`}
-                  fill
-                  className="object-cover"
+                  width={160}
+                  height={125}
+                  className="object-cover w-full h-full"
                 />
               </button>
             ))}
@@ -94,7 +95,7 @@ export const CarGallery = ({ images }: CarGalleryProps) => {
               e.stopPropagation();
               setIsModalOpen(false);
             }}
-            className="absolute top-5 right-5 text-white bg-black/50 p-2 rounded-full"
+            className="absolute top-5 right-5 text-white bg-black/50 p-2 rounded-full cursor-pointer"
           >
             <X size={24} />
           </button>
@@ -112,13 +113,13 @@ export const CarGallery = ({ images }: CarGalleryProps) => {
 
             <button
               onClick={handlePrev}
-              className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-2 rounded-full"
+              className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-2 rounded-full cursor-pointer"
             >
               <ChevronLeft size={32} />
             </button>
             <button
               onClick={handleNext}
-              className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-2 rounded-full"
+              className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-2 rounded-full cursor-pointer"
             >
               <ChevronRight size={32} />
             </button>
