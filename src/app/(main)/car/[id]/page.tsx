@@ -211,7 +211,7 @@ export default function CarPage() {
     try {
       const result = await messageSeller({ car_id: vehicle?.id }).unwrap();
       if (result?.chat_id) {
-        router.push(`/chat/${result.chat_id}`);
+        router.push(`/chat?id=${result.chat_id}`);
       }
     } catch (error) {
       console.error("Error starting chat:", error);
