@@ -27,9 +27,8 @@ export default function ContactSection() {
     }
 
     function loadHubspotForm() {
-      // @ts-ignore
-      if (window.hbspt) {
-        window.hbspt.forms.create({
+      if ((window as any).hbspt) {
+        (window as any).hbspt.forms.create({
           region: "na2",
           portalId: "243590086",
           formId: "734c9fa0-f8f7-4179-931c-78e98ee4e342",
