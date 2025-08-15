@@ -4,7 +4,7 @@ import logo from "@/shared/assets/waitList/logo.svg";
 import waitListLogo from "../../../public/assets/icons/waitlistLogo.svg";
 import waitListPhone from "@/shared/assets/waitList/waitListPhone.svg";
 import waitListPhoneMobile from "@/shared/assets/waitList/waitListPhoneMobile.png";
-import { Instagram, Phone } from "lucide-react";
+import { Phone, X } from "lucide-react";
 import { Button, Input } from "@/shared/ui";
 import { FaTiktok } from "react-icons/fa";
 import { FaThreads } from "react-icons/fa6";
@@ -39,6 +39,7 @@ export default function WaitlistPage() {
   const [activeSection, setActiveSection] = useState<"main" | "contact">(
     "main"
   );
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
     <div className="relative overflow-hidden bg-[#FAFAFA]">
@@ -46,7 +47,8 @@ export default function WaitlistPage() {
         <Image
           src={logo}
           alt="logo"
-          className="max-w-none !w-[80px] lg:w-[100px]"
+          className="max-w-none !w-[80px] lg:w-[100px] cursor-pointer"
+          onClick={() => setActiveSection("main")}
         />
         <ul className="flex gap-10 justify-center items-center font-inter">
           {["Home", "Download", "About Us", "Contact"].map((item) => (
@@ -66,14 +68,61 @@ export default function WaitlistPage() {
               {item}
             </li>
           ))}
+          {/* desktop menu */}
           <div
-            className="flex flex-col justify-between w-6 h-4 ml-6 cursor-pointer"
+            className="hidden lg:flex flex-col justify-between w-6 h-4 ml-6 cursor-pointer"
             onClick={() => setIsModalOpen(true)}
           >
             <span className="block h-[2px] w-8 bg-[#4E17E5] rounded-full"></span>
             <span className="block h-[2px] w-8 bg-[#4E17E5] rounded-full"></span>
           </div>
+          {/* mobile menu */}
+          <div
+            className="flex lg:hidden flex-col justify-between w-6 h-4 ml-6 cursor-pointer"
+            onClick={() => {
+              setIsMobileMenuOpen(true);
+            }}
+          >
+            <span className="block h-[2px] w-8 bg-[#4E17E5] rounded-full"></span>
+            <span className="block h-[2px] w-8 bg-[#4E17E5] rounded-full"></span>
+          </div>
         </ul>
+        {isMobileMenuOpen && (
+          <div className="fixed top-0 left-0 w-full h-auto bg-[#FAFAFA] z-10 flex flex-col py-6 px-10 shadow-[0_2px_20px_5px_rgba(0,0,0,0.5)]">
+            <div className="flex justify-between items-center">
+              <Image
+                src={logo}
+                alt="logo"
+                className="max-w-none !w-[80px] lg:w-[100px] cursor-pointer"
+                onClick={() => {
+                  setActiveSection("main");
+                  setIsMobileMenuOpen(false);
+                }}
+              />
+              <X size={32} onClick={() => setIsMobileMenuOpen(false)} />
+            </div>
+            <ul className="flex flex-col items-center gap-5">
+              {["Home", "Download", "About Us", "Contact"].map((item) => (
+                <li
+                  key={item}
+                  onClick={() => {
+                    if (item === "Contact") {
+                      setActiveSection("contact");
+                      setIsMobileMenuOpen(false);
+                    } else if (item === "Home") {
+                      setActiveSection("main");
+                      setIsMobileMenuOpen(false);
+                    } else {
+                      setIsModalOpen(true);
+                    }
+                  }}
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </header>
 
       {/* <div className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 w-[1200px] h-[800px] bg-[#6F76F2] rounded-full blur-[200px] opacity-20 z-0 pointer-events-none" /> */}
@@ -291,7 +340,11 @@ export default function WaitlistPage() {
       {isModalOpen && (
         <WaitlistModal
           onClose={() => setIsModalOpen(false)}
-          setIsFormShow={setIsFormShow}
+          onWaitlistClick={() => {
+            setActiveSection("main");
+            setIsMobileMenuOpen(false);
+            setIsFormShow(true);
+          }}
         />
       )}
     </div>

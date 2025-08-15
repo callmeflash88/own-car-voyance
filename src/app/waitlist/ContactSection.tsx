@@ -52,7 +52,7 @@ export default function ContactSection() {
 
       <div
         id="hubspotForm"
-        className="w-full max-w-[600px] bg-white shadow-lg rounded-2xl p-6 z-10"
+        className="w-full max-w-[1200px] bg-white shadow-lg rounded-2xl p-6 z-10"
       ></div>
     </section>
   );

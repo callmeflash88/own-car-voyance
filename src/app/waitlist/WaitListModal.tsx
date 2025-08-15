@@ -7,10 +7,10 @@ import { useEffect } from "react";
 
 export default function WaitlistModal({
   onClose,
-  setIsFormShow,
+  onWaitlistClick,
 }: {
   onClose: () => void;
-  setIsFormShow: React.Dispatch<React.SetStateAction<boolean>>;
+  onWaitlistClick: () => void;
 }) {
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
@@ -45,7 +45,7 @@ export default function WaitlistModal({
               size="lg"
               onClick={() => {
                 onClose();
-                setIsFormShow(true);
+                onWaitlistClick();
               }}
             >
               Join The Waitlist
