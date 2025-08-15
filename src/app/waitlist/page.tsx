@@ -48,7 +48,10 @@ export default function WaitlistPage() {
           src={logo}
           alt="logo"
           className="max-w-none !w-[80px] lg:w-[100px] cursor-pointer"
-          onClick={() => setActiveSection("main")}
+          onClick={() => {
+            setActiveSection("main");
+            setIsFormShow(false);
+          }}
         />
         <ul className="flex gap-10 justify-center items-center font-inter">
           {["Home", "Download", "About Us", "Contact"].map((item) => (
@@ -57,8 +60,10 @@ export default function WaitlistPage() {
               onClick={() => {
                 if (item === "Contact") {
                   setActiveSection("contact");
+                  setIsFormShow(false);
                 } else if (item === "Home") {
                   setActiveSection("main");
+                  setIsFormShow(false);
                 } else {
                   setIsModalOpen(true);
                 }
