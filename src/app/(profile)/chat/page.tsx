@@ -9,6 +9,7 @@ import { ACCESS_TOKEN } from "@/shared/constants/cookiesKeys";
 import Cookies from "js-cookie";
 import { useAppDispatch } from "@/shared/lib/hooks";
 import { updateUnreadCount } from "@/shared/store/chatSlices";
+import { useGetUserQuery } from "@/entities/user/api/userApi";
 
 export interface LastMessage {
   content: string;
@@ -27,16 +28,37 @@ export interface ChatData {
   unreadMessagesCount: number;
 }
 
+interface Participant {
+  id: number;
+  chat_id: number;
+  user_id: number;
+  unreadCount: number;
+  user: any;
+}
+
+interface Chat {
+  id: number;
+  created_at: string;
+  updated_at: string;
+  messages: any[];
+  participants: Participant[];
+  unread_count: number;
+}
+
 export default function ChatPage() {
   const { id } = useParams();
 
   const dispatch = useAppDispatch();
 
-  const [chats, setChats] = useState<ChatData[]>([]);
+  const [chats, setChats] = useState<Chat[]>([]);
   const [socket, setSocket] = useState<Socket | null>(null);
   const [activeChatId, setActiveChatId] = useState<number | null>(null);
   const [activeChat, setActiveChat] = useState<any | null>(null);
   const [messages, setMessages] = useState<any[]>([]);
+
+  const { data } = useGetUserQuery();
+
+  console.log("Data: ", data);
 
   const accessToken = Cookies.get(ACCESS_TOKEN);
   const activeChatIdRef = useRef<number | null>(null);
@@ -67,6 +89,7 @@ export default function ChatPage() {
     });
 
     sock.on("chat_list", (list: any) => {
+      console.log("📥 chat_list:", list);
       setChats(list);
     });
 
@@ -100,15 +123,40 @@ export default function ChatPage() {
     };
   }, [accessToken]);
 
+  useEffect(() => {
+    console.log("chats", chats[0]?.participants[0].user);
+    console.log("activeChat", activeChat);
+    console.log("activeChatId", activeChatId);
+  }, [chats, activeChat]);
+
   return (
     <div className="px-10 w-full flex flex-col gap-10 items-start">
       <div className="w-full flex flex-row gap-2">
         <div className="w-96 flex flex-col">
-          <ChatSidebar chats={chats} selectedChat={activeChat} />
+          <ChatSidebar
+            chats={chats}
+            selectedChat={activeChat}
+            userId={data?.id}
+            onSelectChat={(chat) => {
+              setActiveChatId(chat.id);
+              setActiveChat(chat);
+              setMessages(chat.messages || []);
+            }}
+          />
         </div>
         <div className="flex-1 flex flex-col justify-between h-[80vh] bg-white rounded-2xl shadow w-full p-5">
-          <ChatMessages />
-          {/* <MessageInput /> */}
+          <ChatMessages
+            messages={messages}
+            currentUserId={data?.id}
+            participants={activeChat?.participants || []}
+          />
+
+          <MessageInput
+            userId={data?.id}
+            socket={socket}
+            chatId={activeChatId}
+            onLocalSend={(msg) => setMessages((prev) => [...prev, msg])}
+          />
         </div>
       </div>
     </div>

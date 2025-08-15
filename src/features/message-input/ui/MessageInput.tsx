@@ -7,75 +7,69 @@ interface Props {
   userId: number;
   socket: Socket | null;
   chatId: number | null;
-  activeChat: any;
+  onLocalSend?: (message: any) => void; // для оптимистичного добавления в ChatMessages
 }
 
 export const MessageInput: FC<Props> = ({
   userId,
   socket,
   chatId,
-  activeChat,
+  onLocalSend,
 }) => {
-  const [newMessage, setNewMessage] = useState<string>("");
+  const [newMessage, setNewMessage] = useState("");
   const [showAttachments, setShowAttachments] = useState(false);
 
   const sendMessage = () => {
-    if (socket && chatId && newMessage.trim()) {
-      socket.emit("send_message", {
-        chatId,
-        userId,
-        role: "user",
-        content: newMessage,
-        type: "memver",
-      });
-      setNewMessage("");
-    }
-  };
+    const text = newMessage.trim();
+    if (!socket || !chatId || !text) return;
 
-  const formatDate = (dateString: string) => {
-    const messageDate = new Date(dateString);
-    const today = new Date();
-    const isToday =
-      messageDate.getDate() === today.getDate() &&
-      messageDate.getMonth() === today.getMonth() &&
-      messageDate.getFullYear() === today.getFullYear();
-
-    const options: Intl.DateTimeFormatOptions = {
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
+    const messagePayload = {
+      chat_id: chatId,
+      sender_id: userId,
+      text, // <-- вместо content
+      createdAt: new Date().toISOString(),
     };
 
-    if (isToday) {
-      return messageDate.toLocaleTimeString([], options);
-    } else {
-      const day = messageDate.getDate().toString().padStart(2, "0");
-      const month = (messageDate.getMonth() + 1).toString().padStart(2, "0");
-      const year = messageDate.getFullYear();
-      return `${month}/${day}/${year}`;
-    }
+    socket.emit("send_message", messagePayload);
+    if (onLocalSend) onLocalSend(messagePayload);
+
+    setNewMessage("");
   };
 
   return (
-    <div className="flex flex-col border-t px-4 py-2">
+    <div className="flex flex-col border-t px-4 py-2 bg-white rounded-b-2xl">
       {showAttachments && (
-        <div className="flex gap-2 mb-2">
-          <button className="text-purple-600">📷 Attach Image</button>
-          <button className="text-purple-600">🎥 Attach Video</button>
-          <button className="text-purple-600">📄 Attach Document</button>
+        <div className="flex gap-4 mb-2">
+          <button className="text-purple-600 hover:underline">📷 Image</button>
+          <button className="text-purple-600 hover:underline">🎥 Video</button>
+          <button className="text-purple-600 hover:underline">
+            📄 Document
+          </button>
         </div>
       )}
+
       <div className="flex items-center gap-2">
-        <button onClick={() => setShowAttachments(!showAttachments)}>
+        <button
+          onClick={() => setShowAttachments(!showAttachments)}
+          className="p-2 rounded-full hover:bg-gray-100"
+        >
           <Paperclip />
         </button>
         <input
           className="flex-1 border rounded-full px-4 py-2 outline-none"
-          placeholder="Type your message..."
+          placeholder={
+            chatId ? "Type your message..." : "Select a chat to start messaging"
+          }
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+          disabled={!chatId}
         />
-        <button className="bg-purple-600 text-white rounded-full p-2">
+        <button
+          onClick={sendMessage}
+          disabled={!chatId || !newMessage.trim()}
+          className="bg-purple-600 text-white rounded-full p-2 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
           <Send size={18} />
         </button>
       </div>
